@@ -12,7 +12,7 @@ using QuanLyQuanAn.Data;
 namespace QuanLyQuanAn.Migrations
 {
     [DbContext(typeof(QLQADbContext))]
-    [Migration("20260227033241_KhoiTaoCSDL")]
+    [Migration("20260228141836_KhoiTaoCSDL")]
     partial class KhoiTaoCSDL
     {
         /// <inheritdoc />

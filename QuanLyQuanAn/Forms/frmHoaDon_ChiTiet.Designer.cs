@@ -310,6 +310,7 @@
             btnThoat.TabIndex = 15;
             btnThoat.Text = "Thoát";
             btnThoat.UseVisualStyleBackColor = true;
+            btnThoat.Click += btnThoat_Click;
             // 
             // frmHoaDon_ChiTiet
             // 
@@ -322,6 +323,7 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "frmHoaDon_ChiTiet";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Hóa Đơn Chi Tiết";
             Load += frmHoaDon_ChiTiet_Load;
             groupBox1.ResumeLayout(false);

@@ -23,7 +23,7 @@ namespace QuanLyQuanAn.Data
         public int ID { get; set; }
         public int HoaDonID { get; set; }
         public int ThucAnID { get; set; }
-        public string TenSanPham { get; set; } // Thêm
+        public string TenThucAn { get; set; } // Thêm
         public int SoLuongBan { get; set; }
         public int DonGiaBan { get; set; }
         public int ThanhTien { get; set; } // Thêm

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             dataGridView = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
@@ -39,7 +39,6 @@
             NgayLap = new DataGridViewTextBoxColumn();
             TongTienHoaDon = new DataGridViewTextBoxColumn();
             XemChiTiet = new DataGridViewLinkColumn();
-            btnLapHoaDon = new Button();
             btnInHoaDon = new Button();
             btnSua = new Button();
             btnXoa = new Button();
@@ -99,9 +98,9 @@
             // NgayLap
             // 
             NgayLap.DataPropertyName = "NgayLap";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.Format = "dd/MM/yyyy";
-            NgayLap.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Format = "dd/MM/yyyy";
+            NgayLap.DefaultCellStyle = dataGridViewCellStyle1;
             NgayLap.HeaderText = "Ngày Lập";
             NgayLap.MinimumWidth = 6;
             NgayLap.Name = "NgayLap";
@@ -109,11 +108,11 @@
             // TongTienHoaDon
             // 
             TongTienHoaDon.DataPropertyName = "TongTienHoaDon";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle5.ForeColor = Color.Blue;
-            dataGridViewCellStyle5.Format = "N2";
-            TongTienHoaDon.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.Blue;
+            dataGridViewCellStyle2.Format = "N2";
+            TongTienHoaDon.DefaultCellStyle = dataGridViewCellStyle2;
             TongTienHoaDon.HeaderText = "Tổng Tiền";
             TongTienHoaDon.MinimumWidth = 6;
             TongTienHoaDon.Name = "TongTienHoaDon";
@@ -121,27 +120,16 @@
             // XemChiTiet
             // 
             XemChiTiet.DataPropertyName = "XemChiTiet";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            XemChiTiet.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            XemChiTiet.DefaultCellStyle = dataGridViewCellStyle3;
             XemChiTiet.HeaderText = "Chi Tiết";
             XemChiTiet.MinimumWidth = 6;
             XemChiTiet.Name = "XemChiTiet";
             // 
-            // btnLapHoaDon
-            // 
-            btnLapHoaDon.ForeColor = Color.Blue;
-            btnLapHoaDon.Location = new Point(116, 226);
-            btnLapHoaDon.Name = "btnLapHoaDon";
-            btnLapHoaDon.Size = new Size(145, 29);
-            btnLapHoaDon.TabIndex = 1;
-            btnLapHoaDon.Text = "Lập hóa đơn mới...";
-            btnLapHoaDon.UseVisualStyleBackColor = true;
-            btnLapHoaDon.Click += btnLapHoaDon_Click;
-            // 
             // btnInHoaDon
             // 
             btnInHoaDon.ForeColor = Color.Black;
-            btnInHoaDon.Location = new Point(267, 226);
+            btnInHoaDon.Location = new Point(205, 226);
             btnInHoaDon.Name = "btnInHoaDon";
             btnInHoaDon.Size = new Size(103, 29);
             btnInHoaDon.TabIndex = 2;
@@ -151,7 +139,7 @@
             // btnSua
             // 
             btnSua.ForeColor = Color.Black;
-            btnSua.Location = new Point(376, 226);
+            btnSua.Location = new Point(314, 226);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(75, 29);
             btnSua.TabIndex = 3;
@@ -162,7 +150,7 @@
             // btnXoa
             // 
             btnXoa.ForeColor = Color.Red;
-            btnXoa.Location = new Point(457, 226);
+            btnXoa.Location = new Point(395, 226);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(75, 29);
             btnXoa.TabIndex = 4;
@@ -173,7 +161,7 @@
             // btnThoat
             // 
             btnThoat.ForeColor = Color.Black;
-            btnThoat.Location = new Point(538, 226);
+            btnThoat.Location = new Point(476, 226);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(75, 29);
             btnThoat.TabIndex = 5;
@@ -183,7 +171,7 @@
             // btnTimKiem
             // 
             btnTimKiem.ForeColor = Color.Black;
-            btnTimKiem.Location = new Point(619, 226);
+            btnTimKiem.Location = new Point(557, 226);
             btnTimKiem.Name = "btnTimKiem";
             btnTimKiem.Size = new Size(105, 29);
             btnTimKiem.TabIndex = 6;
@@ -193,7 +181,7 @@
             // btnXuat
             // 
             btnXuat.ForeColor = Color.Black;
-            btnXuat.Location = new Point(730, 226);
+            btnXuat.Location = new Point(668, 226);
             btnXuat.Name = "btnXuat";
             btnXuat.Size = new Size(105, 29);
             btnXuat.TabIndex = 7;
@@ -211,9 +199,9 @@
             Controls.Add(btnXoa);
             Controls.Add(btnSua);
             Controls.Add(btnInHoaDon);
-            Controls.Add(btnLapHoaDon);
             Controls.Add(groupBox1);
             Name = "frmHoaDon";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Hóa Đơn";
             Load += frmHoaDon_Load;
             groupBox1.ResumeLayout(false);
@@ -231,7 +219,6 @@
         private DataGridViewTextBoxColumn NgayLap;
         private DataGridViewTextBoxColumn TongTienHoaDon;
         private DataGridViewLinkColumn XemChiTiet;
-        private Button btnLapHoaDon;
         private Button btnInHoaDon;
         private Button btnSua;
         private Button btnXoa;

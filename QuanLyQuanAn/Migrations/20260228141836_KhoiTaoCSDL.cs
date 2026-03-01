@@ -155,10 +155,10 @@ namespace QuanLyQuanAn.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NhanVienID = table.Column<int>(type: "int", nullable: false),
                     KhachHangID = table.Column<int>(type: "int", nullable: false),
+                    BanID = table.Column<int>(type: "int", nullable: false),
                     NgayLap = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GhiChuHoaDon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TongTien = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    BanID = table.Column<int>(type: "int", nullable: false)
+                    TongTien = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {

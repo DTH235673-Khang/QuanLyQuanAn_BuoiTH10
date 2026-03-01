@@ -33,23 +33,18 @@ namespace QuanLyQuanAn.Forms
                 HoVaTenNhanVien = r.NhanVien.HoVaTen,
                 KhachHangID = r.KhachHangID,
                 HoVaTenKhachHang = r.KhachHang.HoVaTen,
+                BanID=r.BanID,
                 NgayLap = r.NgayLap,
                 GhiChuHoaDon = r.GhiChuHoaDon,
-                TongTienHoaDon = r.HoaDon_ChiTiet.Sum(r => r.SoLuongBan * r.DonGiaBan),
+                TongTienHoaDon = r.HoaDon_ChiTiet.Any()
+                         ? r.HoaDon_ChiTiet.Sum(ct => ct.SoLuongBan * ct.DonGiaBan)
+                         : 0,
                 XemChiTiet = "Xem chi tiết"
             }).ToList();
             dataGridView.DataSource = hd;
         }
 
-        private void btnLapHoaDon_Click(object sender, EventArgs e)
-        {
-            using (frmHoaDon_ChiTiet chiTiet = new frmHoaDon_ChiTiet())
-            {
-                chiTiet.ShowDialog();
-                frmHoaDon_Load(sender, e);
-
-            }
-        }
+       
 
         private void btnSua_Click(object sender, EventArgs e)
         {

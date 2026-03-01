@@ -8,17 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLyQuanAn.Data;
-
 namespace QuanLyQuanAn.Forms
 {
     public partial class frmHoaDon_ChiTiet : Form
     {
         QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
         int id; // Lấy mã hóa đơn (dùng cho Sửa và Xóa)
+        string tablename = "";
         BindingList<DanhSachHoaDon_ChiTiet> hoaDonChiTiet = new BindingList<DanhSachHoaDon_ChiTiet>();
         public frmHoaDon_ChiTiet()
         {
             InitializeComponent();
+        }
+        public frmHoaDon_ChiTiet(string ban)
+        {
+            InitializeComponent();
+           tablename = ban;
         }
         public frmHoaDon_ChiTiet(int maHoaDon = 0)
         {
@@ -64,6 +69,7 @@ namespace QuanLyQuanAn.Forms
             LayKhachHangVaoComboBox();
             LayThucAnVaoComboBox();
             dataGridView.AutoGenerateColumns = false;
+
             if (id != 0) // Đã tồn tại chi tiết
             {
                 var hoaDon = context.HoaDon.Where(r => r.ID == id).SingleOrDefault();
@@ -75,7 +81,7 @@ namespace QuanLyQuanAn.Forms
                     ID = r.ID,
                     HoaDonID = r.HoaDonID,
                     ThucAnID = r.ThucAnID,
-                    TenSanPham = r.ThucAn.TenThucAn,
+                    TenThucAn = r.ThucAn.TenThucAn,
                     SoLuongBan = r.SoLuongBan,
                     DonGiaBan = r.DonGiaBan,
                     ThanhTien = Convert.ToInt32(r.SoLuongBan * r.DonGiaBan)
@@ -113,7 +119,7 @@ namespace QuanLyQuanAn.Forms
                         ID = 0,
                         HoaDonID = id,
                         ThucAnID = maSanPham,
-                        TenSanPham = cboMonAn.Text,
+                        TenThucAn = cboMonAn.Text,
                         SoLuongBan = Convert.ToInt32(numSoLuongBan.Value),
                         DonGiaBan = Convert.ToInt32(numDonGiaBan.Value),
                         ThanhTien = Convert.ToInt32(numSoLuongBan.Value * numDonGiaBan.Value)
@@ -156,16 +162,21 @@ namespace QuanLyQuanAn.Forms
                         var old = context.HoaDon_ChiTiet.Where(r => r.HoaDonID == id).ToList();
                         context.HoaDon_ChiTiet.RemoveRange(old);
                         // Thêm lại chi tiết mới
+                        decimal tongtien = 0; 
                         foreach (var item in hoaDonChiTiet.ToList())
                         {
                             HoaDon_ChiTiet ct = new HoaDon_ChiTiet();
-                            ct.HoaDonID = id;
+                            ct.HoaDonID = (id != 0) ? id : hd.ID;
                             ct.ThucAnID = item.ThucAnID;
                             ct.SoLuongBan = item.SoLuongBan;
                             ct.DonGiaBan = item.DonGiaBan;
+                            tongtien += (decimal)(ct.DonGiaBan * ct.SoLuongBan);
+
                             context.HoaDon_ChiTiet.Add(ct);
                         }
+                        hd.TongTien = tongtien;
                         context.SaveChanges();
+
                     }
                 }
                 else // Thêm mới
@@ -175,9 +186,15 @@ namespace QuanLyQuanAn.Forms
                     hd.KhachHangID = Convert.ToInt32(cboKhachHang.SelectedValue.ToString());
                     hd.NgayLap = DateTime.Now;
                     hd.GhiChuHoaDon = txtGhiChuHoaDon.Text;
+                    var result = context.Ban.FirstOrDefault(r => r.TenBan.Contains(tablename));
+                    if (result != null)
+                    {
+                        hd.BanID = result.ID;
+                    }
                     context.HoaDon.Add(hd);
                     context.SaveChanges();
                     // Thêm chi tiết
+                    decimal tongtien = 0;
                     foreach (var item in hoaDonChiTiet.ToList())
                     {
                         HoaDon_ChiTiet ct = new HoaDon_ChiTiet();
@@ -185,11 +202,15 @@ namespace QuanLyQuanAn.Forms
                         ct.ThucAnID = item.ThucAnID;
                         ct.SoLuongBan = item.SoLuongBan;
                         ct.DonGiaBan = item.DonGiaBan;
+                        tongtien +=(decimal)( ct.DonGiaBan * ct.SoLuongBan);
                         context.HoaDon_ChiTiet.Add(ct);
                     }
+                    hd.TongTien = tongtien;
                     context.SaveChanges();
                 }
                 MessageBox.Show("Đã lưu thành công!", "Hoàn tất", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.Close();
             }
         }
 
@@ -200,6 +221,11 @@ namespace QuanLyQuanAn.Forms
                 var thucAn = context.ThucAn.Find(maThucAn);
                 numDonGiaBan.Value = thucAn.Gia;
             }
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

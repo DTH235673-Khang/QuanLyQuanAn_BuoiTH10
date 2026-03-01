@@ -13,6 +13,7 @@ namespace QuanLyQuanAn.Data
         public int ID { get; set; }
         public int NhanVienID { get; set; }
         public int KhachHangID { get; set; }
+        public int BanID { get; set; }
         public DateTime NgayLap { get; set; }
         public string? GhiChuHoaDon { get; set; }
         public decimal TongTien { get; set; }
@@ -29,6 +30,7 @@ namespace QuanLyQuanAn.Data
             public string HoVaTenNhanVien { get; set; } 
             public int KhachHangID { get; set; }
             public string HoVaTenKhachHang { get; set; } 
+            public int BanID { get; set; }
             public DateTime NgayLap { get; set; }
             public string? GhiChuHoaDon { get; set; }
             public string? XemChiTiet { get; set; } 
