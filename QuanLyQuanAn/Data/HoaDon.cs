@@ -17,6 +17,7 @@ namespace QuanLyQuanAn.Data
         public DateTime NgayLap { get; set; }
         public string? GhiChuHoaDon { get; set; }
         public decimal TongTien { get; set; }
+        public int trangthai { get; set; }
         public virtual ObservableCollectionListSource<HoaDon_ChiTiet> HoaDon_ChiTiet { get; } = new();
         public virtual KhachHang KhachHang { get; set; } = null!;
         public virtual NhanVien NhanVien { get; set; } = null!;
@@ -34,7 +35,9 @@ namespace QuanLyQuanAn.Data
             public DateTime NgayLap { get; set; }
             public string? GhiChuHoaDon { get; set; }
             public string? XemChiTiet { get; set; } 
-            public double? TongTienHoaDon { get; set; } 
+            public double? TongTienHoaDon { get; set; }
+            public int trangthai { get; set; }
+
         }
     }
 }

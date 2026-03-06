@@ -27,7 +27,8 @@ namespace QuanLyQuanAn.Forms
             var result = context.Ban.FirstOrDefault(r => r.TenBan.Contains(originalTableName));
             if (result != null && result.TrangThai.Contains("1"))
             {
-                using (frmChiTietBan chiTiet = new frmChiTietBan(1))
+                int tn = Convert.ToInt32(originalTableName);
+                using (frmChiTietBan chiTiet = new frmChiTietBan(tn))
                 {
                     chiTiet.ShowDialog();
                 }
@@ -36,13 +37,6 @@ namespace QuanLyQuanAn.Forms
             {
                 using (frmChiTietBan chiTiet = new frmChiTietBan(originalTableName))
                 {
-                    btn.BackColor = Color.Orange;
-                    Ban b = context.Ban.FirstOrDefault(r => r.TenBan.Contains(originalTableName));
-                    if (b != null)
-                    {
-                        b.TrangThai = "1";
-                    }
-                    context.SaveChanges();
                     chiTiet.ShowDialog();
                 }
             }
@@ -83,7 +77,7 @@ namespace QuanLyQuanAn.Forms
                         // Tìm hóa đơn chưa thanh toán của bàn này (Giả sử TrangThai "1" là có khách)
                         if (ban.TrangThai == "1")
                         {
-                            var hoaDon = context.HoaDon.FirstOrDefault(hd => hd.BanID == ban.ID); // Giả sử 0 là chưa thanh toán
+                            var hoaDon = context.HoaDon.FirstOrDefault(hd => hd.BanID == ban.ID && hd.trangthai==0); 
 
                             decimal tongTien = hoaDon != null ? (decimal)hoaDon.TongTien : 0;
 

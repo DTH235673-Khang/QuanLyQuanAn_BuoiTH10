@@ -158,7 +158,8 @@ namespace QuanLyQuanAn.Migrations
                     BanID = table.Column<int>(type: "int", nullable: false),
                     NgayLap = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GhiChuHoaDon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TongTien = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    TongTien = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    trangthai = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

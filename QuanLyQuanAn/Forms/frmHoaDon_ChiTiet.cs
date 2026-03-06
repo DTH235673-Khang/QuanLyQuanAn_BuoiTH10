@@ -23,7 +23,7 @@ namespace QuanLyQuanAn.Forms
         public frmHoaDon_ChiTiet(string ban)
         {
             InitializeComponent();
-           tablename = ban;
+            tablename = ban;
         }
         public frmHoaDon_ChiTiet(int maHoaDon = 0)
         {
@@ -186,6 +186,7 @@ namespace QuanLyQuanAn.Forms
                     hd.KhachHangID = Convert.ToInt32(cboKhachHang.SelectedValue.ToString());
                     hd.NgayLap = DateTime.Now;
                     hd.GhiChuHoaDon = txtGhiChuHoaDon.Text;
+                    hd.trangthai = 0;
                     var result = context.Ban.FirstOrDefault(r => r.TenBan.Contains(tablename));
                     if (result != null)
                     {

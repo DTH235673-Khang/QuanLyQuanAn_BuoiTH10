@@ -12,7 +12,7 @@ using QuanLyQuanAn.Data;
 namespace QuanLyQuanAn.Migrations
 {
     [DbContext(typeof(QLQADbContext))]
-    [Migration("20260228141836_KhoiTaoCSDL")]
+    [Migration("20260304062335_KhoiTaoCSDL")]
     partial class KhoiTaoCSDL
     {
         /// <inheritdoc />
@@ -108,6 +108,9 @@ namespace QuanLyQuanAn.Migrations
 
                     b.Property<decimal>("TongTien")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("trangthai")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
