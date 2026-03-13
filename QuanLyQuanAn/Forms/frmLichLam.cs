@@ -224,14 +224,14 @@ namespace QuanLyQuanAn.Forms
                                     DateTime d = DateTime.Parse(r["NgayPhanCong"].ToString());
                                     if (ca.IsNullOrEmpty() || nv.IsNullOrEmpty() || d == null || caid == null || nvid == null)
                                     {
-                                        throw new Exception("");
+                                        throw new Exception("Không lấy được dữ liệu");
                                     }
                                     bool daTonTai = context.LichLam.Any(x => x.NhanVienID == nvid.ID
                                           && x.CaLamID == caid.Id
                                          && x.NgayPhanCong.Date == d.Date);
                                     if (daTonTai)
                                     {
-                                        throw new Exception("Trùng");
+                                        throw new Exception("Dữ liệu đã tồn tại");
 
                                     }
                                     LichLam ll = new LichLam();
@@ -246,7 +246,6 @@ namespace QuanLyQuanAn.Forms
                                 {
                                     // Nếu dòng này lỗi, rollback entry đó và tăng biến thất bại
                                     thatBai++;
-                                    MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                                     // Tùy chọn: Log lỗi hoặc bỏ qua để tiếp tục dòng sau
                                 }

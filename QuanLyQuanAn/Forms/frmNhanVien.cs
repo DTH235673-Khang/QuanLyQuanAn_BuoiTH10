@@ -253,15 +253,15 @@ namespace QuanLyQuanAn.Forms
                                     string cv = r["ChucVu"].ToString();
                                     if (ten.IsNullOrEmpty() || diachi.IsNullOrEmpty() || dienthoai.IsNullOrEmpty() || cv.IsNullOrEmpty())
                                     {
-                                        throw new Exception("");
+                                        throw new Exception("Không lấy được dữ liệu");
                                     }
                                     else if (tdn.IsNullOrEmpty() || mk.IsNullOrEmpty() || qh.IsNullOrEmpty())
                                     {
-                                        throw new Exception("");
+                                        throw new Exception("Không lấy được dữ liệu");
                                     }
                                     else if ((cv == "Quản lý" && qh == "false") || (cv != "Quản lý" && qh == "true"))
                                     {
-                                        throw new Exception("");
+                                        throw new Exception("Sai logic phân quyền");
                                     }
                                     bool daTonTai = context.NhanVien.Any(x => x.HoVaTen == ten
                                         && x.DienThoai == dienthoai

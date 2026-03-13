@@ -195,7 +195,7 @@ namespace QuanLyQuanAn.Forms
                                     string dienthoai = r["DienThoai"].ToString();
                                     if (ten.IsNullOrEmpty() || diachi.IsNullOrEmpty() || dienthoai.IsNullOrEmpty())
                                     {
-                                        throw new Exception("");
+                                        throw new Exception("Không lấy được dữ liệu");
                                     }
                                     bool daTonTai = context.KhachHang.Any(x => x.HoVaTen == ten
                                          && x.DienThoai == dienthoai

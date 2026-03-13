@@ -207,7 +207,7 @@ namespace QuanLyQuanAn.Forms
                                     int s = Convert.ToInt32(r["SoLuongTon"]);
                                     if (ten.IsNullOrEmpty() || g <= 0 || s <= 0)
                                     {
-                                        throw new Exception("");
+                                        throw new Exception("Không lấy được dữ liệu");
                                     }
                                     bool daTonTai = context.NguyenLieu.Any(x => x.TenNguyenLieu == ten
                                           && x.QuyCach == quycach

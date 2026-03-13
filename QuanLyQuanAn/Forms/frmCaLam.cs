@@ -221,37 +221,56 @@ namespace QuanLyQuanAn.Forms
                                 try
                                 {
                                     string ten = r["TenCaLam"].ToString();
-                                    string it= r["GioBatDau"].ToString();
+                                    string it = r["GioBatDau"].ToString();
                                     string ot = r["GioKetThuc"].ToString();
-                                    float hsl = Convert.ToSingle(r["HeSoLuong"].ToString());
-                                    if (ten.IsNullOrEmpty() ||it.IsNullOrEmpty()||ot.IsNullOrEmpty()||hsl<=0 )
+
+                                    // 1. Kiểm tra định dạng thời gian (sử dụng logic giống CheckDinhDangTime)
+                                    if (!TimeOnly.TryParse(it, out TimeOnly batDau) || !TimeOnly.TryParse(ot, out TimeOnly ketThuc))
                                     {
-                                        throw new Exception("");
+                                        throw new Exception("Định dạng giờ không hợp lệ");
                                     }
-                                    bool daTonTai = context.CaLam.Any(x => x.TenCa ==ten
-                                         && x.GioBatDau == TimeOnly.Parse(it)
-                                         && x.GioKetThuc == TimeOnly.Parse(ot)
-                                         && x.HeSoLuong == hsl);
+
+                                    // 2. Kiểm tra logic: giờ bắt đầu phải trước giờ kết thúc
+                                    if (ketThuc <= batDau)
+                                    {
+                                        throw new Exception("Giờ kết thúc phải sau giờ bắt đầu");
+                                    }
+
+                                    // 3. Kiểm tra hệ số lương
+                                    if (!float.TryParse(r["HeSoLuong"].ToString(), out float hsl) || hsl <= 0)
+                                    {
+                                        throw new Exception("Hệ số lương không hợp lệ");
+                                    }
+
+                                    if (ten.IsNullOrEmpty())
+                                    {
+                                        throw new Exception("Tên ca làm trống");
+                                    }
+
+                                    // 4. Kiểm tra trùng lặp
+                                    bool daTonTai = context.CaLam.Any(x => x.TenCa == ten
+                                                   && x.GioBatDau == batDau && x.GioKetThuc == ketThuc
+                                                   && x.HeSoLuong == hsl);
                                     if (daTonTai)
                                     {
-                                        throw new Exception("Trùng");
+                                        throw new Exception("Trùng dữ liệu");
                                     }
 
-
-                                    CaLam ca = new CaLam();
-                                    ca.TenCa = ten;
-                                    ca.GioBatDau=TimeOnly.Parse(it);
-                                    ca.GioKetThuc=TimeOnly.Parse(ot);
-                                    ca.HeSoLuong = hsl;
+                                    // Thêm vào database
+                                    CaLam ca = new CaLam
+                                    {
+                                        TenCa = ten,
+                                        GioBatDau = batDau,
+                                        GioKetThuc = ketThuc,
+                                        HeSoLuong = hsl
+                                    };
                                     context.CaLam.Add(ca);
-                                    context.SaveChanges(); // Lưu ngay từng dòng để bắt lỗi chính xác dòng đó
+                                    context.SaveChanges();
                                     thanhCong++;
                                 }
                                 catch
                                 {
-                                    // Nếu dòng này lỗi, rollback entry đó và tăng biến thất bại
-                                    thatBai++;
-                                    // Tùy chọn: Log lỗi hoặc bỏ qua để tiếp tục dòng sau
+                                    thatBai++; // Dòng nào lỗi sẽ vào đây và không bị ảnh hưởng đến các dòng khác
                                 }
                             }
 

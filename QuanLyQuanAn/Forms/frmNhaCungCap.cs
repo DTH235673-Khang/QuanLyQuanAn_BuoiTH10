@@ -195,14 +195,14 @@ namespace QuanLyQuanAn.Forms
                                     string dienthoai = r["SoDienThoai"].ToString();
                                     if (ten.IsNullOrEmpty() || diachi.IsNullOrEmpty() || dienthoai.IsNullOrEmpty())
                                     {
-                                        throw new Exception("");
+                                        throw new Exception("Không lấy được dữ liệu");
                                     }
                                     bool daTonTai = context.NhaCungCap.Any(x => x.TenNhaCungCap == ten
                                             && x.SoDienThoai == dienthoai
                                             && x.DiaChi == diachi);
                                     if (daTonTai)
                                     {
-                                         throw new Exception();
+                                         throw new Exception("Dữ liệu đã tồn tại");
                                     }
                                     NhaCungCap ncc = new NhaCungCap();
                                     ncc.TenNhaCungCap = ten;

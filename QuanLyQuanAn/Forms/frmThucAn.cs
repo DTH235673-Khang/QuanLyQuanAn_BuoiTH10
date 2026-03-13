@@ -504,7 +504,7 @@ namespace QuanLyQuanAn.Forms
                                     int d = Convert.ToInt32(r["Gia"]);
                                     if (ten.IsNullOrEmpty()|| d<=0 || dm_==null||dvt_==null)
                                     {
-                                        throw new Exception("");
+                                        throw new Exception("Không lấy được dữ liệu");
                                     }
                                     bool daTonTai = context.ThucAn.Any(x => x.TenThucAn == ten
                                       && x.Gia == d

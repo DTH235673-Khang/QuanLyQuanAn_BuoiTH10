@@ -127,7 +127,8 @@ namespace QuanLyQuanAn.Forms
                                     {
                                         throw new Exception("Không lấy được dữ liệu");
                                     }
-                                    if (nv != null && kh != null && ban!=null)
+                                    
+                                    if (nv != null && kh != null && ban != null)
                                     {
                                         HoaDon hd = new HoaDon();
                                         hd.NhanVienID = nv.ID;
