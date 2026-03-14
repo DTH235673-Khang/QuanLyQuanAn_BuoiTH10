@@ -65,6 +65,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(txtGhiChuHoaDon);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(cboKhachHang);
@@ -130,6 +131,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Controls.Add(btnXoa);
             groupBox2.Controls.Add(btnXacNhanBan);

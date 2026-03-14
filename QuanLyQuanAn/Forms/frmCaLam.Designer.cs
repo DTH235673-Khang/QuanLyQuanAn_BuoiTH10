@@ -30,6 +30,7 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
+            txtHeSoLuong = new TextBox();
             txtGioBatDau = new TextBox();
             txtGioKetThuc = new TextBox();
             label4 = new Label();
@@ -52,7 +53,6 @@
             GioBatDau = new DataGridViewTextBoxColumn();
             GioKetThuc = new DataGridViewTextBoxColumn();
             HeSoLuong = new DataGridViewTextBoxColumn();
-            txtHeSoLuong = new TextBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -60,6 +60,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(txtHeSoLuong);
             groupBox1.Controls.Add(txtGioBatDau);
             groupBox1.Controls.Add(txtGioKetThuc);
@@ -82,6 +83,13 @@
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin ca làm";
+            // 
+            // txtHeSoLuong
+            // 
+            txtHeSoLuong.Location = new Point(526, 35);
+            txtHeSoLuong.Name = "txtHeSoLuong";
+            txtHeSoLuong.Size = new Size(235, 27);
+            txtHeSoLuong.TabIndex = 18;
             // 
             // txtGioBatDau
             // 
@@ -225,6 +233,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(22, 194);
             groupBox2.Name = "groupBox2";
@@ -283,13 +292,6 @@
             HeSoLuong.HeaderText = "Hệ số lương";
             HeSoLuong.MinimumWidth = 6;
             HeSoLuong.Name = "HeSoLuong";
-            // 
-            // txtHeSoLuong
-            // 
-            txtHeSoLuong.Location = new Point(526, 35);
-            txtHeSoLuong.Name = "txtHeSoLuong";
-            txtHeSoLuong.Size = new Size(235, 27);
-            txtHeSoLuong.TabIndex = 18;
             // 
             // frmCaLam
             // 

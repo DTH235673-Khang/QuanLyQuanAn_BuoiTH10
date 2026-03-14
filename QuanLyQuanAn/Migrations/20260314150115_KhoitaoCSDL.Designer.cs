@@ -12,8 +12,8 @@ using QuanLyQuanAn.Data;
 namespace QuanLyQuanAn.Migrations
 {
     [DbContext(typeof(QLQADbContext))]
-    [Migration("20260308103850_KhoiTaoCSDL")]
-    partial class KhoiTaoCSDL
+    [Migration("20260314150115_KhoitaoCSDL")]
+    partial class KhoitaoCSDL
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

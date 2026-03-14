@@ -62,7 +62,7 @@ namespace QuanLyQuanAn.Forms
             // Lấy toàn bộ danh sách bàn và hóa đơn hiện có để tránh truy vấn quá nhiều lần trong vòng lặp
             var danhSachBan = context.Ban.ToList();
 
-            foreach (Control ctr in this.Controls)
+            foreach (Control ctr in this.tableLayoutPanel1.Controls)
             {
                 if (ctr is Button btn)
                 {
@@ -77,7 +77,7 @@ namespace QuanLyQuanAn.Forms
                         // Tìm hóa đơn chưa thanh toán của bàn này (Giả sử TrangThai "1" là có khách)
                         if (ban.TrangThai == "1")
                         {
-                            var hoaDon = context.HoaDon.FirstOrDefault(hd => hd.BanID == ban.ID && hd.trangthai==0); 
+                            var hoaDon = context.HoaDon.FirstOrDefault(hd => hd.BanID == ban.ID && hd.trangthai == 0);
 
                             decimal tongTien = hoaDon != null ? (decimal)hoaDon.TongTien : 0;
 

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             btnXuat = new Button();
             btnNhap = new Button();
@@ -57,6 +57,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(btnXuat);
             groupBox1.Controls.Add(btnNhap);
             groupBox1.Controls.Add(btnThoat);
@@ -213,6 +214,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(18, 131);
             groupBox2.Name = "groupBox2";
@@ -259,9 +261,9 @@
             // NgayPhanCong
             // 
             NgayPhanCong.DataPropertyName = "NgayPhanCong";
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.Format = "dd/MM/yyyy";
-            NgayPhanCong.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Format = "dd/MM/yyyy";
+            NgayPhanCong.DefaultCellStyle = dataGridViewCellStyle1;
             NgayPhanCong.HeaderText = "Ngày phân công";
             NgayPhanCong.MinimumWidth = 6;
             NgayPhanCong.Name = "NgayPhanCong";

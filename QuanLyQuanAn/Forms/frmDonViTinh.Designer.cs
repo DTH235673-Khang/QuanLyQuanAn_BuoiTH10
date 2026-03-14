@@ -60,6 +60,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(btnXuat);
             groupBox1.Controls.Add(btnNhap);
             groupBox1.Controls.Add(btnThoat);
@@ -168,6 +169,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(20, 145);
             groupBox2.Name = "groupBox2";

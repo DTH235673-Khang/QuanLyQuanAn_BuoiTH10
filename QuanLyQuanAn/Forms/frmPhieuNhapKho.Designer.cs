@@ -54,6 +54,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(dataGridView);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";

@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
+            btnXuat = new Button();
+            btnNhap = new Button();
             btnXoaAnh = new Button();
             btnXoayAnh = new Button();
             btnDoiAnh = new Button();
@@ -62,8 +64,6 @@
             Gia = new DataGridViewTextBoxColumn();
             TrangThai = new DataGridViewTextBoxColumn();
             HinhAnh = new DataGridViewImageColumn();
-            btnNhap = new Button();
-            btnXuat = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picHinhAnh).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numDonGia).BeginInit();
@@ -73,6 +73,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(btnXuat);
             groupBox1.Controls.Add(btnNhap);
             groupBox1.Controls.Add(btnXoaAnh);
@@ -104,6 +105,26 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin món ăn";
+            // 
+            // btnXuat
+            // 
+            btnXuat.Location = new Point(826, 191);
+            btnXuat.Name = "btnXuat";
+            btnXuat.Size = new Size(94, 29);
+            btnXuat.TabIndex = 24;
+            btnXuat.Text = "Xuất";
+            btnXuat.UseVisualStyleBackColor = true;
+            btnXuat.Click += btnXuat_Click;
+            // 
+            // btnNhap
+            // 
+            btnNhap.Location = new Point(726, 191);
+            btnNhap.Name = "btnNhap";
+            btnNhap.Size = new Size(94, 29);
+            btnNhap.TabIndex = 23;
+            btnNhap.Text = "Nhập";
+            btnNhap.UseVisualStyleBackColor = true;
+            btnNhap.Click += btnNhap_Click;
             // 
             // btnXoaAnh
             // 
@@ -319,6 +340,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(10, 250);
             groupBox2.Name = "groupBox2";
@@ -374,9 +396,9 @@
             // Gia
             // 
             Gia.DataPropertyName = "Gia";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N0";
-            Gia.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "N0";
+            Gia.DefaultCellStyle = dataGridViewCellStyle1;
             Gia.HeaderText = "Đơn giá";
             Gia.MinimumWidth = 6;
             Gia.Name = "Gia";
@@ -394,26 +416,6 @@
             HinhAnh.HeaderText = "Hình ảnh";
             HinhAnh.MinimumWidth = 6;
             HinhAnh.Name = "HinhAnh";
-            // 
-            // btnNhap
-            // 
-            btnNhap.Location = new Point(726, 191);
-            btnNhap.Name = "btnNhap";
-            btnNhap.Size = new Size(94, 29);
-            btnNhap.TabIndex = 23;
-            btnNhap.Text = "Nhập";
-            btnNhap.UseVisualStyleBackColor = true;
-            btnNhap.Click += btnNhap_Click;
-            // 
-            // btnXuat
-            // 
-            btnXuat.Location = new Point(826, 191);
-            btnXuat.Name = "btnXuat";
-            btnXuat.Size = new Size(94, 29);
-            btnXuat.TabIndex = 24;
-            btnXuat.Text = "Xuất";
-            btnXuat.UseVisualStyleBackColor = true;
-            btnXuat.Click += btnXuat_Click;
             // 
             // frmThucAn
             // 

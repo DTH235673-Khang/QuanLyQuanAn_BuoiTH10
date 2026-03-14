@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             groupBox2 = new GroupBox();
             dataGridView = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
@@ -50,11 +50,11 @@
             cboQuyCach = new ComboBox();
             label2 = new Label();
             groupBox1 = new GroupBox();
+            btnXuat = new Button();
+            btnNhap = new Button();
             numSoLuongTon = new NumericUpDown();
             label3 = new Label();
             label6 = new Label();
-            btnNhap = new Button();
-            btnXuat = new Button();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numGiaNhap).BeginInit();
@@ -64,6 +64,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(12, 184);
             groupBox2.Name = "groupBox2";
@@ -110,10 +111,10 @@
             // SoLuongTon
             // 
             SoLuongTon.DataPropertyName = "SoLuongTon";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.ForeColor = Color.Black;
-            dataGridViewCellStyle3.Format = "N2";
-            SoLuongTon.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.Format = "N2";
+            SoLuongTon.DefaultCellStyle = dataGridViewCellStyle1;
             SoLuongTon.HeaderText = "Số lượng tồn";
             SoLuongTon.MinimumWidth = 6;
             SoLuongTon.Name = "SoLuongTon";
@@ -121,10 +122,10 @@
             // GiaNhap
             // 
             GiaNhap.DataPropertyName = "GiaNhap";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.ForeColor = Color.Blue;
-            dataGridViewCellStyle4.Format = "N2";
-            GiaNhap.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.ForeColor = Color.Blue;
+            dataGridViewCellStyle2.Format = "N2";
+            GiaNhap.DefaultCellStyle = dataGridViewCellStyle2;
             GiaNhap.HeaderText = "Giá nhập";
             GiaNhap.MinimumWidth = 6;
             GiaNhap.Name = "GiaNhap";
@@ -244,6 +245,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(btnXuat);
             groupBox1.Controls.Add(btnNhap);
             groupBox1.Controls.Add(numSoLuongTon);
@@ -267,6 +269,26 @@
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin nguyên liệu";
+            // 
+            // btnXuat
+            // 
+            btnXuat.Location = new Point(815, 110);
+            btnXuat.Name = "btnXuat";
+            btnXuat.Size = new Size(94, 29);
+            btnXuat.TabIndex = 26;
+            btnXuat.Text = "Xuất";
+            btnXuat.UseVisualStyleBackColor = true;
+            btnXuat.Click += btnXuat_Click;
+            // 
+            // btnNhap
+            // 
+            btnNhap.Location = new Point(715, 110);
+            btnNhap.Name = "btnNhap";
+            btnNhap.Size = new Size(94, 29);
+            btnNhap.TabIndex = 25;
+            btnNhap.Text = "Nhập";
+            btnNhap.UseVisualStyleBackColor = true;
+            btnNhap.Click += btnNhap_Click;
             // 
             // numSoLuongTon
             // 
@@ -293,26 +315,6 @@
             label6.Size = new Size(114, 20);
             label6.TabIndex = 9;
             label6.Text = "Số lượng tồn(*):";
-            // 
-            // btnNhap
-            // 
-            btnNhap.Location = new Point(715, 110);
-            btnNhap.Name = "btnNhap";
-            btnNhap.Size = new Size(94, 29);
-            btnNhap.TabIndex = 25;
-            btnNhap.Text = "Nhập";
-            btnNhap.UseVisualStyleBackColor = true;
-            btnNhap.Click += btnNhap_Click;
-            // 
-            // btnXuat
-            // 
-            btnXuat.Location = new Point(815, 110);
-            btnXuat.Name = "btnXuat";
-            btnXuat.Size = new Size(94, 29);
-            btnXuat.TabIndex = 26;
-            btnXuat.Text = "Xuất";
-            btnXuat.UseVisualStyleBackColor = true;
-            btnXuat.Click += btnXuat_Click;
             // 
             // frmNguyenLieu
             // 

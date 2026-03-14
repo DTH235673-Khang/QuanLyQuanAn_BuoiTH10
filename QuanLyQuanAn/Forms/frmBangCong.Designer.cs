@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             dataGridView = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
@@ -45,19 +45,20 @@
             btnXuat = new Button();
             btnNhap = new Button();
             label1 = new Label();
-            label2 = new Label();
             cboThang = new ComboBox();
             label3 = new Label();
             cboNam = new ComboBox();
             btnXem = new Button();
             btnSua = new Button();
             cboNhanVien = new ComboBox();
+            label2 = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(dataGridView);
             groupBox1.Location = new Point(16, 69);
             groupBox1.Name = "groupBox1";
@@ -97,8 +98,8 @@
             // Ngay
             // 
             Ngay.DataPropertyName = "Ngay";
-            dataGridViewCellStyle1.Format = "dd/MM/yyyy";
-            Ngay.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Format = "dd/MM/yyyy";
+            Ngay.DefaultCellStyle = dataGridViewCellStyle5;
             Ngay.HeaderText = "Ngày";
             Ngay.MinimumWidth = 6;
             Ngay.Name = "Ngay";
@@ -106,9 +107,9 @@
             // GioVaoThucTe
             // 
             GioVaoThucTe.DataPropertyName = "GioVaoThucTe";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Format = "t";
-            GioVaoThucTe.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.Format = "t";
+            GioVaoThucTe.DefaultCellStyle = dataGridViewCellStyle6;
             GioVaoThucTe.HeaderText = "Giờ vào thực tế";
             GioVaoThucTe.MinimumWidth = 6;
             GioVaoThucTe.Name = "GioVaoThucTe";
@@ -116,9 +117,9 @@
             // GioRaThucTe
             // 
             GioRaThucTe.DataPropertyName = "GioRaThucTe";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Format = "t";
-            GioRaThucTe.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.Format = "t";
+            GioRaThucTe.DefaultCellStyle = dataGridViewCellStyle7;
             GioRaThucTe.HeaderText = "Giờ ra thực tế";
             GioRaThucTe.MinimumWidth = 6;
             GioRaThucTe.Name = "GioRaThucTe";
@@ -126,9 +127,9 @@
             // SoGioLam
             // 
             SoGioLam.DataPropertyName = "SoGioLam";
-            dataGridViewCellStyle4.ForeColor = Color.Blue;
-            dataGridViewCellStyle4.Format = "N2";
-            SoGioLam.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.ForeColor = Color.Blue;
+            dataGridViewCellStyle8.Format = "N2";
+            SoGioLam.DefaultCellStyle = dataGridViewCellStyle8;
             SoGioLam.HeaderText = "Số giờ làm";
             SoGioLam.MinimumWidth = 6;
             SoGioLam.Name = "SoGioLam";
@@ -185,15 +186,6 @@
             label1.TabIndex = 5;
             label1.Text = "ID";
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(28, 29);
-            label2.Name = "label2";
-            label2.Size = new Size(53, 20);
-            label2.TabIndex = 7;
-            label2.Text = "Tháng:";
-            // 
             // cboThang
             // 
             cboThang.FormattingEnabled = true;
@@ -248,18 +240,27 @@
             cboNhanVien.Size = new Size(178, 28);
             cboNhanVien.TabIndex = 13;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(19, 29);
+            label2.Name = "label2";
+            label2.Size = new Size(53, 20);
+            label2.TabIndex = 7;
+            label2.Text = "Tháng:";
+            // 
             // frmBangCong
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(915, 367);
+            Controls.Add(label2);
             Controls.Add(cboNhanVien);
             Controls.Add(btnSua);
             Controls.Add(btnXem);
             Controls.Add(cboNam);
             Controls.Add(label3);
             Controls.Add(cboThang);
-            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnNhap);
             Controls.Add(btnXuat);
@@ -283,7 +284,6 @@
         private Button btnXuat;
         private Button btnNhap;
         private Label label1;
-        private Label label2;
         private ComboBox cboThang;
         private Label label3;
         private ComboBox cboNam;
@@ -297,5 +297,6 @@
         private DataGridViewTextBoxColumn GioVaoThucTe;
         private DataGridViewTextBoxColumn GioRaThucTe;
         private DataGridViewTextBoxColumn SoGioLam;
+        private Label label2;
     }
 }

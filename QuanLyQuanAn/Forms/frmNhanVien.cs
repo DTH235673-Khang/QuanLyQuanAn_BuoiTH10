@@ -126,7 +126,8 @@ namespace QuanLyQuanAn.Forms
             {
                 bool daTonTai = context.NhanVien.Any(x => x.HoVaTen == txtHoVaTen.Text
                    && x.DienThoai == txtDienThoai.Text
-                   && x.DiaChi == txtDiaChi.Text);
+                   && x.DiaChi == txtDiaChi.Text
+                   && x.MatKhau==txtMatKhau.Text);
                 if (daTonTai)
                 {
                     MessageBox.Show("Nhân viên đã tồn tại", "Lỗi");

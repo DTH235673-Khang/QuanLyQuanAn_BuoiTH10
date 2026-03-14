@@ -242,7 +242,7 @@ namespace QuanLyQuanAn.Forms
                                         throw new Exception("Hệ số lương không hợp lệ");
                                     }
 
-                                    if (ten.IsNullOrEmpty())
+                                    if (ten.IsNullOrEmpty() )
                                     {
                                         throw new Exception("Tên ca làm trống");
                                     }
