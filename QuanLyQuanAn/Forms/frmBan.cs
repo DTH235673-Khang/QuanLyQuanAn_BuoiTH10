@@ -15,9 +15,11 @@ namespace QuanLyQuanAn.Forms
     public partial class frmBan : Form
     {
         QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
-        public frmBan()
+        string nv = "";
+        public frmBan(string nv)
         {
             InitializeComponent();
+            nv = nv;
         }
 
         private void frmBan_Click(object sender, EventArgs e)
@@ -35,7 +37,8 @@ namespace QuanLyQuanAn.Forms
             }
             else
             {
-                using (frmChiTietBan chiTiet = new frmChiTietBan(originalTableName))
+                var parent=(frmMain)this.MdiParent;
+                using (frmChiTietBan chiTiet = new frmChiTietBan(originalTableName,parent.hoVaTenNhanVien))
                 {
                     chiTiet.ShowDialog();
                 }
@@ -54,6 +57,8 @@ namespace QuanLyQuanAn.Forms
 
         private void frmBan_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/ban.html";
+            helpProvider.SetShowHelp(this, true);
             LoadTrangThaiBan();
         }
 

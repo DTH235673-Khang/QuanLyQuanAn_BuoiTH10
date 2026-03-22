@@ -28,13 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
-            txtHeSoLuong = new TextBox();
             txtGioBatDau = new TextBox();
             txtGioKetThuc = new TextBox();
             label4 = new Label();
-            label3 = new Label();
             label2 = new Label();
             btnXuat = new Button();
             btnNhap = new Button();
@@ -52,7 +49,7 @@
             TenCa = new DataGridViewTextBoxColumn();
             GioBatDau = new DataGridViewTextBoxColumn();
             GioKetThuc = new DataGridViewTextBoxColumn();
-            HeSoLuong = new DataGridViewTextBoxColumn();
+            helpProvider = new HelpProvider();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -61,11 +58,9 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(txtHeSoLuong);
             groupBox1.Controls.Add(txtGioBatDau);
             groupBox1.Controls.Add(txtGioKetThuc);
             groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(btnXuat);
             groupBox1.Controls.Add(btnNhap);
@@ -84,13 +79,6 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin ca làm";
             // 
-            // txtHeSoLuong
-            // 
-            txtHeSoLuong.Location = new Point(526, 35);
-            txtHeSoLuong.Name = "txtHeSoLuong";
-            txtHeSoLuong.Size = new Size(235, 27);
-            txtHeSoLuong.TabIndex = 18;
-            // 
             // txtGioBatDau
             // 
             txtGioBatDau.Location = new Point(147, 71);
@@ -100,7 +88,7 @@
             // 
             // txtGioKetThuc
             // 
-            txtGioKetThuc.Location = new Point(526, 71);
+            txtGioKetThuc.Location = new Point(524, 35);
             txtGioKetThuc.Name = "txtGioKetThuc";
             txtGioKetThuc.Size = new Size(235, 27);
             txtGioKetThuc.TabIndex = 15;
@@ -108,20 +96,11 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(407, 74);
+            label4.Location = new Point(407, 38);
             label4.Name = "label4";
             label4.Size = new Size(111, 20);
             label4.TabIndex = 13;
             label4.Text = "Giờ kết thúc(*): ";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(407, 38);
-            label3.Name = "label3";
-            label3.Size = new Size(113, 20);
-            label3.TabIndex = 12;
-            label3.Text = "Hệ số lương(*): ";
             // 
             // label2
             // 
@@ -233,7 +212,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(22, 194);
             groupBox2.Name = "groupBox2";
@@ -248,7 +227,7 @@
             dataGridView.AllowUserToDeleteRows = false;
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Columns.AddRange(new DataGridViewColumn[] { ID, TenCa, GioBatDau, GioKetThuc, HeSoLuong });
+            dataGridView.Columns.AddRange(new DataGridViewColumn[] { ID, TenCa, GioBatDau, GioKetThuc });
             dataGridView.Dock = DockStyle.Fill;
             dataGridView.Location = new Point(3, 23);
             dataGridView.Name = "dataGridView";
@@ -284,15 +263,6 @@
             GioKetThuc.MinimumWidth = 6;
             GioKetThuc.Name = "GioKetThuc";
             // 
-            // HeSoLuong
-            // 
-            HeSoLuong.DataPropertyName = "HeSoLuong";
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            HeSoLuong.DefaultCellStyle = dataGridViewCellStyle1;
-            HeSoLuong.HeaderText = "Hệ số lương";
-            HeSoLuong.MinimumWidth = 6;
-            HeSoLuong.Name = "HeSoLuong";
-            // 
             // frmCaLam
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -326,7 +296,6 @@
         private GroupBox groupBox2;
         private TextBox txtGioKetThuc;
         private Label label4;
-        private Label label3;
         private Label label2;
         private TextBox txtGioBatDau;
         private DataGridView dataGridView;
@@ -334,7 +303,6 @@
         private DataGridViewTextBoxColumn TenCa;
         private DataGridViewTextBoxColumn GioBatDau;
         private DataGridViewTextBoxColumn GioKetThuc;
-        private DataGridViewTextBoxColumn HeSoLuong;
-        private TextBox txtHeSoLuong;
+        private HelpProvider helpProvider;
     }
 }

@@ -15,10 +15,15 @@ namespace QuanLyQuanAn.Forms
     {
        QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
         string tablename; // Lấy mã hóa đơn (dùng cho Sửa và Xóa)
-        public frmChiTietBan(string ban)
+        string tennv;
+        public frmChiTietBan(string ban,string tennv)
         {
             InitializeComponent();
             tablename = ban;
+            btnThanhToan.Enabled = false;
+            btnChinhSua.Enabled = false;
+            btnChuyenBan.Enabled = false;
+            this.tennv = tennv;
         }
         public frmChiTietBan(int s)
         {
@@ -29,8 +34,7 @@ namespace QuanLyQuanAn.Forms
 
         private void btnMoBan_Click(object sender, EventArgs e)
         {
-
-            using (frmHoaDon_ChiTiet chiTiet = new frmHoaDon_ChiTiet(tablename))
+            using (frmHoaDon_ChiTiet chiTiet = new frmHoaDon_ChiTiet(tablename,tennv))
             {
                 chiTiet.ShowDialog();
                 var re = context.Ban.FirstOrDefault(r => r.TenBan == tablename);
@@ -70,6 +74,8 @@ namespace QuanLyQuanAn.Forms
             }
             context.SaveChanges();
             this.Close();
+            frmInHoaDon f=new frmInHoaDon(hd.ID); 
+            f.ShowDialog();
         }
 
         private void btnChuyenBan_Click(object sender, EventArgs e)
@@ -98,7 +104,7 @@ namespace QuanLyQuanAn.Forms
             {
                 DialogResult r = MessageBox.Show("Bàn " + txtBanMoi.Text + " đang có khách:" +
                     "\n +Bấm Yes nếu bạn muốn gộp 2 bàn lại " +
-                    "\n +Bấm No nếu bạn chỉ muốn switch 2 bàn " +
+                    "\n +Bấm No nếu bạn muốn switch 2 bàn " +
                     "\n +Bấm Cancel nếu bạn muốn dừng thao tác", "Thông báo", MessageBoxButtons.YesNoCancel);
                 if (r == DialogResult.Yes)
                 {

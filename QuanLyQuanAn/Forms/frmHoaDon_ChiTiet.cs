@@ -15,15 +15,17 @@ namespace QuanLyQuanAn.Forms
         QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
         int id; // Lấy mã hóa đơn (dùng cho Sửa và Xóa)
         string tablename = "";
+        string nv;
         BindingList<DanhSachHoaDon_ChiTiet> hoaDonChiTiet = new BindingList<DanhSachHoaDon_ChiTiet>();
         public frmHoaDon_ChiTiet()
         {
             InitializeComponent();
         }
-        public frmHoaDon_ChiTiet(string ban)
+        public frmHoaDon_ChiTiet(string ban, string nv)
         {
             InitializeComponent();
             tablename = ban;
+            this.nv = nv;
         }
         public frmHoaDon_ChiTiet(int maHoaDon = 0)
         {
@@ -41,12 +43,17 @@ namespace QuanLyQuanAn.Forms
             cboKhachHang.DataSource = context.KhachHang.ToList();
             cboKhachHang.ValueMember = "ID";
             cboKhachHang.DisplayMember = "HoVaTen";
+            cboKhachHang.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboKhachHang.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
         public void LayThucAnVaoComboBox()
         {
             cboMonAn.DataSource = context.ThucAn.ToList();
             cboMonAn.ValueMember = "ID";
             cboMonAn.DisplayMember = "TenThucAn";
+            cboMonAn.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboMonAn.AutoCompleteSource = AutoCompleteSource.ListItems;
+
         }
         public void BatTatChucNang()
         {
@@ -90,6 +97,12 @@ namespace QuanLyQuanAn.Forms
             }
             dataGridView.DataSource = hoaDonChiTiet;
             BatTatChucNang();
+            int index = cboNhanVien.FindStringExact(nv);
+            if (index != -1)
+            {
+                cboNhanVien.SelectedIndex = index;
+            }
+            cboNhanVien.Enabled = false;
         }
 
         private void btnXacNhanBan_Click(object sender, EventArgs e)

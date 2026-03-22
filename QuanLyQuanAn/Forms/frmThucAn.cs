@@ -24,7 +24,7 @@ namespace QuanLyQuanAn.Forms
         QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
         bool xuLyThem = false; // Kiểm tra có nhấn vào nút Thêm hay không?
         int id; // Lấy mã sản phẩm (dùng cho Sửa và Xóa)
-        string imagesFolder = Application.StartupPath.Replace("bin\\Debug\\net5.0-windows", "Images");
+        string imagesFolder = Application.StartupPath.Replace("bin\\Debug\\net8.0-windows", "Images");
         public frmThucAn()
         {
             InitializeComponent();
@@ -44,7 +44,6 @@ namespace QuanLyQuanAn.Forms
             btnDoiAnh.Enabled = !giaTri;
             btnSua.Enabled = !giaTri;
             btnXoa.Enabled = !giaTri;
-            btnTimKiem.Enabled = giaTri;
 
         }
         public void LayDanhMucVaoComboBox()
@@ -61,6 +60,8 @@ namespace QuanLyQuanAn.Forms
         }
         private void frmThucAn_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/thucan.html";
+            helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
             LayDanhMucVaoComboBox();
             LayDonViTinhVaoComboBox();
@@ -197,13 +198,14 @@ namespace QuanLyQuanAn.Forms
                    && x.MoTa==txtMoTa.Text
                    && x.DanhMucID == (int)cboPhanLoai.SelectedValue
                    && x.DonViTinhID== (int)cboDonViTinh.SelectedValue);
-                if (daTonTai)
-                {
-                    MessageBox.Show("Món ăn đã tồn tại", "Lỗi");
-                    return;
-                }
+               
                 if (xuLyThem)
                 {
+                    if (daTonTai)
+                    {
+                        MessageBox.Show("Món ăn đã tồn tại", "Lỗi");
+                        return;
+                    }
                     ThucAn t = new ThucAn();
                     t.TenThucAn = txtTenMonAn.Text;
                     t.Gia = numDonGia.Value;
@@ -214,7 +216,7 @@ namespace QuanLyQuanAn.Forms
                     t.DonViTinhID = (int)cboDonViTinh.SelectedValue;
                     context.ThucAn.Add(t);
                     context.SaveChanges();
-
+                    
                 }
                 else
                 {
@@ -383,6 +385,7 @@ namespace QuanLyQuanAn.Forms
                             picHinhAnh.Refresh();
 
                         }
+                        context.SaveChanges();
                     }
                 }
                 catch (Exception ex)

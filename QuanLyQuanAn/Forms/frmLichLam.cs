@@ -53,6 +53,8 @@ namespace QuanLyQuanAn.Forms
 
         private void frmLichLam_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/lichlam.html";
+            helpProvider.SetShowHelp(this, true);
             LayNhanVienVaoComboBox();
             LayCaLamVaoComboBox();
             BatTatChucNang(false);

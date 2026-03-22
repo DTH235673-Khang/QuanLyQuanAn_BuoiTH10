@@ -34,8 +34,7 @@ namespace QuanLyQuanAn.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TenCa = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GioBatDau = table.Column<TimeOnly>(type: "time", nullable: false),
-                    GioKetThuc = table.Column<TimeOnly>(type: "time", nullable: false),
-                    HeSoLuong = table.Column<float>(type: "real", nullable: false)
+                    GioKetThuc = table.Column<TimeOnly>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {

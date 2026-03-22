@@ -36,6 +36,8 @@ namespace QuanLyQuanAn.Forms
 
         private void frmChucVu_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/chucvu.html";
+            helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
             dataGridView.AutoGenerateColumns = false;
             List<ChucVu> cv = new List<ChucVu>();

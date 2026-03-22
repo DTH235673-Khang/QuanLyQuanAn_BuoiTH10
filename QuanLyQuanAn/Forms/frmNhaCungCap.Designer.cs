@@ -50,6 +50,7 @@
             TenNhaCungCap = new DataGridViewTextBoxColumn();
             DiaChi = new DataGridViewTextBoxColumn();
             SoDienThoai = new DataGridViewTextBoxColumn();
+            helpProvider = new HelpProvider();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -223,7 +224,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(9, 144);
             groupBox2.Name = "groupBox2";
@@ -320,5 +321,6 @@
         private DataGridViewTextBoxColumn TenNhaCungCap;
         private DataGridViewTextBoxColumn DiaChi;
         private DataGridViewTextBoxColumn SoDienThoai;
+        private HelpProvider helpProvider;
     }
 }

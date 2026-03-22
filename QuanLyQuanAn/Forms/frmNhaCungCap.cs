@@ -32,12 +32,13 @@ namespace QuanLyQuanAn.Forms
             btnThem.Enabled = !giaTri;
             btnSua.Enabled = !giaTri;
             btnXoa.Enabled = !giaTri;
-            btnTimKiem.Enabled = !giaTri;
             btnNhap.Enabled = !giaTri;
             btnXuat.Enabled = !giaTri;
         }
         private void frmNhaCungCap_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/nhacungcap.html";
+            helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
             List<NhaCungCap> ncc = new List<NhaCungCap>();
             ncc = context.NhaCungCap.ToList();

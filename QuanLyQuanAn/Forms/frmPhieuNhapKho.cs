@@ -26,6 +26,8 @@ namespace QuanLyQuanAn.Forms
 
         private void frmPhieuNhapKho_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/phieunhapkho.html";
+            helpProvider.SetShowHelp(this, true);
             dataGridView.AutoGenerateColumns = false;
             List<DanhSachPhieuNhapKho> p = new List<DanhSachPhieuNhapKho>();
             p = context.PhieuNhapKho.Select(r => new DanhSachPhieuNhapKho
@@ -49,7 +51,7 @@ namespace QuanLyQuanAn.Forms
         {
             id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
             var p = context.PhieuNhapKho.Find(id);
-            if(p.TrangThai=="Chưa duyệt")
+            if (p.TrangThai == "Chưa duyệt")
             {
                 using (frmPhieuNhapKho_ChiTiet chiTiet = new frmPhieuNhapKho_ChiTiet(id))
                 {
@@ -76,15 +78,15 @@ namespace QuanLyQuanAn.Forms
                 {
                     id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
                     PhieuNhapKho t = context.PhieuNhapKho.Find(id);
-                    if (t != null && t.TrangThai=="Chưa duyệt")
+                    if (t != null && t.TrangThai == "Chưa duyệt")
                     {
                         context.PhieuNhapKho.Remove(t);
                     }
-                    else if(t.TrangThai=="Đã duyệt")
+                    else if (t.TrangThai == "Đã duyệt")
                     {
                         MessageBox.Show("Phiếu nhập kho đã duyệt không thể xóa", "Thông báo");
-                    }    
-                        context.SaveChanges();
+                    }
+                    context.SaveChanges();
                     frmPhieuNhapKho_Load(sender, e);
                 }
             }
@@ -92,7 +94,8 @@ namespace QuanLyQuanAn.Forms
 
         private void btnTaoPhieu_Click(object sender, EventArgs e)
         {
-            using (frmPhieuNhapKho_ChiTiet chitiet = new frmPhieuNhapKho_ChiTiet())
+            var parent=(frmMain)this.MdiParent;
+            using (frmPhieuNhapKho_ChiTiet chitiet = new frmPhieuNhapKho_ChiTiet(parent.hoVaTenNhanVien))
             {
                 chitiet.ShowDialog();
                 context.SaveChanges();
@@ -318,7 +321,7 @@ namespace QuanLyQuanAn.Forms
                     id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
                     PhieuNhapKho t = context.PhieuNhapKho.Find(id);
                     var chitiet = context.PhieuNhapKho_ChiTiet.Where(r => r.PhieuNhapKhoID == id).ToList();
-                    if (t != null && t.TrangThai=="Chưa duyệt")
+                    if (t != null && t.TrangThai == "Chưa duyệt")
                     {
                         t.TrangThai = "Đã duyệt";
                         t.NgayNhap = DateTime.Now;
@@ -333,9 +336,9 @@ namespace QuanLyQuanAn.Forms
                     }
                     else
                     {
-                        MessageBox.Show("Phiếu nhập kho đã được duyệt","Thông báo");
-                    }    
-                        context.SaveChanges();
+                        MessageBox.Show("Phiếu nhập kho đã được duyệt", "Thông báo");
+                    }
+                    context.SaveChanges();
                     frmPhieuNhapKho_Load(sender, e);
                 }
             }
@@ -343,7 +346,16 @@ namespace QuanLyQuanAn.Forms
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();   
+            this.Close();
+        }
+
+        private void btnInPhieu_Click(object sender, EventArgs e)
+        {
+            id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+            using (frmInPhieuNhapKho inPhieuNhapKho = new frmInPhieuNhapKho(id))
+            {
+                inPhieuNhapKho.ShowDialog();
+            }
         }
     }
 }

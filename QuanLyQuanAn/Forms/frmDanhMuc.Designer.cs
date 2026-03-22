@@ -43,6 +43,7 @@
             dataGridView = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
             TenDanhMuc = new DataGridViewTextBoxColumn();
+            helpProvider = new HelpProvider();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -169,7 +170,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(12, 145);
             groupBox2.Name = "groupBox2";
@@ -241,5 +242,6 @@
         private DataGridViewTextBoxColumn TenDanhMuc;
         private Button btnXuat;
         private Button btnNhap;
+        private HelpProvider helpProvider;
     }
 }

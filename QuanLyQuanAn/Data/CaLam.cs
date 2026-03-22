@@ -13,7 +13,6 @@ namespace QuanLyQuanAn.Data
         public string TenCa { get; set; }
         public TimeOnly GioBatDau { get; set; }
         public TimeOnly GioKetThuc { get; set; }
-        public float HeSoLuong { get; set; }
         public virtual ObservableCollectionListSource<LichLam> LichLam { get; } = new();
 
     }

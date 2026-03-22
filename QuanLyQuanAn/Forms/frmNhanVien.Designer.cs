@@ -58,6 +58,7 @@
             DienThoai = new DataGridViewTextBoxColumn();
             TenDangNhap = new DataGridViewTextBoxColumn();
             ChucVu = new DataGridViewTextBoxColumn();
+            helpProvider = new HelpProvider();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -287,7 +288,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(12, 181);
             groupBox2.Name = "groupBox2";
@@ -352,6 +353,10 @@
             ChucVu.MinimumWidth = 6;
             ChucVu.Name = "ChucVu";
             // 
+            // helpProvider
+            // 
+            helpProvider.HelpNamespace = "nhanvien.html";
+            // 
             // frmNhanVien
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -401,5 +406,6 @@
         private DataGridViewTextBoxColumn DienThoai;
         private DataGridViewTextBoxColumn TenDangNhap;
         private DataGridViewTextBoxColumn ChucVu;
+        private HelpProvider helpProvider;
     }
 }

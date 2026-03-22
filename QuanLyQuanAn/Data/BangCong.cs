@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,4 +17,16 @@ namespace QuanLyQuanAn.Data
         public float SoGioLam { get; set; }
         public virtual NhanVien NhanVien { get; set; } = null;
     }
+    [NotMapped]
+    public class DanhSachBangCong
+    {
+        public int ID { get; set; }
+        public int NhanVienID { get; set; }
+        public string HoVaTenNhanVien { get; set; }
+        public DateOnly Ngay { get; set; }
+        public DateTime GioVaoThucTe { get; set; }
+        public DateTime GioRaThucTe { get; set; }
+        public float SoGioLam { get; set; }
+    }
+
 }

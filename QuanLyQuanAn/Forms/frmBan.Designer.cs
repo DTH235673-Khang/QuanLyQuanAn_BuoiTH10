@@ -51,6 +51,7 @@
             btn309 = new Button();
             btn310 = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
+            helpProvider = new HelpProvider();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -422,5 +423,6 @@
         private Button btn309;
         private Button btn310;
         private TableLayoutPanel tableLayoutPanel1;
+        private HelpProvider helpProvider;
     }
 }

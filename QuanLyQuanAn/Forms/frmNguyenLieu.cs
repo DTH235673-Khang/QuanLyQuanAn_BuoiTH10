@@ -34,12 +34,13 @@ namespace QuanLyQuanAn.Forms
             btnThem.Enabled = !giaTri;
             btnSua.Enabled = !giaTri;
             btnXoa.Enabled = !giaTri;
-            btnTimKiem.Enabled = giaTri;
 
         }
 
         private void frmNguyenLieu_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/nguyenlieu.html";
+            helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
             dataGridView.AutoGenerateColumns = false;
             List<DanhSachNguyenLieu> sp = new List<DanhSachNguyenLieu>();

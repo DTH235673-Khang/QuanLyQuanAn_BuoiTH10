@@ -50,6 +50,7 @@
             HoVaTenNhanVien = new DataGridViewTextBoxColumn();
             TenCa = new DataGridViewTextBoxColumn();
             NgayPhanCong = new DataGridViewTextBoxColumn();
+            helpProvider = new HelpProvider();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -214,7 +215,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(18, 131);
             groupBox2.Name = "groupBox2";
@@ -308,5 +309,6 @@
         private Button btnXoa;
         private Button btnSua;
         private Button btnThem;
+        private HelpProvider helpProvider;
     }
 }

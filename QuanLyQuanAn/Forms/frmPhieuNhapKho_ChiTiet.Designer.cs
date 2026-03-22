@@ -40,9 +40,13 @@
             label5 = new Label();
             cboNguyenLieu = new ComboBox();
             label4 = new Label();
-            btnInPhieu = new Button();
             groupBox2 = new GroupBox();
             dataGridView = new DataGridView();
+            NguyenLieuID = new DataGridViewTextBoxColumn();
+            TenNguyenLieu = new DataGridViewTextBoxColumn();
+            GiaNhap = new DataGridViewTextBoxColumn();
+            SoLuongNhap = new DataGridViewTextBoxColumn();
+            ThanhTien = new DataGridViewTextBoxColumn();
             cboNhaCungCap = new ComboBox();
             cboNhanVien = new ComboBox();
             label2 = new Label();
@@ -50,11 +54,6 @@
             groupBox1 = new GroupBox();
             txtGhiChu = new TextBox();
             label3 = new Label();
-            NguyenLieuID = new DataGridViewTextBoxColumn();
-            TenNguyenLieu = new DataGridViewTextBoxColumn();
-            GiaNhap = new DataGridViewTextBoxColumn();
-            SoLuongNhap = new DataGridViewTextBoxColumn();
-            ThanhTien = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)numSoLuongNhap).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numDonGiaNhap).BeginInit();
             groupBox2.SuspendLayout();
@@ -65,7 +64,7 @@
             // btnThoat
             // 
             btnThoat.ForeColor = Color.Red;
-            btnThoat.Location = new Point(534, 443);
+            btnThoat.Location = new Point(468, 443);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(123, 29);
             btnThoat.TabIndex = 20;
@@ -75,7 +74,7 @@
             // btnLuuPhieu
             // 
             btnLuuPhieu.ForeColor = Color.Blue;
-            btnLuuPhieu.Location = new Point(276, 443);
+            btnLuuPhieu.Location = new Point(326, 443);
             btnLuuPhieu.Name = "btnLuuPhieu";
             btnLuuPhieu.Size = new Size(123, 29);
             btnLuuPhieu.TabIndex = 18;
@@ -158,15 +157,6 @@
             label4.TabIndex = 6;
             label4.Text = "Nguyên liệu(*):";
             // 
-            // btnInPhieu
-            // 
-            btnInPhieu.Location = new Point(405, 443);
-            btnInPhieu.Name = "btnInPhieu";
-            btnInPhieu.Size = new Size(123, 29);
-            btnInPhieu.TabIndex = 19;
-            btnInPhieu.Text = "In phiếu...";
-            btnInPhieu.UseVisualStyleBackColor = true;
-            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(dataGridView);
@@ -197,6 +187,48 @@
             dataGridView.RowHeadersWidth = 51;
             dataGridView.Size = new Size(899, 188);
             dataGridView.TabIndex = 13;
+            // 
+            // NguyenLieuID
+            // 
+            NguyenLieuID.DataPropertyName = "NguyenLieuID";
+            NguyenLieuID.HeaderText = "ID";
+            NguyenLieuID.MinimumWidth = 6;
+            NguyenLieuID.Name = "NguyenLieuID";
+            // 
+            // TenNguyenLieu
+            // 
+            TenNguyenLieu.DataPropertyName = "TenNguyenLieu";
+            TenNguyenLieu.HeaderText = "Nguyên liệu";
+            TenNguyenLieu.MinimumWidth = 6;
+            TenNguyenLieu.Name = "TenNguyenLieu";
+            // 
+            // GiaNhap
+            // 
+            GiaNhap.DataPropertyName = "GiaNhap";
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Format = "N2";
+            GiaNhap.DefaultCellStyle = dataGridViewCellStyle1;
+            GiaNhap.HeaderText = "Giá nhập";
+            GiaNhap.MinimumWidth = 6;
+            GiaNhap.Name = "GiaNhap";
+            // 
+            // SoLuongNhap
+            // 
+            SoLuongNhap.DataPropertyName = "SoLuongNhap";
+            SoLuongNhap.HeaderText = "Số lượng";
+            SoLuongNhap.MinimumWidth = 6;
+            SoLuongNhap.Name = "SoLuongNhap";
+            // 
+            // ThanhTien
+            // 
+            ThanhTien.DataPropertyName = "ThanhTien";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.ForeColor = Color.Blue;
+            dataGridViewCellStyle2.Format = "N2";
+            ThanhTien.DefaultCellStyle = dataGridViewCellStyle2;
+            ThanhTien.HeaderText = "Thành tiền";
+            ThanhTien.MinimumWidth = 6;
+            ThanhTien.Name = "ThanhTien";
             // 
             // cboNhaCungCap
             // 
@@ -263,48 +295,6 @@
             label3.TabIndex = 4;
             label3.Text = "Ghi chú:";
             // 
-            // NguyenLieuID
-            // 
-            NguyenLieuID.DataPropertyName = "NguyenLieuID";
-            NguyenLieuID.HeaderText = "ID";
-            NguyenLieuID.MinimumWidth = 6;
-            NguyenLieuID.Name = "NguyenLieuID";
-            // 
-            // TenNguyenLieu
-            // 
-            TenNguyenLieu.DataPropertyName = "TenNguyenLieu";
-            TenNguyenLieu.HeaderText = "Nguyên liệu";
-            TenNguyenLieu.MinimumWidth = 6;
-            TenNguyenLieu.Name = "TenNguyenLieu";
-            // 
-            // GiaNhap
-            // 
-            GiaNhap.DataPropertyName = "GiaNhap";
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.Format = "N2";
-            GiaNhap.DefaultCellStyle = dataGridViewCellStyle1;
-            GiaNhap.HeaderText = "Giá nhập";
-            GiaNhap.MinimumWidth = 6;
-            GiaNhap.Name = "GiaNhap";
-            // 
-            // SoLuongNhap
-            // 
-            SoLuongNhap.DataPropertyName = "SoLuongNhap";
-            SoLuongNhap.HeaderText = "Số lượng";
-            SoLuongNhap.MinimumWidth = 6;
-            SoLuongNhap.Name = "SoLuongNhap";
-            // 
-            // ThanhTien
-            // 
-            ThanhTien.DataPropertyName = "ThanhTien";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.ForeColor = Color.Blue;
-            dataGridViewCellStyle2.Format = "N2";
-            ThanhTien.DefaultCellStyle = dataGridViewCellStyle2;
-            ThanhTien.HeaderText = "Thành tiền";
-            ThanhTien.MinimumWidth = 6;
-            ThanhTien.Name = "ThanhTien";
-            // 
             // frmPhieuNhapKho_ChiTiet
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -312,7 +302,6 @@
             ClientSize = new Size(941, 488);
             Controls.Add(btnThoat);
             Controls.Add(btnLuuPhieu);
-            Controls.Add(btnInPhieu);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "frmPhieuNhapKho_ChiTiet";
@@ -340,7 +329,6 @@
         private Label label5;
         private ComboBox cboNguyenLieu;
         private Label label4;
-        private Button btnInPhieu;
         private GroupBox groupBox2;
         private ComboBox cboNhaCungCap;
         private ComboBox cboNhanVien;

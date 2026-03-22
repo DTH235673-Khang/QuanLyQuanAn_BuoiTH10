@@ -64,6 +64,7 @@
             Gia = new DataGridViewTextBoxColumn();
             TrangThai = new DataGridViewTextBoxColumn();
             HinhAnh = new DataGridViewImageColumn();
+            helpProvider = new HelpProvider();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picHinhAnh).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numDonGia).BeginInit();
@@ -340,7 +341,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(10, 250);
             groupBox2.Name = "groupBox2";
@@ -473,5 +474,6 @@
         private DataGridViewImageColumn HinhAnh;
         private Button btnXuat;
         private Button btnNhap;
+        private HelpProvider helpProvider;
     }
 }

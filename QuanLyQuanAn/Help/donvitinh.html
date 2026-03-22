@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<title>Đơn vị tính - Đồ án LTQL</title>
+</head>
+
+<body>
+	<div class="container">
+		<div id="navbar"></div>
+		
+		<div class="card mt-3">
+			<div class="card-header">Đơn vị tính</div>
+			<div class="card-body">
+				<p class="card-text">Hướng dẫn sử dụng màn hình <strong>đơn vị tính</strong>.</p>
+				<img src="../Images/donvitinh.png" class="img-fluid mx-auto d-block" />
+				<h4 class="mt-3"><a name="danhsach">Danh sách đơn vị tính</a></h4>
+				<hr />
+				<p><strong>Bước 1:</strong> Tiến hành đăng nhập vào hệ thống.
+				<p><strong>Bước 2:</strong> Vào tab Quản lý, chọn mục đơn vị tính. Hệ thống sẽ hiển thị danh sách đơn vị tính lên màn hình.
+								
+				<h4 class="mt-3"><a name="them">Thêm đơn vị tính</a></h4>
+				<hr />
+				<p><strong>Bước 1:</strong> Nhấn chọn chức năng thêm. 
+				<p><strong>Bước 2:</strong> Nhập đầy đủ các trường thông tin.
+				<p><strong>Bước 3:</strong> Nhấn chọn Lưu, hệ thống sẽ cập nhật dữ liệu xuống danh sách đơn vị tính.
+				
+				<h4 class="mt-3"><a name="sua">Sửa đơn vị tính</a></h4>
+				<hr />
+				<p><strong>Bước 1:</strong> Nhấn chọn đơn vị tính cần được sửa thông tin. 
+				<p><strong>Bước 2:</strong> Nhập đầy đủ các trường thông tin.
+				<p><strong>Bước 3:</strong> Nhấn chọn Lưu, hệ thống sẽ cập nhật dữ liệu xuống danh sách đơn vị tính.
+				
+				<h4 class="mt-3"><a name="xoa">Xóa đơn vị tính</a></h4>
+				<hr />
+				<p><strong>Bước 1:</strong> Nhấn chọn đơn vị tính cần xóa. 
+				<p><strong>Bước 2:</strong> Nhấn xóa và hệ thống sẽ hiển thị thông báo, nhấn OK để hoàn thành thao tác.
+				
+				<h4 class="mt-3"><a name="nhap">Nhập đơn vị tính từ Excel</a></h4>
+				<hr />
+				<p><strong>Bước 1:</strong> Chọn chức năng nhập. 
+				<p><strong>Bước 2:</strong> Hệ thống sẽ hiển thị Dialog để chọn file excel cần nhập.
+				<p><strong>Bước 3:</strong> Nhấn chọn Open, hệ thống sẽ trả kết quả nhập được bao nhiêu dòng thành công/thất bại, đồng thời cập nhật kết quả vào danh sách đơn vị tính. 
+				
+				<h4 class="mt-3"><a name="xuat">Xuất đơn vị tính ra Excel</a></h4>
+				<hr />
+				<p><strong>Bước 1:</strong> Chọn chức năng xuất. 
+				<p><strong>Bước 2:</strong> Hệ thống sẽ hiển thị Dialog để chọn vị trí lưu file excel.
+				<p><strong>Bước 3:</strong> Nhấn chọn Open, hệ thống sẽ trả kết quả xuất file thành công/thất bại. 
+			</div>
+		</div>
+		
+		<div id="footer"></div>
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script>
+		$(document).ready(() => {
+			$('#navbar').load('navbar.html');
+			$('#footer').load('footer.html');
+		});
+	</script>
+</body>
+
+</html>

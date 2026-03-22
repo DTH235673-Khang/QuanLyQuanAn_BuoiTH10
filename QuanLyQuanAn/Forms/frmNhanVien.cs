@@ -43,12 +43,13 @@ namespace QuanLyQuanAn.Forms
             btnThem.Enabled = !giaTri;
             btnSua.Enabled = !giaTri;
             btnXoa.Enabled = !giaTri;
-            btnTimKiem.Enabled = !giaTri;
             btnNhap.Enabled = !giaTri;
             btnXuat.Enabled = !giaTri;
         }
         private void frmNhanVien_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/nhanvien.html";
+            helpProvider.SetShowHelp(this, true);
             LayChucVuVaoComboBox();
             BatTatChucNang(false);
             dataGridView.AutoGenerateColumns = false;

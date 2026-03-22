@@ -33,6 +33,8 @@ namespace QuanLyQuanAn.Forms
         }
         private void frmDonViTinh_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/donvitinh.html";
+            helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
             List<DonViTinh> dvt = new List<DonViTinh>();
             dvt = context.DonViTinh.ToList();

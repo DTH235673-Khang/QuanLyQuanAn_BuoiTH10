@@ -32,12 +32,13 @@ namespace QuanLyQuanAn.Forms
             btnThem.Enabled = !giaTri;
             btnSua.Enabled = !giaTri;
             btnXoa.Enabled = !giaTri;
-            btnTimKiem.Enabled = !giaTri;
             btnNhap.Enabled = !giaTri;
             btnXuat.Enabled = !giaTri;
         }
         private void frmKhachHang_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/khachhang.html";
+            helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
             List<KhachHang> kh = new List<KhachHang>();
             kh = context.KhachHang.ToList();

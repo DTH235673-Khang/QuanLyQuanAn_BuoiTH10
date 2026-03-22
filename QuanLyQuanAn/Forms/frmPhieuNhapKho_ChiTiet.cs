@@ -16,6 +16,7 @@ namespace QuanLyQuanAn.Forms
         QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
         int id; // Lấy mã hóa đơn (dùng cho Sửa và Xóa)
         string tablename = "";
+        string tennv = "";
         BindingList<DanhSachPhieuNhapKho_ChiTiet> phieuNhapKhoChiTiet = new BindingList<DanhSachPhieuNhapKho_ChiTiet>();
 
         public frmPhieuNhapKho_ChiTiet(int maPhieu)
@@ -23,9 +24,10 @@ namespace QuanLyQuanAn.Forms
             InitializeComponent();
             id = maPhieu;
         }
-        public frmPhieuNhapKho_ChiTiet()
+        public frmPhieuNhapKho_ChiTiet(string s)
         {
             InitializeComponent();
+            tennv = s;
         }
         public void LayNhanVienVaoComboBox()
         {
@@ -38,12 +40,18 @@ namespace QuanLyQuanAn.Forms
             cboNhaCungCap.DataSource = context.NhaCungCap.ToList();
             cboNhaCungCap.ValueMember = "ID";
             cboNhaCungCap.DisplayMember = "TenNhaCungCap";
+            cboNhaCungCap.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboNhaCungCap.AutoCompleteSource = AutoCompleteSource.ListItems;
+
         }
         public void LayNguyenLieuVaoComboBox()
         {
             cboNguyenLieu.DataSource = context.NguyenLieu.ToList();
             cboNguyenLieu.ValueMember = "ID";
             cboNguyenLieu.DisplayMember = "TenNguyenLieu";
+            cboNguyenLieu.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboNguyenLieu.AutoCompleteSource = AutoCompleteSource.ListItems;
+
         }
         public void BatTatChucNang()
         {
@@ -88,6 +96,12 @@ namespace QuanLyQuanAn.Forms
             }
             dataGridView.DataSource = phieuNhapKhoChiTiet;
             BatTatChucNang();
+            int index = cboNhanVien.FindStringExact(tennv);
+            if (index != -1)
+            {
+                cboNhanVien.SelectedIndex = index;
+            }
+            cboNhanVien.Enabled = false;
         }
 
         private void btnXacNhanBan_Click(object sender, EventArgs e)

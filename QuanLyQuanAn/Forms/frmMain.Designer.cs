@@ -83,29 +83,30 @@
             // mnuDangNhap
             // 
             mnuDangNhap.Name = "mnuDangNhap";
-            mnuDangNhap.Size = new Size(183, 26);
+            mnuDangNhap.Size = new Size(224, 26);
             mnuDangNhap.Text = "Đăng nhập";
             mnuDangNhap.Click += mnuDangNhap_Click;
             // 
             // mnuDangXuat
             // 
             mnuDangXuat.Name = "mnuDangXuat";
-            mnuDangXuat.Size = new Size(183, 26);
+            mnuDangXuat.Size = new Size(224, 26);
             mnuDangXuat.Text = "Đăng xuất";
             mnuDangXuat.Click += mnuDangXuat_Click;
             // 
             // mnuDoiMatKhau
             // 
             mnuDoiMatKhau.Name = "mnuDoiMatKhau";
-            mnuDoiMatKhau.Size = new Size(183, 26);
+            mnuDoiMatKhau.Size = new Size(224, 26);
             mnuDoiMatKhau.Text = "Đổi mật khẩu";
             // 
             // mnuThoat
             // 
             mnuThoat.Name = "mnuThoat";
             mnuThoat.ShortcutKeys = Keys.Alt | Keys.F4;
-            mnuThoat.Size = new Size(183, 26);
+            mnuThoat.Size = new Size(224, 26);
             mnuThoat.Text = "Thoát";
+            mnuThoat.Click += mnuThoat_Click;
             // 
             // mnuQuanLy
             // 
@@ -222,14 +223,14 @@
             // mnuBaoCaoTonKho
             // 
             mnuBaoCaoTonKho.Name = "mnuBaoCaoTonKho";
-            mnuBaoCaoTonKho.Size = new Size(224, 26);
+            mnuBaoCaoTonKho.Size = new Size(217, 26);
             mnuBaoCaoTonKho.Text = "Báo cáo tồn kho";
             mnuBaoCaoTonKho.Click += mnuBaoCaoTonKho_Click;
             // 
             // mnuBaoCaoDoanhThu
             // 
             mnuBaoCaoDoanhThu.Name = "mnuBaoCaoDoanhThu";
-            mnuBaoCaoDoanhThu.Size = new Size(224, 26);
+            mnuBaoCaoDoanhThu.Size = new Size(217, 26);
             mnuBaoCaoDoanhThu.Text = "Báo cáo doanh thu";
             mnuBaoCaoDoanhThu.Click += mnuBaoCaoDoanhThu_Click;
             // 

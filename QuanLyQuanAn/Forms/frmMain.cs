@@ -34,7 +34,7 @@ namespace QuanLyQuanAn.Forms
         frmNhanVien nhanVien = null;
         frmHoaDon hoaDon = null;
         frmDangNhap dangNhap = null;
-        string hoVaTenNhanVien = ""; // Lấy tên người dùng hiển thị vào thanh Status.
+        public string hoVaTenNhanVien = ""; // Lấy tên người dùng hiển thị vào thanh Status.
         public frmMain()
         {
             InitializeComponent();
@@ -44,7 +44,7 @@ namespace QuanLyQuanAn.Forms
         {
             if (ban == null || ban.IsDisposed)
             {
-                ban = new frmBan();
+                ban = new frmBan(hoVaTenNhanVien);
                 ban.MdiParent = this;
                 ban.FormBorderStyle = FormBorderStyle.None;
                 ban.Dock = DockStyle.Fill;
@@ -71,7 +71,7 @@ namespace QuanLyQuanAn.Forms
                 bangCong.Show();
             }
             else
-                ban.Activate();
+                bangCong.Activate();
         }
 
         private void mnuCaLam_Click(object sender, EventArgs e)
@@ -286,6 +286,8 @@ namespace QuanLyQuanAn.Forms
                                     QuyenThuNgan();
                                 else if (cv.TenChucVu == "Bếp trưởng")
                                     QuyenBepTruong();
+                                else
+                                    QuyenNhanVien();
                             }
                             else
                                 ChuaDangNhap();
@@ -408,6 +410,33 @@ namespace QuanLyQuanAn.Forms
             lblTrangThai.Text = "Bếp trưởng: " + hoVaTenNhanVien;
 
         }
+        private void QuyenNhanVien()
+        {
+            mnuDangNhap.Enabled = false;
+
+            mnuDangXuat.Enabled = true;
+            mnuDoiMatKhau.Enabled = true;
+            mnuBan.Enabled = false;
+            mnuBangCong.Enabled = false;
+            mnuCaLam.Enabled = false;
+            mnuChucVu.Enabled = false;
+            mnuDanhMuc.Enabled = false;
+            mnuDonViTinh.Enabled = false;
+            mnuHoaDon.Enabled = false;
+            mnuKhachHang.Enabled = false;
+            mnuLichLam.Enabled = false;
+            mnuNguyenLieu.Enabled = false;
+            mnuNhaCungCap.Enabled = false;
+            mnuNhanVien.Enabled = false;
+            mnuPhieuNhapKho.Enabled = false;
+            mnuThucAn.Enabled = false;
+
+            mnuBaoCaoTonKho.Enabled = false;
+            mnuBaoCaoDoanhThu.Enabled = false;
+
+            lblTrangThai.Text = "Nhân viên: " + hoVaTenNhanVien;
+        }
+
 
         private void mnuDangXuat_Click(object sender, EventArgs e)
         {
@@ -425,7 +454,7 @@ namespace QuanLyQuanAn.Forms
 
         private void mnuBaoCaoTonKho_Click(object sender, EventArgs e)
         {
-            frmBaocaoTonKho f = new frmBaocaoTonKho();
+            frmBaoCaoTonKho f = new frmBaoCaoTonKho();
             f.MdiParent = this;
             f.Dock = DockStyle.Fill;
             f.FormBorderStyle = FormBorderStyle.None;
@@ -434,11 +463,18 @@ namespace QuanLyQuanAn.Forms
 
         private void mnuBaoCaoDoanhThu_Click(object sender, EventArgs e)
         {
-            frmBaocaoDoanhThu f=new frmBaocaoDoanhThu();
+            frmBaoCaoDoanhThu f = new frmBaoCaoDoanhThu();
             f.MdiParent = this;
             f.Dock = DockStyle.Fill;
             f.FormBorderStyle = FormBorderStyle.None;
             f.Show();
+        }
+
+        private void mnuThoat_Click(object sender, EventArgs e)
+        {
+            DialogResult r = MessageBox.Show("Bạn có thật sự muốn thoát?","Cảnh báo",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
+            if (r == DialogResult.OK) 
+                this.Close();
         }
     }
 }

@@ -55,6 +55,7 @@
             numSoLuongTon = new NumericUpDown();
             label3 = new Label();
             label6 = new Label();
+            helpProvider = new HelpProvider();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numGiaNhap).BeginInit();
@@ -64,7 +65,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(12, 184);
             groupBox2.Name = "groupBox2";
@@ -362,5 +363,6 @@
         private NumericUpDown numSoLuongTon;
         private Button btnNhap;
         private Button btnXuat;
+        private HelpProvider helpProvider;
     }
 }

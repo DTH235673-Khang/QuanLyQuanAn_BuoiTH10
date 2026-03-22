@@ -30,7 +30,6 @@ namespace QuanLyQuanAn.Forms
             txtTenCaLam.Enabled = giaTri;
             txtGioBatDau.Enabled = giaTri;
             txtGioKetThuc.Enabled = giaTri;
-            txtHeSoLuong.Enabled = giaTri;
             btnThem.Enabled = !giaTri;
             btnSua.Enabled = !giaTri;
             btnXoa.Enabled = !giaTri;
@@ -38,6 +37,8 @@ namespace QuanLyQuanAn.Forms
 
         private void frmCaLam_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/calam.html";
+            helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
             dataGridView.AutoGenerateColumns = false;
             List<CaLam> ca = new List<CaLam>();
@@ -50,8 +51,6 @@ namespace QuanLyQuanAn.Forms
             txtGioBatDau.DataBindings.Add("Text", bindingSource, "GioBatdau", false, DataSourceUpdateMode.Never);
             txtGioKetThuc.DataBindings.Clear();
             txtGioKetThuc.DataBindings.Add("Text", bindingSource, "GioKetThuc", false, DataSourceUpdateMode.Never);
-            txtHeSoLuong.DataBindings.Clear();
-            txtHeSoLuong.DataBindings.Add("Text", bindingSource, "HeSoLuong", false, DataSourceUpdateMode.Never);
             dataGridView.DataSource = bindingSource;
         }
 
@@ -62,7 +61,6 @@ namespace QuanLyQuanAn.Forms
             txtTenCaLam.Clear();
             txtGioBatDau.Clear();
             txtGioKetThuc.Clear();
-            txtHeSoLuong.Clear();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -96,14 +94,10 @@ namespace QuanLyQuanAn.Forms
                 MessageBox.Show("Vui lòng nhập giờ bắt đầu", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (txtGioKetThuc.Text.IsNullOrEmpty())
                 MessageBox.Show("Vui lòng nhập giờ bắt đầu", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else if (txtHeSoLuong.Text.IsNullOrEmpty())
-                MessageBox.Show("Vui lòng nhập hệ số lương", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (!CheckDinhDangTime(txtGioBatDau.Text, "Giờ bắt đầu"))
                 return;
             else if (!CheckDinhDangTime(txtGioKetThuc.Text, "Giờ kết thúc"))
                 return;
-            else if (string.IsNullOrWhiteSpace(txtHeSoLuong.Text) || !float.TryParse(txtHeSoLuong.Text, out float hsl) || hsl <= 0)
-                MessageBox.Show("Hệ số lương phải là số và lớn hơn 0", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
                 TimeOnly batDau = TimeOnly.Parse(txtGioBatDau.Text);
@@ -117,7 +111,7 @@ namespace QuanLyQuanAn.Forms
                 bool daTonTai = context.CaLam.Any(x => x.TenCa == txtTenCaLam.Text
                     && x.GioBatDau == batDau
                      && x.GioKetThuc==ketThuc
-                     && x.HeSoLuong==Convert.ToSingle(txtHeSoLuong.Text));
+                   );
                 if (daTonTai)
                 {
                     MessageBox.Show("Ca làm đã tồn tại", "Lỗi");
@@ -131,7 +125,6 @@ namespace QuanLyQuanAn.Forms
                     ca.TenCa = txtTenCaLam.Text;
                     ca.GioBatDau = TimeOnly.Parse(txtGioBatDau.Text);
                     ca.GioKetThuc = TimeOnly.Parse(txtGioKetThuc.Text);
-                    ca.HeSoLuong = Convert.ToSingle(txtHeSoLuong.Text);
                     context.CaLam.Add(ca);
                     context.SaveChanges();
                 }
@@ -143,7 +136,6 @@ namespace QuanLyQuanAn.Forms
                         ca.TenCa = txtTenCaLam.Text;
                         ca.GioBatDau = TimeOnly.Parse(txtGioBatDau.Text);
                         ca.GioKetThuc = TimeOnly.Parse(txtGioKetThuc.Text);
-                        ca.HeSoLuong = Convert.ToSingle(txtHeSoLuong.Text);
                         context.CaLam.Update(ca);
                         context.SaveChanges();
                     }
@@ -236,11 +228,6 @@ namespace QuanLyQuanAn.Forms
                                         throw new Exception("Giờ kết thúc phải sau giờ bắt đầu");
                                     }
 
-                                    // 3. Kiểm tra hệ số lương
-                                    if (!float.TryParse(r["HeSoLuong"].ToString(), out float hsl) || hsl <= 0)
-                                    {
-                                        throw new Exception("Hệ số lương không hợp lệ");
-                                    }
 
                                     if (ten.IsNullOrEmpty() )
                                     {
@@ -249,8 +236,7 @@ namespace QuanLyQuanAn.Forms
 
                                     // 4. Kiểm tra trùng lặp
                                     bool daTonTai = context.CaLam.Any(x => x.TenCa == ten
-                                                   && x.GioBatDau == batDau && x.GioKetThuc == ketThuc
-                                                   && x.HeSoLuong == hsl);
+                                                   && x.GioBatDau == batDau && x.GioKetThuc == ketThuc);
                                     if (daTonTai)
                                     {
                                         throw new Exception("Trùng dữ liệu");
@@ -262,7 +248,6 @@ namespace QuanLyQuanAn.Forms
                                         TenCa = ten,
                                         GioBatDau = batDau,
                                         GioKetThuc = ketThuc,
-                                        HeSoLuong = hsl
                                     };
                                     context.CaLam.Add(ca);
                                     context.SaveChanges();
@@ -306,13 +291,12 @@ namespace QuanLyQuanAn.Forms
                     new DataColumn("TenCaLam", typeof(string)),
                     new DataColumn("GioBatDau", typeof(TimeOnly)),
                     new DataColumn("GioKetThuc", typeof(TimeOnly)),
-                    new DataColumn("HeSoLuong", typeof(string))
                     });
                     var caLam = context.CaLam.ToList();
                     if (caLam != null)
                     {
                         foreach (var p in caLam)
-                            table.Rows.Add(p.Id, p.TenCa,p.GioBatDau,p.GioKetThuc,p.HeSoLuong);
+                            table.Rows.Add(p.Id, p.TenCa,p.GioBatDau,p.GioKetThuc);
                     }
                     using (XLWorkbook wb = new XLWorkbook())
                     {

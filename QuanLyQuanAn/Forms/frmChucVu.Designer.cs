@@ -47,6 +47,7 @@
             label1 = new Label();
             groupBox1 = new GroupBox();
             numLuongTheoGio = new NumericUpDown();
+            helpProvider = new HelpProvider();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             groupBox1.SuspendLayout();
@@ -104,7 +105,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(12, 154);
             groupBox2.Name = "groupBox2";
@@ -277,5 +278,6 @@
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn TenChucVu;
         private DataGridViewTextBoxColumn LuongTheoGio;
+        private HelpProvider helpProvider;
     }
 }

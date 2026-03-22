@@ -39,7 +39,7 @@ namespace QuanLyQuanAn.Data
         public DateTime NgayLap { get; set; }
         public string? GhiChuHoaDon { get; set; }
         public string? XemChiTiet { get; set; }
-        public double? TongTienHoaDon { get; set; }
+        public decimal? TongTienHoaDon { get; set; }
         public int trangthai { get; set; }
 
     }

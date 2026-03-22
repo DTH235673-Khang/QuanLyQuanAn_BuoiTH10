@@ -34,6 +34,8 @@ namespace QuanLyQuanAn.Forms
 
         private void frmDanhMuc_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/danhmuc.html";
+            helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
             List<DanhMuc> lsp = new List<DanhMuc>();
             lsp = context.DanhMuc.ToList();

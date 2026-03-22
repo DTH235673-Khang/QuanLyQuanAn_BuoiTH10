@@ -26,6 +26,8 @@ namespace QuanLyQuanAn.Forms
 
         private void frmHoaDon_Load(object sender, EventArgs e)
         {
+            helpProvider.HelpNamespace = "Help/hoadon.html";
+            helpProvider.SetShowHelp(this, true);
             dataGridView.AutoGenerateColumns = false;
             List<DanhSachHoaDon> hd = new List<DanhSachHoaDon>();
             hd = context.HoaDon.Select(r => new DanhSachHoaDon
@@ -38,7 +40,7 @@ namespace QuanLyQuanAn.Forms
                 BanID = r.BanID,
                 NgayLap = r.NgayLap,
                 GhiChuHoaDon = r.GhiChuHoaDon,
-                TongTienHoaDon =(double) r.TongTien,
+                TongTienHoaDon = r.TongTien,
                 XemChiTiet = "Xem chi tiết"
             }).ToList();
             dataGridView.DataSource = hd;
@@ -112,7 +114,7 @@ namespace QuanLyQuanAn.Forms
                         int thatbai = 0;
                         if (table1.Rows.Count > 0)
                         {
-                           
+
                             foreach (DataRow r in table1.Rows)
                             {
                                 try
@@ -121,13 +123,13 @@ namespace QuanLyQuanAn.Forms
                                     var kh = context.KhachHang.FirstOrDefault(x => x.HoVaTen == r["KhachHang"].ToString());
                                     var ban = context.Ban.FirstOrDefault(x => x.TenBan == r["Ban"].ToString());
                                     DateTime dt = Convert.ToDateTime(r["NgayLap"]);
-                                    string ghichu= r["GhiChuHoaDon"].ToString();
+                                    string ghichu = r["GhiChuHoaDon"].ToString();
                                     double tongtien = Convert.ToDouble(r["TongTien"]);
-                                    if(nv==null||kh==null||ban==null||dt==null||tongtien<=0)
+                                    if (nv == null || kh == null || ban == null || dt == null || tongtien <= 0)
                                     {
                                         throw new Exception("Không lấy được dữ liệu");
                                     }
-                                    
+
                                     if (nv != null && kh != null && ban != null)
                                     {
                                         HoaDon hd = new HoaDon();
@@ -142,7 +144,7 @@ namespace QuanLyQuanAn.Forms
                                         thanhcong++;
                                     }
                                 }
-                                catch(Exception ex)
+                                catch (Exception ex)
                                 {
                                     thatbai++;
                                     MessageBox.Show("Lỗi: " + ex.Message, "Thông báo lỗi");
@@ -193,7 +195,7 @@ namespace QuanLyQuanAn.Forms
                                 {
 
                                 }
-                               
+
                             }
                             context.SaveChanges();
                         }
@@ -240,8 +242,8 @@ namespace QuanLyQuanAn.Forms
                         {
                             var nv = context.NhanVien.FirstOrDefault(r => r.ID == p.NhanVienID);
                             var kh = context.KhachHang.FirstOrDefault(r => r.ID == p.KhachHangID);
-                            var ban=context.Ban.FirstOrDefault(r => r.ID==p.BanID);
-                            tableHD.Rows.Add(p.ID, nv.HoVaTen, kh.HoVaTen, p.NgayLap, p.GhiChuHoaDon,ban.TenBan, p.TongTien);
+                            var ban = context.Ban.FirstOrDefault(r => r.ID == p.BanID);
+                            tableHD.Rows.Add(p.ID, nv.HoVaTen, kh.HoVaTen, p.NgayLap, p.GhiChuHoaDon, ban.TenBan, p.TongTien);
                         }
                     }
 
@@ -283,6 +285,15 @@ namespace QuanLyQuanAn.Forms
                 {
                     MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
+            }
+        }
+
+        private void btnInHoaDon_Click(object sender, EventArgs e)
+        {
+            id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+            using (frmInHoaDon inHoaDon = new frmInHoaDon(id))
+            {
+                inHoaDon.ShowDialog();
             }
         }
     }

@@ -54,7 +54,6 @@
             cboMonAn = new ComboBox();
             label4 = new Label();
             btnLuuHoaDon = new Button();
-            btnInHoaDon = new Button();
             btnThoat = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -286,7 +285,7 @@
             // btnLuuHoaDon
             // 
             btnLuuHoaDon.ForeColor = Color.Blue;
-            btnLuuHoaDon.Location = new Point(280, 444);
+            btnLuuHoaDon.Location = new Point(330, 444);
             btnLuuHoaDon.Name = "btnLuuHoaDon";
             btnLuuHoaDon.Size = new Size(123, 29);
             btnLuuHoaDon.TabIndex = 14;
@@ -294,19 +293,10 @@
             btnLuuHoaDon.UseVisualStyleBackColor = true;
             btnLuuHoaDon.Click += btnLuuHoaDon_Click;
             // 
-            // btnInHoaDon
-            // 
-            btnInHoaDon.Location = new Point(409, 444);
-            btnInHoaDon.Name = "btnInHoaDon";
-            btnInHoaDon.Size = new Size(123, 29);
-            btnInHoaDon.TabIndex = 14;
-            btnInHoaDon.Text = "In hóa đơn...";
-            btnInHoaDon.UseVisualStyleBackColor = true;
-            // 
             // btnThoat
             // 
             btnThoat.ForeColor = Color.Red;
-            btnThoat.Location = new Point(538, 444);
+            btnThoat.Location = new Point(461, 444);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(123, 29);
             btnThoat.TabIndex = 15;
@@ -320,7 +310,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(945, 485);
             Controls.Add(btnThoat);
-            Controls.Add(btnInHoaDon);
             Controls.Add(btnLuuHoaDon);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -363,7 +352,6 @@
         private DataGridViewTextBoxColumn SoLuongBan;
         private DataGridViewTextBoxColumn ThanhTien;
         private Button btnLuuHoaDon;
-        private Button btnInHoaDon;
         private Button btnThoat;
     }
 }

@@ -12,13 +12,14 @@ using DocumentFormat.OpenXml.InkML;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.IdentityModel.Tokens;
 using QuanLyQuanAn.Data;
+using QuanLyQuanAn.Reports;
 
 namespace QuanLyQuanAn.Forms
 {
     public partial class frmBangCong : Form
     {
         QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
-        int id;
+        int id;
         bool xulythem = false;
         public frmBangCong()
         {
@@ -26,8 +27,6 @@ namespace QuanLyQuanAn.Forms
         }
         private void BatTatChucNang(bool giaTri)
         {
-            cboThang.Enabled = giaTri;
-            cboNam.Enabled = giaTri;
             btnXem.Enabled = giaTri;
             cboNhanVien.Enabled = giaTri;
             btnIn.Enabled = giaTri;
@@ -50,32 +49,24 @@ namespace QuanLyQuanAn.Forms
             cboNhanVien.DisplayMember = "HoVaTen";
         }
 
-        private void NapDuLieuChoComboBox()
-        {
-            // Nạp danh sách tháng 1-12
-            cboThang.DataSource = Enumerable.Range(1, 12).ToList();
-
-            // Nạp danh sách năm (ví dụ từ 2025 đến 2030)
-            cboNam.DataSource = Enumerable.Range(2025, 6).ToList();
-        }
         private void btnXem_Click(object sender, EventArgs e)
         {
-            // Kiểm tra an toàn: Nếu chưa chọn giá trị thì thoát hàm, không chạy code bên dưới
-            if (cboThang.SelectedValue == null || cboNam.SelectedValue == null)
+            // Kiểm tra an toàn: Nếu chưa chọn giá trị thì thoát hàm, không chạy code bên dưới
+            if (dtpThoiGian.Value == null)
             {
-                MessageBox.Show("ComboBox chưa có dữ liệu hoặc chưa chọn tháng/năm!");
+                MessageBox.Show("Vui lòng chọn thời gian cần xem!");
                 return;
             }
             try
             {
-                // Ép kiểu an toàn
-                int thang = Convert.ToInt32(cboThang.SelectedValue);
-                int nam = Convert.ToInt32(cboNam.SelectedValue);
+                // Ép kiểu an toàn
+                int thang = Convert.ToInt32(dtpThoiGian.Value.Month);
+                int nam = Convert.ToInt32(dtpThoiGian.Value.Year);
                 var bc = context.BangCong.Where(r => r.Ngay.Month == thang && r.Ngay.Year == nam).ToList();
                 if (bc.Count == 0 && thang != DateTime.Now.Month)
                 {
                     MessageBox.Show($"Không có chấm công phát sinh trong tháng {thang} năm {nam}",
-                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -98,8 +89,8 @@ namespace QuanLyQuanAn.Forms
             }
             catch (Exception ex)
             {
-                // Debug lỗi nếu có vấn đề về kết nối CSDL
-                Console.WriteLine("Lỗi truy vấn: " + ex.Message);
+                // Debug lỗi nếu có vấn đề về kết nối CSDL
+                Console.WriteLine("Lỗi truy vấn: " + ex.Message);
             }
         }
         private void btnIn_Click(object sender, EventArgs e)
@@ -139,7 +130,7 @@ namespace QuanLyQuanAn.Forms
                     context.BangCong.Add(checkInMoi);
                     context.SaveChanges();
                     MessageBox.Show($"Check-in thành công cho nhân viên: {cboNhanVien.Text}\nGiờ vào: {bayGio.ToString("HH:mm:ss")}",
-                                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 btnXem_Click(sender, e);
@@ -152,11 +143,24 @@ namespace QuanLyQuanAn.Forms
 
         private void frmBangCong_Load(object sender, EventArgs e)
         {
-            NapDuLieuChoComboBox();
-            cboThang.SelectedItem = DateTime.Now.Month;
-            cboNam.SelectedItem = DateTime.Now.Year;
+            helpProvider.HelpNamespace = "Help/bangcong.html";
+            helpProvider.SetShowHelp(this, true);
             LayNhanVienVaoComboBox();
-            btnXem_Click(sender, e);
+            BatTatChucNang(true);
+            var bangcong = context.BangCong
+              .Where(r => r.Ngay.Month == DateTime.Now.Month && r.Ngay.Year == DateTime.Now.Year)
+              .Select(bc => new
+              {
+                  bc.ID,
+                  bc.Ngay,
+                  HoVaTenNhanVien = bc.NhanVien.HoVaTen,
+                  bc.GioVaoThucTe,
+                  bc.GioRaThucTe,
+                  bc.SoGioLam
+              }).ToList();
+            BindingSource bindingSource = new BindingSource();
+            bindingSource.DataSource = bangcong;
+            dataGridView.DataSource = bangcong;
 
         }
 
@@ -179,7 +183,7 @@ namespace QuanLyQuanAn.Forms
                     context.BangCong.Update(check);
                     context.SaveChanges();
                     MessageBox.Show($"Check-out thành công cho nhân viên: {cboNhanVien.Text}\nGiờ ra: {DateTime.Now.ToString("HH:mm:ss")}",
-                                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     frmBangCong_Load(sender, e);
                 }
                 else
@@ -198,32 +202,32 @@ namespace QuanLyQuanAn.Forms
 
         private void btnXuat_Click(object sender, EventArgs e)
         {
-            int thang = Convert.ToInt32(cboThang.SelectedValue);
-            int nam = Convert.ToInt32(cboNam.SelectedValue);
+            int thang = Convert.ToInt32(dtpThoiGian.Value.Month);
+            int nam = Convert.ToInt32(dtpThoiGian.Value.Year);
             var bc = context.BangCong.Where(r => r.Ngay.Month == thang && r.Ngay.Year == nam).ToList();
             if (bc.Count == 0)
             {
                 MessageBox.Show($"Không có chấm công phát sinh trong tháng {thang} năm {nam}",
-                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             var data = context.BangCong.Where(b => b.Ngay.Month == thang && b.Ngay.Year == nam)
-                .GroupBy(b => b.NhanVien.HoVaTen)
-                .Select(g => new
-                {
-                    Ten = g.Key,
-                    Tong = g.Sum(x => x.SoGioLam),
-                    ChiTiet = g
-                        .GroupBy(r => r.Ngay.Day)
-                       .Select(gNgay => new
-                       {
-                           Ngay = gNgay.Key,
-                           TongGioNgay = gNgay.Sum(x => x.SoGioLam)
-                       }).ToList()
-                }).ToList();
+              .GroupBy(b => b.NhanVien.HoVaTen)
+              .Select(g => new
+              {
+                  Ten = g.Key,
+                  Tong = g.Sum(x => x.SoGioLam),
+                  ChiTiet = g
+                  .GroupBy(r => r.Ngay.Day)
+                 .Select(gNgay => new
+                 {
+                     Ngay = gNgay.Key,
+                     TongGioNgay = gNgay.Sum(x => x.SoGioLam)
+                 }).ToList()
+              }).ToList();
 
-            // Tạo DataTable
-            DataTable dt = new DataTable();
+            // Tạo DataTable
+            DataTable dt = new DataTable();
             dt.Columns.Add("Tên Nhân Viên");
             dt.Columns.Add("Tổng Giờ", typeof(double));
             int ngay = 0;
@@ -248,8 +252,8 @@ namespace QuanLyQuanAn.Forms
             }
             for (int i = 1; i <= ngay; i++) dt.Columns.Add(i + "/" + thang, typeof(double));
 
-            // Đổ dữ liệu vào DataTable
-            foreach (var item in data)
+            // Đổ dữ liệu vào DataTable
+            foreach (var item in data)
             {
                 DataRow dr = dt.NewRow();
                 dr["Tên Nhân Viên"] = item.Ten;
@@ -271,8 +275,8 @@ namespace QuanLyQuanAn.Forms
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add(dt, "BangCong");
 
-                // Format 2 số lẻ cho cột Tổng Giờ và các ngày
-                ws.Range("B2:AG" + (dt.Rows.Count + 1)).Style.NumberFormat.Format = "0.00";
+                // Format 2 số lẻ cho cột Tổng Giờ và các ngày
+                ws.Range("B2:AG" + (dt.Rows.Count + 1)).Style.NumberFormat.Format = "0.00";
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(sfd.FileName);
@@ -365,6 +369,10 @@ namespace QuanLyQuanAn.Forms
                     MessageBox.Show("Vui lòng chọn dòng chấm công cần sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 else
                 {
+                    DialogResult dr;
+                    dr = MessageBox.Show("Xác nhận sửa chấm công cho " + dataGridView.CurrentRow.Cells["HoVaTenNhanVien"].Value.ToString() + ".", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                    if (dr != DialogResult.OK)
+                        return;
                     if (!txtIn.Text.IsNullOrEmpty() || !txtOut.Text.IsNullOrEmpty())
                     {
                         int id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
@@ -396,7 +404,7 @@ namespace QuanLyQuanAn.Forms
                             {
                                 if (TimeOnly.TryParse(txtOut.Text, out TimeOnly ot))
                                 {
-                                    DateOnly newOut = DateOnly.FromDateTime(kq.GioRaThucTe);
+                                    DateOnly newOut = DateOnly.FromDateTime(kq.GioVaoThucTe);
                                     DateTime result = newOut.ToDateTime(ot);
                                     kq.GioRaThucTe = result;
                                     kq.SoGioLam = (float)(kq.GioRaThucTe - kq.GioVaoThucTe).TotalHours;
@@ -429,6 +437,15 @@ namespace QuanLyQuanAn.Forms
 
         private void btnXuatBangLuong_Click(object sender, EventArgs e)
         {
+            int thang = Convert.ToInt32(dtpThoiGian.Value.Month);
+            int nam = Convert.ToInt32(dtpThoiGian.Value.Year);
+            var bc = context.BangCong.Where(r => r.Ngay.Month == thang && r.Ngay.Year == nam).ToList();
+            if (bc.Count == 0)
+            {
+                MessageBox.Show($"Không có bảng lương phát sinh trong tháng {thang} năm {nam}",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Title = "Xuất dữ liệu ra tập tin Excel";
             saveFileDialog.Filter = "Tập tin Excel|*.xls;*.xlsx";
@@ -437,31 +454,24 @@ namespace QuanLyQuanAn.Forms
             {
                 try
                 {
-                    int thang = Convert.ToInt32(cboThang.SelectedValue);
-                    int nam = Convert.ToInt32(cboNam.SelectedValue);
-                    var bc = context.BangCong.Where(r => r.Ngay.Month == thang && r.Ngay.Year == nam).ToList();
-                    if (bc.Count == 0)
-                    {
-                        MessageBox.Show($"Không có bảng lương phát sinh trong tháng {thang} năm {nam}",
-                                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
+
                     DataTable table = new DataTable();
                     table.Columns.AddRange(new DataColumn[] {
-                    new DataColumn("Nhân viên", typeof(string)),
-                    new DataColumn("Tổng giờ công", typeof(float)),
-                    new DataColumn("Lương theo giờ", typeof(float)),
-                    new DataColumn("Tổng lương", typeof(decimal))
-                    });
+          new DataColumn("Nhân viên", typeof(string)),
+          new DataColumn("Tổng giờ công", typeof(float)),
+          new DataColumn("Lương theo giờ", typeof(float)),
+          new DataColumn("Tổng lương", typeof(decimal))
+          });
                     var data = context.BangCong.Where(b => b.Ngay.Month == thang && b.Ngay.Year == nam)
-                     .GroupBy(b => b.NhanVien.HoVaTen)
-                     .Select(g => new
-                     {
-                         Ten = g.Key,
-                         Tong = g.Sum(x => x.SoGioLam),
+                    .GroupBy(b => b.NhanVien.HoVaTen)
+                    .Select(g => new
+                    {
+                        Ten = g.Key,
+
+                        Tong = g.Sum(x => x.SoGioLam),
 
 
-                     }).ToList();
+                    }).ToList();
 
                     if (data != null)
                     {
@@ -469,7 +479,7 @@ namespace QuanLyQuanAn.Forms
                         {
                             var nv = context.NhanVien.FirstOrDefault(x => x.HoVaTen == p.Ten);
                             var cv = context.ChucVu.FirstOrDefault(x => x.ID == nv.ChucVuID);
-                            table.Rows.Add(p.Ten, p.Tong, cv.LuongTheoGio, Math.Round((decimal)(p.Tong) * cv.LuongTheoGio,2));
+                            table.Rows.Add(p.Ten, p.Tong, cv.LuongTheoGio, Math.Round((decimal)(p.Tong) * cv.LuongTheoGio, 2));
                         }
                     }
                     using (XLWorkbook wb = new XLWorkbook())
@@ -489,7 +499,121 @@ namespace QuanLyQuanAn.Forms
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-           frmBangCong_Load(sender, e);
+            frmBangCong_Load(sender, e);
+        }
+
+        private void btnXemTheoNgay_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra an toàn: Nếu chưa chọn giá trị thì thoát hàm, không chạy code bên dưới
+            if (dtpThoiGian.Value == null)
+            {
+                MessageBox.Show("Vui lòng chọn thời gian cần xem!");
+                return;
+            }
+            try
+            {
+                // Ép kiểu an toàn
+                int thang = Convert.ToInt32(dtpThoiGian.Value.Month);
+                int nam = Convert.ToInt32(dtpThoiGian.Value.Year);
+                int ngay = Convert.ToInt32(dtpThoiGian.Value.Day);
+                var bc = context.BangCong.Where(r => r.Ngay.Month == thang && r.Ngay.Year == nam && r.Ngay.Day == ngay).ToList();
+                if (bc.Count == 0)
+                {
+                    MessageBox.Show($"Không có chấm công phát sinh trong ngày {ngay} tháng {thang} năm {nam}",
+                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    BatTatChucNang(true);
+                    var bangcong = context.BangCong
+                      .Where(r => r.Ngay.Month == thang && r.Ngay.Year == nam && r.Ngay.Day == ngay)
+                      .Select(bc => new
+                      {
+                          bc.ID,
+                          bc.Ngay,
+                          HoVaTenNhanVien = bc.NhanVien.HoVaTen,
+                          bc.GioVaoThucTe,
+                          bc.GioRaThucTe,
+                          bc.SoGioLam
+                      }).ToList();
+                    BindingSource bindingSource = new BindingSource();
+                    bindingSource.DataSource = bangcong;
+                    dataGridView.DataSource = bangcong;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // Debug lỗi nếu có vấn đề về kết nối CSDL
+                Console.WriteLine("Lỗi truy vấn: " + ex.Message);
+            }
+        }
+
+        private void btnKiemTra_Click(object sender, EventArgs e)
+        {
+            int thang = Convert.ToInt32(dtpThoiGian.Value.Month);
+            int nam = Convert.ToInt32(dtpThoiGian.Value.Year);
+            var bc = context.BangCong.Where(r => r.Ngay.Month == thang && r.Ngay.Year == nam).ToList();
+            if (bc.Count == 0)
+            {
+                MessageBox.Show($"Không có bảng công phát sinh trong tháng {thang} năm {nam}",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Xuất dữ liệu ra tập tin Excel";
+            saveFileDialog.Filter = "Tập tin Excel|*.xls;*.xlsx";
+            saveFileDialog.FileName = "KiemTraBangCong_" + DateTime.Now.ToShortDateString().Replace("/", "_") + ".xlsx";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+
+                    DataTable table = new DataTable();
+                    table.Columns.AddRange(new DataColumn[] {
+          new DataColumn("Ngày", typeof(DateOnly)),
+          new DataColumn("Nhân viên", typeof(string)),
+          new DataColumn("Giờ vào thực tế", typeof(TimeOnly)),
+          new DataColumn("Giờ ra thực tế", typeof(TimeOnly)),
+          new DataColumn("Trạng thái", typeof(string))
+          });
+                    var data = context.BangCong.Where(b => b.Ngay.Month == thang && b.Ngay.Year == nam).ToList();
+
+                    if (data != null)
+                    {
+                        foreach (var p in data)
+                        {
+                            string trangthai = "";
+                            var nv = context.NhanVien.FirstOrDefault(x => x.ID == p.NhanVienID);
+                            var ll = context.LichLam.FirstOrDefault(x => x.NgayPhanCong.Day == p.Ngay.Day && x.NgayPhanCong.Month == p.Ngay.Month && x.NhanVienID == p.NhanVienID);
+                            if (ll == null)
+                            {
+                                trangthai = "Ca làm phát sinh";
+                            }
+                            else if (ll != null)
+                            {
+                                var cl = context.CaLam.FirstOrDefault(x => x.Id == ll.CaLamID);
+                                if (TimeOnly.FromDateTime(p.GioVaoThucTe) > cl.GioBatDau)
+                                    trangthai = "Đi trễ";
+                            }
+
+                            table.Rows.Add(p.Ngay, nv.HoVaTen, TimeOnly.FromDateTime(p.GioVaoThucTe), TimeOnly.FromDateTime(p.GioRaThucTe), trangthai);
+                        }
+                    }
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var sheet = wb.Worksheets.Add(table, "KiemTra");
+                        sheet.Columns().AdjustToContents();
+                        wb.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Đã xuất dữ liệu ra tập tin Excel thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
         }
     }
 }

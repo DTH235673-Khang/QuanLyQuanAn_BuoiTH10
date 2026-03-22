@@ -90,9 +90,6 @@ namespace QuanLyQuanAn.Migrations
                     b.Property<TimeOnly>("GioKetThuc")
                         .HasColumnType("time");
 
-                    b.Property<float>("HeSoLuong")
-                        .HasColumnType("real");
-
                     b.Property<string>("TenCa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
