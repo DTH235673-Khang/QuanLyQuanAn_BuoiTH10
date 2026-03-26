@@ -34,13 +34,13 @@ namespace QuanLyQuanAn.Forms
         }
         public void LayNhanVienVaoComboBox()
         {
-            cboNhanVien.DataSource = context.NhanVien.ToList();
+            cboNhanVien.DataSource = context.NhanVien.Where(r => r.TrangThai == 1).ToList();
             cboNhanVien.ValueMember = "ID";
             cboNhanVien.DisplayMember = "HoVaTen";
         }
         public void LayKhachHangVaoComboBox()
         {
-            cboKhachHang.DataSource = context.KhachHang.ToList();
+            cboKhachHang.DataSource = context.KhachHang.Where(r => r.TrangThai == 1).ToList();
             cboKhachHang.ValueMember = "ID";
             cboKhachHang.DisplayMember = "HoVaTen";
             cboKhachHang.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -48,7 +48,7 @@ namespace QuanLyQuanAn.Forms
         }
         public void LayThucAnVaoComboBox()
         {
-            cboMonAn.DataSource = context.ThucAn.ToList();
+            cboMonAn.DataSource = context.ThucAn.Where(r=>r.TrangThai=="Đang hoạt động").ToList();
             cboMonAn.ValueMember = "ID";
             cboMonAn.DisplayMember = "TenThucAn";
             cboMonAn.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -61,7 +61,6 @@ namespace QuanLyQuanAn.Forms
             {
                 // Xóa trắng các trường
                 cboKhachHang.Text = "";
-                cboNhanVien.Text = "";
                 cboMonAn.Text = "";
                 numSoLuongBan.Value = 1;
                 numDonGiaBan.Value = 0;
@@ -101,6 +100,7 @@ namespace QuanLyQuanAn.Forms
             if (index != -1)
             {
                 cboNhanVien.SelectedIndex = index;
+               
             }
             cboNhanVien.Enabled = false;
         }
@@ -113,6 +113,7 @@ namespace QuanLyQuanAn.Forms
                 MessageBox.Show("Số lượng bán phải lớn hơn 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (numDonGiaBan.Value <= 0)
                 MessageBox.Show("Đơn giá bán sản phẩm phải lớn hơn 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
             {
                 int maSanPham = Convert.ToInt32(cboMonAn.SelectedValue.ToString());
                 var chiTiet = hoaDonChiTiet.FirstOrDefault(x => x.ThucAnID == maSanPham);

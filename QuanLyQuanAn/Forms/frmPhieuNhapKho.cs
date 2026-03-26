@@ -94,7 +94,7 @@ namespace QuanLyQuanAn.Forms
 
         private void btnTaoPhieu_Click(object sender, EventArgs e)
         {
-            var parent=(frmMain)this.MdiParent;
+            var parent = (frmMain)this.MdiParent;
             using (frmPhieuNhapKho_ChiTiet chitiet = new frmPhieuNhapKho_ChiTiet(parent.hoVaTenNhanVien))
             {
                 chitiet.ShowDialog();
@@ -355,6 +355,23 @@ namespace QuanLyQuanAn.Forms
             using (frmInPhieuNhapKho inPhieuNhapKho = new frmInPhieuNhapKho(id))
             {
                 inPhieuNhapKho.ShowDialog();
+            }
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // 1. Kiểm tra xem người dùng có click vào hàng dữ liệu không (tránh click vào tiêu đề cột)
+            if (e.RowIndex < 0) return;
+
+            // 2. Kiểm tra xem người dùng có click đúng vào cột Link hay không
+            // Bạn có thể kiểm tra theo Tên cột hoặc Chỉ số cột
+            if (dataGridView.Columns[e.ColumnIndex].Name == "XemChiTiet")
+            {
+                id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                using (frmInPhieuNhapKho inPhieuNhapKho = new frmInPhieuNhapKho(id))
+                {
+                    inPhieuNhapKho.ShowDialog();
+                }
             }
         }
     }

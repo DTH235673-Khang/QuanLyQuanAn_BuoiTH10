@@ -40,8 +40,9 @@ namespace QuanLyQuanAn.Forms
             helpProvider.HelpNamespace = "Help/khachhang.html";
             helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
+            dataGridView.AutoGenerateColumns = false;
             List<KhachHang> kh = new List<KhachHang>();
-            kh = context.KhachHang.ToList();
+            kh = context.KhachHang.Where(r=>r.TrangThai==1).ToList();
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = kh;
             txtHoVaTen.DataBindings.Clear();
@@ -77,7 +78,8 @@ namespace QuanLyQuanAn.Forms
                 KhachHang kh = context.KhachHang.Find(id);
                 if (kh != null)
                 {
-                    context.KhachHang.Remove(kh);
+                    kh.TrangThai = 0;
+                    context.KhachHang.Update(kh);
                 }
                 context.SaveChanges();
                 frmKhachHang_Load(sender, e);
@@ -105,6 +107,7 @@ namespace QuanLyQuanAn.Forms
                     kh.HoVaTen = txtHoVaTen.Text;
                     kh.DienThoai = txtDienThoai.Text;
                     kh.DiaChi = txtDiaChi.Text;
+                    kh.TrangThai = 1;
                     context.KhachHang.Add(kh);
                     context.SaveChanges();
                 }

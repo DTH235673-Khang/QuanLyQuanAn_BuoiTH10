@@ -40,8 +40,9 @@ namespace QuanLyQuanAn.Forms
             helpProvider.HelpNamespace = "Help/nhacungcap.html";
             helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
+            dataGridView.AutoGenerateColumns = false;
             List<NhaCungCap> ncc = new List<NhaCungCap>();
-            ncc = context.NhaCungCap.ToList();
+            ncc = context.NhaCungCap.Where(r=>r.TrangThai==1).ToList();
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = ncc;
             txtHoVaTen.DataBindings.Clear();
@@ -78,7 +79,8 @@ namespace QuanLyQuanAn.Forms
                 NhaCungCap ncc = context.NhaCungCap.Find(id);
                 if (ncc != null)
                 {
-                    context.NhaCungCap.Remove(ncc);
+                    ncc.TrangThai = 0;
+                    context.NhaCungCap.Update(ncc);
                 }
                 context.SaveChanges();
                 frmNhaCungCap_Load(sender, e);
@@ -105,6 +107,7 @@ namespace QuanLyQuanAn.Forms
                     ncc.TenNhaCungCap = txtHoVaTen.Text;
                     ncc.SoDienThoai = txtDienThoai.Text;
                     ncc.DiaChi = txtDiaChi.Text;
+                    ncc.TrangThai = 1;
                     context.NhaCungCap.Add(ncc);
                     context.SaveChanges();
                 }

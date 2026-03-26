@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClosedXML.Excel;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using QuanLyQuanAn.Data;
 
@@ -44,7 +45,9 @@ namespace QuanLyQuanAn.Forms
             BatTatChucNang(false);
             dataGridView.AutoGenerateColumns = false;
             List<DanhSachNguyenLieu> sp = new List<DanhSachNguyenLieu>();
-            sp = context.NguyenLieu.Select(r => new DanhSachNguyenLieu
+            sp = context.NguyenLieu
+                .Where(l => l.TrangThai==1)
+                .Select(r => new DanhSachNguyenLieu
             {
                 ID = r.ID,
                 TenNguyenLieu = r.TenNguyenLieu,
@@ -88,8 +91,14 @@ namespace QuanLyQuanAn.Forms
             if (MessageBox.Show("Xác nhận xóa nguyên liệu " + txtTenNguyenLieu.Text + "?", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                var hd = context.PhieuNhapKho_ChiTiet.FirstOrDefault(r => r.NguyenLieuID == id);
                 NguyenLieu t = context.NguyenLieu.Find(id);
-                if (t != null)
+                if (t != null && hd != null)
+                {
+                    t.TrangThai = 0;
+                    context.NguyenLieu.Update(t);
+                }
+                else if (hd == null)
                 {
                     context.NguyenLieu.Remove(t);
                 }
@@ -110,16 +119,20 @@ namespace QuanLyQuanAn.Forms
                 MessageBox.Show("Giá nhập phải lớn hơn 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                bool daTonTai = context.NguyenLieu.Any(x => x.TenNguyenLieu == txtTenNguyenLieu.Text
+                var daTonTai = context.NguyenLieu.FirstOrDefault(x => x.TenNguyenLieu == txtTenNguyenLieu.Text
                     && x.QuyCach == cboQuyCach.Text
-                    && x.GiaNhap==numGiaNhap.Value);
-                if (daTonTai)
-                {
-                    MessageBox.Show("Nguyên liệu đã tồn tại", "Lỗi");
-                    return;
-                }
+                    && x.GiaNhap == numGiaNhap.Value);
+                
                 if (xuLyThem)
                 {
+                    if (daTonTai != null)
+                    {
+                        daTonTai.TrangThai = 0;
+                        context.NguyenLieu.Update(daTonTai);
+                        context.SaveChanges();
+                        frmNguyenLieu_Load(sender, e);
+                        return;
+                    }
                     NguyenLieu t = new NguyenLieu();
                     t.TenNguyenLieu = txtTenNguyenLieu.Text;
                     t.GiaNhap = numGiaNhap.Value;
@@ -215,13 +228,16 @@ namespace QuanLyQuanAn.Forms
                                           && x.GiaNhap == g);
                                     if (daTonTai)
                                     {
-                                       throw new Exception();
+                                        var nl= context.NguyenLieu.FirstOrDefault(x => x.TenNguyenLieu == ten
+                                          && x.QuyCach == quycach
+                                          && x.GiaNhap == g);
+                                        context.NguyenLieu.Remove(nl);
                                     }
                                     NguyenLieu t = new NguyenLieu();
                                     t.TenNguyenLieu = ten;
                                     t.QuyCach = quycach;
                                     t.GiaNhap = g;
-                                    t.SoLuongTon =s;
+                                    t.SoLuongTon = s;
                                     context.NguyenLieu.Add(t);
                                     context.SaveChanges();
                                     thanhcong++;
@@ -289,6 +305,12 @@ namespace QuanLyQuanAn.Forms
                     MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
+        }
+
+        private void btnKiemKe_Click(object sender, EventArgs e)
+        {
+            frmKiemKe f=new frmKiemKe();
+            f.ShowDialog();
         }
     }
 }

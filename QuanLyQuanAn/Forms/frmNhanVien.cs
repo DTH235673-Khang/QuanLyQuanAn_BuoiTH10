@@ -53,7 +53,9 @@ namespace QuanLyQuanAn.Forms
             LayChucVuVaoComboBox();
             BatTatChucNang(false);
             dataGridView.AutoGenerateColumns = false;
-            var listNhanVien = context.NhanVien.Select(nv => new
+            var listNhanVien = context.NhanVien
+                .Where(nv => nv.TrangThai == 1)
+                .Select(nv => new
             {
                 nv.ID,
                 nv.HoVaTen,
@@ -107,7 +109,8 @@ namespace QuanLyQuanAn.Forms
                 NhanVien nv = context.NhanVien.Find(id);
                 if (nv != null)
                 {
-                    context.NhanVien.Remove(nv);
+                    nv.TrangThai = 0;
+                    context.NhanVien.Update(nv);
                 }
                 context.SaveChanges();
                 frmNhanVien_Load(sender, e);
@@ -149,6 +152,7 @@ namespace QuanLyQuanAn.Forms
                         var cv = context.ChucVu.FirstOrDefault(r => r.TenChucVu == cboChucVu.Text);
                         nv.ChucVuID = cv.ID;
                         nv.QuyenHan = (cv.TenChucVu == "Quản lý") ? true : false;
+                        nv.TrangThai = 1;
                         context.NhanVien.Add(nv);
                         context.SaveChanges();
                     }

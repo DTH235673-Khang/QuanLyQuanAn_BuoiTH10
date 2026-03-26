@@ -57,7 +57,7 @@ namespace QuanLyQuanAn.Forms
             xuLyThem = true;
             BatTatChucNang(true);
             txtTenChucVu.Clear();
-            numLuongTheoGio.Value=0;
+            numLuongTheoGio.Value = 0;
 
         }
 
@@ -86,14 +86,14 @@ namespace QuanLyQuanAn.Forms
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-           if (txtTenChucVu.Text.IsNullOrEmpty())
+            if (txtTenChucVu.Text.IsNullOrEmpty())
                 MessageBox.Show("Vui lòng nhập tên chức vụ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else if (numLuongTheoGio.Value<=0)
+            else if (numLuongTheoGio.Value <= 0)
                 MessageBox.Show("Lương theo giờ phải lớn hơn 0", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-           
+
             else
             {
-                
+
                 bool daTonTai = context.ChucVu.Any(x => x.TenChucVu == txtTenChucVu.Text
                     && x.LuongTheoGio == numLuongTheoGio.Value
                      );
@@ -108,7 +108,7 @@ namespace QuanLyQuanAn.Forms
                 {
                     ChucVu cv = new ChucVu();
                     cv.TenChucVu = txtTenChucVu.Text;
-                    cv.LuongTheoGio=numLuongTheoGio.Value;
+                    cv.LuongTheoGio = numLuongTheoGio.Value;
                     context.ChucVu.Add(cv);
                     context.SaveChanges();
                 }
@@ -185,12 +185,12 @@ namespace QuanLyQuanAn.Forms
                                 {
                                     string ten = r["TenChucVu"].ToString();
                                     Decimal luong = Convert.ToDecimal(r["LuongTheoGio"].ToString());
-                                    if (ten.IsNullOrEmpty() ||luong <= 0)
+                                    if (ten.IsNullOrEmpty() || luong <= 0)
                                     {
                                         throw new Exception("");
                                     }
                                     bool daTonTai = context.ChucVu.Any(x => x.TenChucVu == ten
-                                         && x.LuongTheoGio ==luong);
+                                         && x.LuongTheoGio == luong);
                                     if (daTonTai)
                                     {
                                         throw new Exception("Trùng");
@@ -248,7 +248,7 @@ namespace QuanLyQuanAn.Forms
                     if (chucVu != null)
                     {
                         foreach (var p in chucVu)
-                            table.Rows.Add(p.ID,p.TenChucVu,p.LuongTheoGio);
+                            table.Rows.Add(p.ID, p.TenChucVu, p.LuongTheoGio);
                     }
                     using (XLWorkbook wb = new XLWorkbook())
                     {

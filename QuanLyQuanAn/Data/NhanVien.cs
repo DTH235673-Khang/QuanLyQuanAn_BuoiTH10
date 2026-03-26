@@ -17,6 +17,7 @@ namespace QuanLyQuanAn.Data
         public string MatKhau { get; set; }
         public bool QuyenHan {  get; set; }
         public int ChucVuID { get; set; }
+        public int TrangThai { get; set; }
         public virtual ObservableCollectionListSource<HoaDon> HoaDon { get; } = new();
         public virtual ObservableCollectionListSource<PhieuNhapKho> PhieuNhapKho { get; } = new();
         public virtual ObservableCollectionListSource<LichLam> LichLam { get; } = new();

@@ -15,7 +15,7 @@ namespace QuanLyQuanAn.Forms
     {
        QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
         string tablename; // Lấy mã hóa đơn (dùng cho Sửa và Xóa)
-        string tennv;
+        string tennv="";
         public frmChiTietBan(string ban,string tennv)
         {
             InitializeComponent();
@@ -143,7 +143,6 @@ namespace QuanLyQuanAn.Forms
 
         private void frmChiTietBan_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

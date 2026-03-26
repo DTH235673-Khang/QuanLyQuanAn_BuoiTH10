@@ -16,10 +16,10 @@ namespace QuanLyQuanAn.Forms
     {
         QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
         string nv = "";
-        public frmBan(string nv)
+        public frmBan( string nv)
         {
             InitializeComponent();
-            nv = nv;
+            this.nv = nv;
         }
 
         private void frmBan_Click(object sender, EventArgs e)
@@ -37,8 +37,7 @@ namespace QuanLyQuanAn.Forms
             }
             else
             {
-                var parent=(frmMain)this.MdiParent;
-                using (frmChiTietBan chiTiet = new frmChiTietBan(originalTableName,parent.hoVaTenNhanVien))
+                using (frmChiTietBan chiTiet = new frmChiTietBan(originalTableName,nv))
                 {
                     chiTiet.ShowDialog();
                 }

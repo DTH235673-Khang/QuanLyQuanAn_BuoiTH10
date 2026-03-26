@@ -52,6 +52,7 @@
             mnuBaoCaoThongKe = new ToolStripMenuItem();
             mnuBaoCaoTonKho = new ToolStripMenuItem();
             mnuBaoCaoDoanhThu = new ToolStripMenuItem();
+            mnuBaoCaoLoiNhuan = new ToolStripMenuItem();
             mnuTroGiup = new ToolStripMenuItem();
             mnuHuongDanSuDung = new ToolStripMenuItem();
             mnuThongTinPhanMem = new ToolStripMenuItem();
@@ -59,8 +60,10 @@
             lblTrangThai = new ToolStripStatusLabel();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             lblKLienKet = new ToolStripStatusLabel();
+            pictureBox1 = new PictureBox();
             menuStrip.SuspendLayout();
             statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip
@@ -69,7 +72,7 @@
             menuStrip.Items.AddRange(new ToolStripItem[] { mnuHeThong, mnuQuanLy, mnuBaoCaoThongKe, mnuTroGiup });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
-            menuStrip.Size = new Size(1030, 28);
+            menuStrip.Size = new Size(1023, 28);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "menuStrip1";
             // 
@@ -83,28 +86,29 @@
             // mnuDangNhap
             // 
             mnuDangNhap.Name = "mnuDangNhap";
-            mnuDangNhap.Size = new Size(224, 26);
+            mnuDangNhap.Size = new Size(183, 26);
             mnuDangNhap.Text = "Đăng nhập";
             mnuDangNhap.Click += mnuDangNhap_Click;
             // 
             // mnuDangXuat
             // 
             mnuDangXuat.Name = "mnuDangXuat";
-            mnuDangXuat.Size = new Size(224, 26);
+            mnuDangXuat.Size = new Size(183, 26);
             mnuDangXuat.Text = "Đăng xuất";
             mnuDangXuat.Click += mnuDangXuat_Click;
             // 
             // mnuDoiMatKhau
             // 
             mnuDoiMatKhau.Name = "mnuDoiMatKhau";
-            mnuDoiMatKhau.Size = new Size(224, 26);
+            mnuDoiMatKhau.Size = new Size(183, 26);
             mnuDoiMatKhau.Text = "Đổi mật khẩu";
+            mnuDoiMatKhau.Click += mnuDoiMatKhau_Click;
             // 
             // mnuThoat
             // 
             mnuThoat.Name = "mnuThoat";
             mnuThoat.ShortcutKeys = Keys.Alt | Keys.F4;
-            mnuThoat.Size = new Size(224, 26);
+            mnuThoat.Size = new Size(183, 26);
             mnuThoat.Text = "Thoát";
             mnuThoat.Click += mnuThoat_Click;
             // 
@@ -215,7 +219,7 @@
             // 
             // mnuBaoCaoThongKe
             // 
-            mnuBaoCaoThongKe.DropDownItems.AddRange(new ToolStripItem[] { mnuBaoCaoTonKho, mnuBaoCaoDoanhThu });
+            mnuBaoCaoThongKe.DropDownItems.AddRange(new ToolStripItem[] { mnuBaoCaoTonKho, mnuBaoCaoDoanhThu, mnuBaoCaoLoiNhuan });
             mnuBaoCaoThongKe.Name = "mnuBaoCaoThongKe";
             mnuBaoCaoThongKe.Size = new Size(139, 24);
             mnuBaoCaoThongKe.Text = "Báo cáo thống kê";
@@ -234,6 +238,13 @@
             mnuBaoCaoDoanhThu.Text = "Báo cáo doanh thu";
             mnuBaoCaoDoanhThu.Click += mnuBaoCaoDoanhThu_Click;
             // 
+            // mnuBaoCaoLoiNhuan
+            // 
+            mnuBaoCaoLoiNhuan.Name = "mnuBaoCaoLoiNhuan";
+            mnuBaoCaoLoiNhuan.Size = new Size(217, 26);
+            mnuBaoCaoLoiNhuan.Text = "Báo cáo lợi nhuận";
+            mnuBaoCaoLoiNhuan.Click += mnuBaoCaoLoiNhuan_Click;
+            // 
             // mnuTroGiup
             // 
             mnuTroGiup.DropDownItems.AddRange(new ToolStripItem[] { mnuHuongDanSuDung, mnuThongTinPhanMem });
@@ -246,6 +257,7 @@
             mnuHuongDanSuDung.Name = "mnuHuongDanSuDung";
             mnuHuongDanSuDung.Size = new Size(287, 26);
             mnuHuongDanSuDung.Text = "Hướng dẫn sử dụng";
+            mnuHuongDanSuDung.Click += mnuHuongDanSuDung_Click;
             // 
             // mnuThongTinPhanMem
             // 
@@ -253,14 +265,15 @@
             mnuThongTinPhanMem.ShortcutKeys = Keys.Control | Keys.F1;
             mnuThongTinPhanMem.Size = new Size(287, 26);
             mnuThongTinPhanMem.Text = "Thông tin phần mềm";
+            mnuThongTinPhanMem.Click += mnuThongTinPhanMem_Click;
             // 
             // statusStrip1
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { lblTrangThai, toolStripStatusLabel1, lblKLienKet });
-            statusStrip1.Location = new Point(0, 568);
+            statusStrip1.Location = new Point(0, 552);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(1030, 26);
+            statusStrip1.Size = new Size(1023, 26);
             statusStrip1.TabIndex = 2;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -273,7 +286,7 @@
             // toolStripStatusLabel1
             // 
             toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new Size(816, 20);
+            toolStripStatusLabel1.Size = new Size(809, 20);
             toolStripStatusLabel1.Spring = true;
             // 
             // lblKLienKet
@@ -283,11 +296,23 @@
             lblKLienKet.Size = new Size(81, 20);
             lblKLienKet.Text = "© FIT 2026";
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox1.Image = Properties.Resources.banner1;
+            pictureBox1.Location = new Point(0, 28);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(1023, 524);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 4;
+            pictureBox1.TabStop = false;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1030, 594);
+            ClientSize = new Size(1023, 578);
+            Controls.Add(pictureBox1);
             Controls.Add(statusStrip1);
             Controls.Add(menuStrip);
             IsMdiContainer = true;
@@ -301,6 +326,7 @@
             menuStrip.PerformLayout();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -338,5 +364,7 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripStatusLabel lblKLienKet;
         private ToolStripMenuItem mnuNhaCungCap;
+        private ToolStripMenuItem mnuBaoCaoLoiNhuan;
+        private PictureBox pictureBox1;
     }
 }

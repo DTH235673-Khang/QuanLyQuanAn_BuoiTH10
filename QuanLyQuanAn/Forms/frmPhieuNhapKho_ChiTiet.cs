@@ -31,13 +31,13 @@ namespace QuanLyQuanAn.Forms
         }
         public void LayNhanVienVaoComboBox()
         {
-            cboNhanVien.DataSource = context.NhanVien.ToList();
+            cboNhanVien.DataSource = context.NhanVien.Where(r=>r.TrangThai==1).ToList();
             cboNhanVien.ValueMember = "ID";
             cboNhanVien.DisplayMember = "HoVaTen";
         }
         public void LayNhaCungCapVaoComboBox()
         {
-            cboNhaCungCap.DataSource = context.NhaCungCap.ToList();
+            cboNhaCungCap.DataSource = context.NhaCungCap.Where(r => r.TrangThai == 1).ToList();
             cboNhaCungCap.ValueMember = "ID";
             cboNhaCungCap.DisplayMember = "TenNhaCungCap";
             cboNhaCungCap.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -46,7 +46,7 @@ namespace QuanLyQuanAn.Forms
         }
         public void LayNguyenLieuVaoComboBox()
         {
-            cboNguyenLieu.DataSource = context.NguyenLieu.ToList();
+            cboNguyenLieu.DataSource = context.NguyenLieu.Where(r=>r.TrangThai==1).ToList();
             cboNguyenLieu.ValueMember = "ID";
             cboNguyenLieu.DisplayMember = "TenNguyenLieu";
             cboNguyenLieu.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -59,7 +59,6 @@ namespace QuanLyQuanAn.Forms
             {
                 // Xóa trắng các trường
                 cboNhaCungCap.Text = "";
-                cboNhanVien.Text = "";
                 cboNguyenLieu.Text = "";
                 numSoLuongNhap.Value = 1;
                 numDonGiaNhap.Value = 0;
@@ -112,6 +111,7 @@ namespace QuanLyQuanAn.Forms
                 MessageBox.Show("Số lượng nhập phải lớn hơn 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (numDonGiaNhap.Value <= 0)
                 MessageBox.Show("Đơn giá nhập sản phẩm phải lớn hơn 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
             {
                 int maSanPham = Convert.ToInt32(cboNguyenLieu.SelectedValue.ToString());
                 var chiTiet = phieuNhapKhoChiTiet.FirstOrDefault(x => x.NguyenLieuID == maSanPham);

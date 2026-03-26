@@ -67,7 +67,9 @@ namespace QuanLyQuanAn.Forms
             LayDonViTinhVaoComboBox();
             dataGridView.AutoGenerateColumns = false;
             List<DanhSachThucAn> sp = new List<DanhSachThucAn>();
-            sp = context.ThucAn.Select(r => new DanhSachThucAn
+            sp = context.ThucAn
+                .Where(r => r.TrangThai == "Đang hoạt động")
+                .Select(r => new DanhSachThucAn
             {
                 ID = r.ID,
                 DanhMucID = r.DanhMucID,
@@ -169,11 +171,18 @@ namespace QuanLyQuanAn.Forms
             if (MessageBox.Show("Xác nhận xóa món " + txtTenMonAn.Text + "?", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                var hd = context.HoaDon_ChiTiet.FirstOrDefault(r => r.ThucAnID == id);
                 ThucAn t = context.ThucAn.Find(id);
-                if (t != null)
+                if (t != null && hd != null)
+                {
+                    t.TrangThai = "Đã hết món";
+                    context.ThucAn.Update(t);
+                }
+                else if (hd == null)
                 {
                     context.ThucAn.Remove(t);
                 }
+
                 context.SaveChanges();
                 frmThucAn_Load(sender, e);
             }
@@ -193,17 +202,20 @@ namespace QuanLyQuanAn.Forms
                 MessageBox.Show("Đơn giá phải lớn hơn 0.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                bool daTonTai = context.ThucAn.Any(x => x.TenThucAn == txtTenMonAn.Text
+                var check = context.ThucAn.FirstOrDefault(x => x.TenThucAn == txtTenMonAn.Text
                    && x.Gia == numDonGia.Value
-                   && x.MoTa==txtMoTa.Text
+                   && x.MoTa == txtMoTa.Text
                    && x.DanhMucID == (int)cboPhanLoai.SelectedValue
-                   && x.DonViTinhID== (int)cboDonViTinh.SelectedValue);
-               
+                   && x.DonViTinhID == (int)cboDonViTinh.SelectedValue);
+
                 if (xuLyThem)
                 {
-                    if (daTonTai)
+                    if (check!=null)
                     {
-                        MessageBox.Show("Món ăn đã tồn tại", "Lỗi");
+                        check.TrangThai = "Đang hoạt động";
+                        context.ThucAn.Update(check);
+                        context.SaveChanges();
+                        frmThucAn_Load(sender, e);
                         return;
                     }
                     ThucAn t = new ThucAn();

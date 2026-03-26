@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.IdentityModel.Tokens;
 using QuanLyQuanAn.Data;
 using static QuanLyQuanAn.Data.HoaDon;
@@ -51,6 +52,16 @@ namespace QuanLyQuanAn.Forms
         private void btnSua_Click(object sender, EventArgs e)
         {
             id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+            if (id.ToString().IsNullOrEmpty())
+            {
+                MessageBox.Show("Vui lòng chọn hóa đơn càn sửa!", "Thông báo", MessageBoxButtons.OK);
+            }
+            DateTime check = Convert.ToDateTime(dataGridView.CurrentRow.Cells["NgayLap"].Value.ToString());
+            if (check.Date != DateTime.Now.Date)
+            {
+                MessageBox.Show("Chỉ có thể hiệu chỉnh hóa đơn trong ngày!", "Thông báo", MessageBoxButtons.OK);
+                return;
+            }
             using (frmHoaDon_ChiTiet chiTiet = new frmHoaDon_ChiTiet(id))
             {
                 chiTiet.ShowDialog();
@@ -67,6 +78,12 @@ namespace QuanLyQuanAn.Forms
             }
             else
             {
+                DateTime check = Convert.ToDateTime(dataGridView.CurrentRow.Cells["NgayLap"].Value.ToString());
+                if (check.Date != DateTime.Now.Date)
+                {
+                    MessageBox.Show("Chỉ có thể hiệu chỉnh hóa đơn trong ngày!", "Thông báo", MessageBoxButtons.OK);
+                    return;
+                }
                 if (MessageBox.Show("Xác nhận xóa hóa đơn " + id + "?", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
@@ -295,6 +312,28 @@ namespace QuanLyQuanAn.Forms
             {
                 inHoaDon.ShowDialog();
             }
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // 1. Kiểm tra xem người dùng có click vào hàng dữ liệu không (tránh click vào tiêu đề cột)
+            if (e.RowIndex < 0) return;
+
+            // 2. Kiểm tra xem người dùng có click đúng vào cột Link hay không
+            // Bạn có thể kiểm tra theo Tên cột hoặc Chỉ số cột
+            if (dataGridView.Columns[e.ColumnIndex].Name == "XemChiTiet")
+            {
+                id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                using (frmInHoaDon inHoaDon = new frmInHoaDon(id))
+                {
+                    inHoaDon.ShowDialog();
+                }
+            }
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            frmHoaDon_Load(sender, e);
         }
     }
 }

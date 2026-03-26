@@ -13,6 +13,7 @@ namespace QuanLyQuanAn.Data
         public string HoVaTen { get; set; }
         public string? DienThoai { get; set; }
         public string? DiaChi { get; set; }
+        public int TrangThai { get; set; }
         public virtual ObservableCollectionListSource<HoaDon> HoaDon { get; } = new();
     }
 }

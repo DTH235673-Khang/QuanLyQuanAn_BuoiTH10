@@ -50,6 +50,7 @@
             cboQuyCach = new ComboBox();
             label2 = new Label();
             groupBox1 = new GroupBox();
+            btnKiemKe = new Button();
             btnXuat = new Button();
             btnNhap = new Button();
             numSoLuongTon = new NumericUpDown();
@@ -69,10 +70,10 @@
             groupBox2.Controls.Add(dataGridView);
             groupBox2.Location = new Point(12, 184);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(931, 265);
+            groupBox2.Size = new Size(931, 303);
             groupBox2.TabIndex = 3;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Danh sách món ăn";
+            groupBox2.Text = "Danh sách nguyên liệu";
             // 
             // dataGridView
             // 
@@ -85,7 +86,7 @@
             dataGridView.Location = new Point(3, 23);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(925, 239);
+            dataGridView.Size = new Size(925, 277);
             dataGridView.TabIndex = 0;
             // 
             // ID
@@ -247,6 +248,7 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(btnKiemKe);
             groupBox1.Controls.Add(btnXuat);
             groupBox1.Controls.Add(btnNhap);
             groupBox1.Controls.Add(numSoLuongTon);
@@ -270,6 +272,16 @@
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin nguyên liệu";
+            // 
+            // btnKiemKe
+            // 
+            btnKiemKe.Location = new Point(815, 74);
+            btnKiemKe.Name = "btnKiemKe";
+            btnKiemKe.Size = new Size(94, 29);
+            btnKiemKe.TabIndex = 27;
+            btnKiemKe.Text = "Kiểm kê";
+            btnKiemKe.UseVisualStyleBackColor = true;
+            btnKiemKe.Click += btnKiemKe_Click;
             // 
             // btnXuat
             // 
@@ -321,7 +333,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(955, 462);
+            ClientSize = new Size(955, 500);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "frmNguyenLieu";
@@ -364,5 +376,6 @@
         private Button btnNhap;
         private Button btnXuat;
         private HelpProvider helpProvider;
+        private Button btnKiemKe;
     }
 }

@@ -48,6 +48,7 @@
             btnNhap = new Button();
             panel1 = new Panel();
             helpProvider = new HelpProvider();
+            btnLoad = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             panel1.SuspendLayout();
@@ -78,6 +79,7 @@
             dataGridView.RowHeadersWidth = 51;
             dataGridView.Size = new Size(930, 183);
             dataGridView.TabIndex = 0;
+            dataGridView.CellContentClick += dataGridView_CellContentClick;
             // 
             // ID
             // 
@@ -134,7 +136,7 @@
             // btnInHoaDon
             // 
             btnInHoaDon.ForeColor = Color.Black;
-            btnInHoaDon.Location = new Point(137, 13);
+            btnInHoaDon.Location = new Point(107, 13);
             btnInHoaDon.Name = "btnInHoaDon";
             btnInHoaDon.Size = new Size(103, 29);
             btnInHoaDon.TabIndex = 2;
@@ -145,7 +147,7 @@
             // btnSua
             // 
             btnSua.ForeColor = Color.Black;
-            btnSua.Location = new Point(246, 13);
+            btnSua.Location = new Point(216, 13);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(75, 29);
             btnSua.TabIndex = 3;
@@ -156,7 +158,7 @@
             // btnXoa
             // 
             btnXoa.ForeColor = Color.Red;
-            btnXoa.Location = new Point(327, 13);
+            btnXoa.Location = new Point(297, 13);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(75, 29);
             btnXoa.TabIndex = 4;
@@ -167,7 +169,7 @@
             // btnThoat
             // 
             btnThoat.ForeColor = Color.Black;
-            btnThoat.Location = new Point(408, 13);
+            btnThoat.Location = new Point(378, 13);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(75, 29);
             btnThoat.TabIndex = 5;
@@ -177,7 +179,7 @@
             // btnTimKiem
             // 
             btnTimKiem.ForeColor = Color.Black;
-            btnTimKiem.Location = new Point(489, 13);
+            btnTimKiem.Location = new Point(459, 13);
             btnTimKiem.Name = "btnTimKiem";
             btnTimKiem.Size = new Size(105, 29);
             btnTimKiem.TabIndex = 6;
@@ -187,7 +189,7 @@
             // btnXuat
             // 
             btnXuat.ForeColor = Color.Black;
-            btnXuat.Location = new Point(600, 13);
+            btnXuat.Location = new Point(570, 13);
             btnXuat.Name = "btnXuat";
             btnXuat.Size = new Size(105, 29);
             btnXuat.TabIndex = 7;
@@ -198,7 +200,7 @@
             // btnNhap
             // 
             btnNhap.ForeColor = Color.Black;
-            btnNhap.Location = new Point(711, 13);
+            btnNhap.Location = new Point(681, 13);
             btnNhap.Name = "btnNhap";
             btnNhap.Size = new Size(105, 29);
             btnNhap.TabIndex = 8;
@@ -208,6 +210,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnLoad);
             panel1.Controls.Add(btnInHoaDon);
             panel1.Controls.Add(btnNhap);
             panel1.Controls.Add(btnSua);
@@ -220,6 +223,17 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(961, 56);
             panel1.TabIndex = 9;
+            // 
+            // btnLoad
+            // 
+            btnLoad.ForeColor = Color.Black;
+            btnLoad.Location = new Point(792, 13);
+            btnLoad.Name = "btnLoad";
+            btnLoad.Size = new Size(105, 29);
+            btnLoad.TabIndex = 9;
+            btnLoad.Text = "Load";
+            btnLoad.UseVisualStyleBackColor = true;
+            btnLoad.Click += btnLoad_Click;
             // 
             // frmHoaDon
             // 
@@ -257,5 +271,6 @@
         private Button btnNhap;
         private Panel panel1;
         private HelpProvider helpProvider;
+        private Button btnLoad;
     }
 }

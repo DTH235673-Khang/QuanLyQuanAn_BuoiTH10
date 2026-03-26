@@ -12,7 +12,7 @@ using QuanLyQuanAn.Data;
 namespace QuanLyQuanAn.Migrations
 {
     [DbContext(typeof(QLQADbContext))]
-    [Migration("20260322152956_KhoiTaoCSDL")]
+    [Migration("20260326005549_KhoiTaoCSDL")]
     partial class KhoiTaoCSDL
     {
         /// <inheritdoc />
@@ -24,6 +24,42 @@ namespace QuanLyQuanAn.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("QuanLyQuanAn.Data.AuditLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AffectedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NewValues")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValues")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TableName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditLogs");
+                });
 
             modelBuilder.Entity("QuanLyQuanAn.Data.Ban", b =>
                 {
@@ -243,9 +279,39 @@ namespace QuanLyQuanAn.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TrangThai")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.ToTable("KhachHang");
+                });
+
+            modelBuilder.Entity("QuanLyQuanAn.Data.KiemKe", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NgayKiemKe")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NguyenLieuID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoLuongThucTe")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("NguyenLieuID");
+
+                    b.ToTable("KiemKe");
                 });
 
             modelBuilder.Entity("QuanLyQuanAn.Data.LichLam", b =>
@@ -296,6 +362,9 @@ namespace QuanLyQuanAn.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TrangThai")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.ToTable("NguyenLieu");
@@ -320,6 +389,9 @@ namespace QuanLyQuanAn.Migrations
                     b.Property<string>("TenNhaCungCap")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrangThai")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -357,6 +429,9 @@ namespace QuanLyQuanAn.Migrations
                     b.Property<string>("TenDangNhap")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrangThai")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -527,6 +602,17 @@ namespace QuanLyQuanAn.Migrations
                     b.Navigation("ThucAn");
                 });
 
+            modelBuilder.Entity("QuanLyQuanAn.Data.KiemKe", b =>
+                {
+                    b.HasOne("QuanLyQuanAn.Data.NguyenLieu", "NguyenLieu")
+                        .WithMany("KiemKe")
+                        .HasForeignKey("NguyenLieuID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("NguyenLieu");
+                });
+
             modelBuilder.Entity("QuanLyQuanAn.Data.LichLam", b =>
                 {
                     b.HasOne("QuanLyQuanAn.Data.CaLam", "CaLam")
@@ -651,6 +737,8 @@ namespace QuanLyQuanAn.Migrations
 
             modelBuilder.Entity("QuanLyQuanAn.Data.NguyenLieu", b =>
                 {
+                    b.Navigation("KiemKe");
+
                     b.Navigation("PhieuNhapKho_ChiTiet");
                 });
 

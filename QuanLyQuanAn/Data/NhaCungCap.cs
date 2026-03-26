@@ -14,6 +14,7 @@ namespace QuanLyQuanAn.Data
         public string TenNhaCungCap { get; set; }
         public string DiaChi { get; set; }
         public string SoDienThoai { get; set; }
+        public int TrangThai { get; set; }
 
         public virtual ObservableCollectionListSource<PhieuNhapKho> PhieuNhapKho { get; } = new();
     }

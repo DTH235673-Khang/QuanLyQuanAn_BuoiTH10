@@ -99,6 +99,13 @@ namespace QuanLyQuanAn.Forms
             if (MessageBox.Show("Xác nhận xóa danh mục?", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                var check = context.ThucAn.FirstOrDefault(r => r.DanhMucID == id);
+                if (check != null)
+                {
+                    MessageBox.Show("Vẫn còn hàng hóa xếp loại theo danh mục này, không thể xóa", "Xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 DanhMuc dam = context.DanhMuc.Find(id);
                 if (dam != null)
                 {

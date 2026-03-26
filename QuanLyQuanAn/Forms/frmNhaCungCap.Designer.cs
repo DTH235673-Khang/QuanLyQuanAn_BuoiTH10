@@ -231,7 +231,7 @@
             groupBox2.Size = new Size(865, 372);
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Danh sách danh mục món ăn";
+            groupBox2.Text = "Danh sách nhà cung cấp";
             // 
             // dataGridView
             // 

@@ -15,7 +15,10 @@ namespace QuanLyQuanAn.Data
         public string QuyCach { get; set; }
         public int SoLuongTon { get; set; }
         public decimal GiaNhap { get; set; }
+        public int TrangThai { get; set; }
         public virtual ObservableCollectionListSource<PhieuNhapKho_ChiTiet> PhieuNhapKho_ChiTiet { get; } = new();
+        public virtual ObservableCollectionListSource<KiemKe> KiemKe { get; } = new();
+
 
     }
     [NotMapped]
@@ -26,6 +29,8 @@ namespace QuanLyQuanAn.Data
         public string QuyCach { get; set; }
         public int SoLuongTon { get; set; }
         public decimal GiaNhap { get; set; }
+        public int TrangThai { get; set; }
+
     }
 
 }

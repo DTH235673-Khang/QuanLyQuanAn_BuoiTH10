@@ -64,6 +64,12 @@ namespace QuanLyQuanAn.Forms
             if (MessageBox.Show("Xác nhận xóa đơn vị tính?", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                var check = context.ThucAn.FirstOrDefault(r => r.DonViTinhID == id);
+                if (check != null)
+                {
+                    MessageBox.Show("Vẫn còn hàng hóa sử dụng đơn vị tính này này, không thể xóa", "Xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 DonViTinh dvt = context.DonViTinh.Find(id);
                 if (dvt != null)
                 {

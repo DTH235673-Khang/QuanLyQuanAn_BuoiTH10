@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label3 = new Label();
             btnXuat = new Button();
             btnNhap = new Button();
@@ -112,7 +112,7 @@
             groupBox2.Size = new Size(815, 293);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Danh sách ca làm";
+            groupBox2.Text = "Danh sách chức vụ";
             // 
             // dataGridView
             // 
@@ -145,9 +145,9 @@
             // LuongTheoGio
             // 
             LuongTheoGio.DataPropertyName = "LuongTheoGio";
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.Format = "N2";
-            LuongTheoGio.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Format = "N2";
+            LuongTheoGio.DefaultCellStyle = dataGridViewCellStyle2;
             LuongTheoGio.HeaderText = "Lương theo giờ";
             LuongTheoGio.MinimumWidth = 6;
             LuongTheoGio.Name = "LuongTheoGio";

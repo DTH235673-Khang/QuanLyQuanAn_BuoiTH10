@@ -316,24 +316,32 @@ namespace QuanLyQuanAn.Forms
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            if (xulythem == true)
+            if (txtIn.Text.IsNullOrEmpty())
+                MessageBox.Show("Vui lòng nhập in time.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (txtOut.Text.IsNullOrEmpty())
+                MessageBox.Show("Vui lòng nhập out time.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (dtpNgay.Value == null)
+                MessageBox.Show("Vui lòng nhập ngày chấm công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (cboNhanVien.SelectedValue == null)
+                MessageBox.Show("Vui lòng chọn nhân viên cần chấm công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (!TimeOnly.TryParse(txtIn.Text, out TimeOnly it))
+                MessageBox.Show("In time sai định dạng(Định dạng đúng: 08:00).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (!TimeOnly.TryParse(txtOut.Text, out TimeOnly ot))
+                MessageBox.Show("Out time sai định dạng(Định dạng đúng: 08:00).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (dtpNgay.Value.Month != DateTime.Now.Month)
+                MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong tháng hiện tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (dtpNgay.Value.Day >= DateTime.Now.Day)
+                MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong thời gian đã qua.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (ot <= it)
+                MessageBox.Show("Out time phải lớn hơn In time.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (xulythem == true)
             {
-                if (txtIn.Text.IsNullOrEmpty())
-                    MessageBox.Show("Vui lòng nhập in time.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else if (txtOut.Text.IsNullOrEmpty())
-                    MessageBox.Show("Vui lòng nhập out time.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else if (dtpNgay.Value == null)
-                    MessageBox.Show("Vui lòng nhập ngày chấm công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else if (cboNhanVien.SelectedValue == null)
-                    MessageBox.Show("Vui lòng chọn nhân viên cần chấm công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else if (!TimeOnly.TryParse(txtIn.Text, out TimeOnly it))
-                    MessageBox.Show("In time sai định dạng(Định dạng đúng: 08:00).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else if (!TimeOnly.TryParse(txtOut.Text, out TimeOnly ot))
-                    MessageBox.Show("Out time sai định dạng(Định dạng đúng: 08:00).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else if (dtpNgay.Value.Month != DateTime.Now.Month)
-                    MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong tháng hiện tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else
-                {
+                
+               
+                    if(dtpNgay.Value.Month!= DateTime.Now.Month)
+                    {
+
+                    }    
                     var kq = context.BangCong.Where(r => r.NhanVienID == (int)cboNhanVien.SelectedValue && r.Ngay == DateOnly.FromDateTime(dtpNgay.Value.Date));
                     if (kq.Any())
                     {
@@ -358,7 +366,7 @@ namespace QuanLyQuanAn.Forms
                     context.BangCong.Add(chamCongMoi);
                     context.SaveChanges();
 
-                }
+                
 
 
 
@@ -386,10 +394,10 @@ namespace QuanLyQuanAn.Forms
                             }
                             if (!txtIn.Text.IsNullOrEmpty())
                             {
-                                if (TimeOnly.TryParse(txtIn.Text, out TimeOnly it))
+                                if (TimeOnly.TryParse(txtIn.Text, out TimeOnly itime))
                                 {
                                     DateOnly newIn = DateOnly.FromDateTime(kq.GioVaoThucTe);
-                                    DateTime result = newIn.ToDateTime(it);
+                                    DateTime result = newIn.ToDateTime(itime);
                                     kq.GioVaoThucTe = result;
                                     kq.SoGioLam = (float)(kq.GioRaThucTe - kq.GioVaoThucTe).TotalHours;
                                     context.BangCong.Update(kq);
@@ -402,10 +410,10 @@ namespace QuanLyQuanAn.Forms
                             }
                             if (!txtOut.Text.IsNullOrEmpty())
                             {
-                                if (TimeOnly.TryParse(txtOut.Text, out TimeOnly ot))
+                                if (TimeOnly.TryParse(txtOut.Text, out TimeOnly otime))
                                 {
                                     DateOnly newOut = DateOnly.FromDateTime(kq.GioVaoThucTe);
-                                    DateTime result = newOut.ToDateTime(ot);
+                                    DateTime result = newOut.ToDateTime(otime);
                                     kq.GioRaThucTe = result;
                                     kq.SoGioLam = (float)(kq.GioRaThucTe - kq.GioVaoThucTe).TotalHours;
                                     context.BangCong.Update(kq);

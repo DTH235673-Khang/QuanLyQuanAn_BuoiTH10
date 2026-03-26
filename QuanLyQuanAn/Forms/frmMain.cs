@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
@@ -10,12 +11,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DocumentFormat.OpenXml.InkML;
 using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.IdentityModel.Tokens;
 using QuanLyQuanAn.Data;
 using QuanLyQuanAn.Reports;
 using BC= BCrypt.Net.BCrypt;
 
 namespace QuanLyQuanAn.Forms
 {
+    public static class Session
+    {
+        // Biến lưu ID người dùng đăng nhập
+        public static string UserId { get; set; }
+
+        // Bạn có thể lưu thêm tên hiển thị nếu muốn
+        public static string UserName { get; set; }
+    }
     public partial class frmMain : Form
     {
         QLQADbContext context = new QLQADbContext();
@@ -39,9 +49,10 @@ namespace QuanLyQuanAn.Forms
         {
             InitializeComponent();
         }
-
+        
         private void mnuBan_Click(object sender, EventArgs e)
         {
+
             if (ban == null || ban.IsDisposed)
             {
                 ban = new frmBan(hoVaTenNhanVien);
@@ -58,6 +69,8 @@ namespace QuanLyQuanAn.Forms
         {
             ChuaDangNhap();
             DangNhap();
+            pictureBox1.SendToBack();
+            mnuBan_Click(sender, e);
         }
 
         private void mnuBangCong_Click(object sender, EventArgs e)
@@ -244,6 +257,7 @@ namespace QuanLyQuanAn.Forms
         }
         private void DangNhap()
         {
+            QLQADbContext context = new QLQADbContext();
         LamLai:
             if (dangNhap == null || dangNhap.IsDisposed)
                 dangNhap = new frmDangNhap();
@@ -274,9 +288,12 @@ namespace QuanLyQuanAn.Forms
                     }
                     else
                     {
+
                         if (BC.Verify(matKhau, nhanVien.MatKhau))
                         {
                             hoVaTenNhanVien = nhanVien.HoVaTen;
+                            Session.UserId = nhanVien.ID.ToString();
+                            Session.UserName = nhanVien.HoVaTen;
                             if (nhanVien.QuyenHan == true)
                                 QuyenQuanLy();
                             else if (nhanVien.QuyenHan == false)
@@ -291,6 +308,8 @@ namespace QuanLyQuanAn.Forms
                             }
                             else
                                 ChuaDangNhap();
+                            dangNhap.txtMatKhau.Clear();
+                            
                         }
                         else
                         {
@@ -445,11 +464,14 @@ namespace QuanLyQuanAn.Forms
                 child.Close();
             }
             ChuaDangNhap();
+            pictureBox1.BringToFront();
         }
 
         private void mnuDangNhap_Click(object sender, EventArgs e)
         {
             DangNhap();
+            pictureBox1.SendToBack();
+            mnuBan_Click(sender, e);
         }
 
         private void mnuBaoCaoTonKho_Click(object sender, EventArgs e)
@@ -472,9 +494,76 @@ namespace QuanLyQuanAn.Forms
 
         private void mnuThoat_Click(object sender, EventArgs e)
         {
-            DialogResult r = MessageBox.Show("Bạn có thật sự muốn thoát?","Cảnh báo",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
-            if (r == DialogResult.OK) 
+            DialogResult r = MessageBox.Show("Bạn có thật sự muốn thoát?", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (r == DialogResult.OK)
                 this.Close();
+        }
+
+        private void mnuBaoCaoLoiNhuan_Click(object sender, EventArgs e)
+        {
+            frmBaoCaoLoiNhuan f = new frmBaoCaoLoiNhuan();
+            f.MdiParent = this;
+            f.Dock = DockStyle.Fill;
+            f.FormBorderStyle = FormBorderStyle.None;
+            f.Show();
+        }
+
+        private void mnuDoiMatKhau_Click(object sender, EventArgs e)
+        {
+            frmDoiMatKhau frm = new frmDoiMatKhau(hoVaTenNhanVien);
+            frm.ShowDialog();
+        }
+
+        private void mnuHuongDanSuDung_Click(object sender, EventArgs e)
+        {
+            // Lấy đường dẫn đầy đủ đến file HTML
+            string url = Path.Combine(Application.StartupPath, "Help", "main.html");
+
+            try
+            {
+                if (File.Exists(url))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = url,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy file tại: " + url, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể mở liên kết: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void mnuThongTinPhanMem_Click(object sender, EventArgs e)
+        {
+            string url = Path.Combine(Application.StartupPath, "Help", "thongtinphanmem.html");
+
+            try
+            {
+                if (File.Exists(url))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = url,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy file tại: " + url, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể mở liên kết: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
