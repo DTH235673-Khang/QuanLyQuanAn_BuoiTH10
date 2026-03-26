@@ -15,17 +15,9 @@ using Microsoft.IdentityModel.Tokens;
 using QuanLyQuanAn.Data;
 using QuanLyQuanAn.Reports;
 using BC= BCrypt.Net.BCrypt;
-
 namespace QuanLyQuanAn.Forms
 {
-    public static class Session
-    {
-        // Biến lưu ID người dùng đăng nhập
-        public static string UserId { get; set; }
 
-        // Bạn có thể lưu thêm tên hiển thị nếu muốn
-        public static string UserName { get; set; }
-    }
     public partial class frmMain : Form
     {
         QLQADbContext context = new QLQADbContext();
@@ -49,7 +41,7 @@ namespace QuanLyQuanAn.Forms
         {
             InitializeComponent();
         }
-        
+
         private void mnuBan_Click(object sender, EventArgs e)
         {
 
@@ -309,7 +301,7 @@ namespace QuanLyQuanAn.Forms
                             else
                                 ChuaDangNhap();
                             dangNhap.txtMatKhau.Clear();
-                            
+
                         }
                         else
                         {
@@ -473,6 +465,14 @@ namespace QuanLyQuanAn.Forms
             pictureBox1.SendToBack();
             mnuBan_Click(sender, e);
         }
+        private void mnuHeThong_Click(object sender, EventArgs e)
+        {
+            frmNhatKy f = new frmNhatKy();
+            f.MdiParent = this;
+            f.Dock = DockStyle.Fill;
+            f.FormBorderStyle = FormBorderStyle.None;
+            f.Show();
+        }
 
         private void mnuBaoCaoTonKho_Click(object sender, EventArgs e)
         {
@@ -564,6 +564,15 @@ namespace QuanLyQuanAn.Forms
             {
                 MessageBox.Show("Không thể mở liên kết: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void mnuNhatKyHeThong_Click(object sender, EventArgs e)
+        {
+            frmNhatKy f = new frmNhatKy();
+            f.MdiParent = this;
+            f.Dock = DockStyle.Fill;
+            f.FormBorderStyle = FormBorderStyle.None;
+            f.Show();
         }
     }
 }
