@@ -23,9 +23,9 @@ namespace QuanLyQuanAn.Data
         public int ID { get; set; }
         public int HoaDonID { get; set; }
         public int ThucAnID { get; set; }
-        public string TenThucAn { get; set; } // Thêm
+        public string TenThucAn { get; set; } 
         public int SoLuongBan { get; set; }
         public int DonGiaBan { get; set; }
-        public int ThanhTien { get; set; } // Thêm
+        public int ThanhTien { get; set; } 
     }
 }

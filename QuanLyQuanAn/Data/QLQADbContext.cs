@@ -31,7 +31,6 @@ namespace QuanLyQuanAn.Data
         public DbSet<PhieuNhapKho> PhieuNhapKho { get; set; }
         public DbSet<PhieuNhapKho_ChiTiet> PhieuNhapKho_ChiTiet { get; set; }
 
-        // Tạo Constructor nhận UserId
         public QLQADbContext()
         {
         }
@@ -42,14 +41,12 @@ namespace QuanLyQuanAn.Data
         public DbSet<AuditLog> AuditLogs { get; set; }
 
 
-        // Ghi đè hàm SaveChanges (Đồng bộ)
         public override int SaveChanges()
         {
             OnBeforeSaveChanges();
             return base.SaveChanges();
         }
 
-        // Ghi đè hàm SaveChanges (Bất đồng bộ - khuyên dùng)
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             OnBeforeSaveChanges();
@@ -63,7 +60,6 @@ namespace QuanLyQuanAn.Data
 
             foreach (var entry in ChangeTracker.Entries())
             {
-                // Không lưu log cho chính bảng AuditLogs hoặc dữ liệu không đổi
                 if (entry.Entity is AuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;
 
@@ -78,7 +74,6 @@ namespace QuanLyQuanAn.Data
                 {
                     string propertyName = property.Metadata.Name;
 
-                    // Bỏ qua các trường Primary Key nếu bạn không muốn log chúng trong NewValues khi Update
                     if (property.Metadata.IsPrimaryKey()) continue;
 
                     switch (entry.State)
@@ -103,7 +98,6 @@ namespace QuanLyQuanAn.Data
                 auditEntries.Add(auditEntry);
             }
 
-            // Lưu các bản ghi log vào DbSet
             foreach (var entry in auditEntries)
             {
                 AuditLogs.Add(entry.ToAuditLog());

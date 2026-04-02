@@ -10,11 +10,11 @@ namespace QuanLyQuanAn.Data
     public class AuditLog
     {
         public int Id { get; set; }
-        public string UserId { get; set; } // ID người dùng thực hiện
-        public string TableName { get; set; } // Tên bảng bị tác động
-        public string Action { get; set; } // Insert, Update hoặc Delete
-        public string OldValues { get; set; } // Dữ liệu cũ (JSON)
-        public string NewValues { get; set; } // Dữ liệu mới (JSON)
+        public string UserId { get; set; } 
+        public string TableName { get; set; } 
+        public string Action { get; set; } 
+        public string OldValues { get; set; } 
+        public string NewValues { get; set; } 
         public DateTime AffectedAt { get; set; } = DateTime.Now;
     }
     public class AuditEntry
