@@ -79,8 +79,8 @@ namespace QuanLyQuanAn.Reports
 
         private void btnXemTheoThang_Click(object sender, EventArgs e)
         {
-            var kk = context.KiemKe.Where(x => x.NgayKiemKe.Month == DateTime.Now.Month);
-            if (kk.Count() > 0)
+            var kk = context.KiemKe.Where(x => x.NgayKiemKe.Month == dtpNgay.Value.Month);
+            if (kk.Count() <=0)
                 MessageBox.Show("Bạn chưa thực hiện kiểm kê! Vui lòng thự hiện kiểm kê trước khi xem lợi nhuận", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
                 frmBaoCaoLoiNhuan_Load(sender, e);

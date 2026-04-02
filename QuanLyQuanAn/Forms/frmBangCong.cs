@@ -330,7 +330,7 @@ namespace QuanLyQuanAn.Forms
                 MessageBox.Show("Out time sai định dạng(Định dạng đúng: 08:00).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else if (dtpNgay.Value.Month != DateTime.Now.Month)
                 MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong tháng hiện tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else if (dtpNgay.Value.Day >= DateTime.Now.Day)
+            else if (dtpNgay.Value.Date >= DateTime.Now.Date)
                 MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong thời gian đã qua.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else if (ot <= it)
                 MessageBox.Show("Out time phải lớn hơn In time.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -338,10 +338,7 @@ namespace QuanLyQuanAn.Forms
             {
                 
                
-                    if(dtpNgay.Value.Month!= DateTime.Now.Month)
-                    {
-
-                    }    
+                   
                     var kq = context.BangCong.Where(r => r.NhanVienID == (int)cboNhanVien.SelectedValue && r.Ngay == DateOnly.FromDateTime(dtpNgay.Value.Date));
                     if (kq.Any())
                     {
@@ -352,6 +349,11 @@ namespace QuanLyQuanAn.Forms
                                 MessageBox.Show("Khung thời gian in-out cần chấm công đã đan xen với 1 khung khác trong cùng ngày " + dtpNgay.Value.Date.Day + ".", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                 return;
                             }
+                            if(TimeOnly.FromDateTime(k.GioVaoThucTe)==it && TimeOnly.FromDateTime(k.GioRaThucTe)==ot)
+                            {
+                            MessageBox.Show("Chấm công đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return;
+                        }    
                         }
                     }
                     double sogio = (DateOnly.FromDateTime(dtpNgay.Value).ToDateTime(ot) - DateOnly.FromDateTime(dtpNgay.Value).ToDateTime(it)).TotalHours;
