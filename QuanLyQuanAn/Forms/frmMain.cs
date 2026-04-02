@@ -42,7 +42,7 @@ namespace QuanLyQuanAn.Forms
             InitializeComponent();
         }
 
-        private void mnuBan_Click(object sender, EventArgs e)
+        private void Ban()
         {
 
             if (ban == null || ban.IsDisposed)
@@ -56,13 +56,17 @@ namespace QuanLyQuanAn.Forms
             else
                 ban.Activate();
         }
+        private void mnuBan_Click(object sender, EventArgs e)
+        {
+
+            Ban();
+        }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
             ChuaDangNhap();
             DangNhap();
-            pictureBox1.SendToBack();
-            mnuBan_Click(sender, e);
+            
         }
 
         private void mnuBangCong_Click(object sender, EventArgs e)
@@ -297,6 +301,8 @@ namespace QuanLyQuanAn.Forms
                                     QuyenBepTruong();
                                 else
                                     QuyenNhanVien();
+                                pictureBox1.SendToBack();
+                                Ban();
                             }
                             else
                                 ChuaDangNhap();
@@ -462,7 +468,6 @@ namespace QuanLyQuanAn.Forms
         private void mnuDangNhap_Click(object sender, EventArgs e)
         {
             DangNhap();
-            pictureBox1.SendToBack();
             mnuBan_Click(sender, e);
         }
         private void mnuHeThong_Click(object sender, EventArgs e)
