@@ -199,7 +199,7 @@ namespace QuanLyQuanAn.Forms
                 MessageBox.Show("Vui lòng nhập họ và tên nhân viên?", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                dataGridView.DataSource = context.NhanVien.Where(nv => nv.HoVaTen.Contains(txtHoVaTen.Text)).ToList();
+                dataGridView.DataSource = context.NhanVien.Where(nv => nv.HoVaTen.Contains(txtHoVaTen.Text) && nv.TrangThai == 1).ToList();
                 BatTatChucNang(true);
             }
         }

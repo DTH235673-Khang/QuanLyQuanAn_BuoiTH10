@@ -143,7 +143,7 @@ namespace QuanLyQuanAn.Forms
                 MessageBox.Show("Vui lòng nhập họ và tên khách hàng?", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                dataGridView.DataSource = context.KhachHang.Where(kh => kh.HoVaTen.Contains(txtHoVaTen.Text)).ToList();
+                dataGridView.DataSource = context.KhachHang.Where(kh => kh.HoVaTen.Contains(txtHoVaTen.Text) && kh.TrangThai==1).ToList();
                 BatTatChucNang(true);
             }
         }

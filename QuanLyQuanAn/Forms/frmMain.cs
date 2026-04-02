@@ -287,6 +287,8 @@ namespace QuanLyQuanAn.Forms
 
                         if (BC.Verify(matKhau, nhanVien.MatKhau))
                         {
+                            pictureBox1.SendToBack();
+                            Ban();
                             hoVaTenNhanVien = nhanVien.HoVaTen;
                             Session.UserId = nhanVien.ID.ToString();
                             Session.UserName = nhanVien.HoVaTen;
@@ -301,8 +303,7 @@ namespace QuanLyQuanAn.Forms
                                     QuyenBepTruong();
                                 else
                                     QuyenNhanVien();
-                                pictureBox1.SendToBack();
-                                Ban();
+                                
                             }
                             else
                                 ChuaDangNhap();
