@@ -37,15 +37,19 @@ namespace QuanLyQuanAn.Reports
                         doanhthu += x.TongTien;
 
                 decimal giaVon = 0;
-                var d = context.KiemKe.Where(r => r.NgayKiemKe.Day == 1 && r.NgayKiemKe.Month == dtpNgay.Value.Month).ToList();
-                var y = context.KiemKe.Where(r => r.NgayKiemKe.Day == dtpNgay.Value.Day-1 && r.NgayKiemKe.Month == dtpNgay.Value.Month).ToList();
-                foreach(var a in d)
-                    foreach(var b in y)
-                        if(a.NguyenLieuID==b.NguyenLieuID)
-                        {
-                            var z=context.NguyenLieu.FirstOrDefault(r=>r.ID==b.NguyenLieuID);
-                            giaVon += (a.SoLuongThucTe - b.SoLuongThucTe) * z.GiaNhap;
-                        }    
+                var d = context.KiemKe.Where(r => r.NgayKiemKe.Day == 1 && r.NgayKiemKe.Month == dtpNgay.Value.Month && dtpNgay.Value.Year==r.NgayKiemKe.Year).ToList();
+                var y = context.KiemKe.ToList();
+                if (dtpNgay.Value.Month == DateTime.Now.Month)
+                    y = context.KiemKe.Where(r => r.NgayKiemKe.Day == DateTime.Now.Day - 1 && r.NgayKiemKe.Month == dtpNgay.Value.Month && dtpNgay.Value.Year == r.NgayKiemKe.Year).ToList();
+                else
+                    y = context.KiemKe.Where(r => r.NgayKiemKe.Day == DateTime.DaysInMonth(dtpNgay.Value.Year, dtpNgay.Value.Month ) && dtpNgay.Value.Year == r.NgayKiemKe.Year).ToList();
+                    foreach (var a in d)
+                        foreach (var b in y)
+                            if (a.NguyenLieuID == b.NguyenLieuID)
+                            {
+                                var z = context.NguyenLieu.FirstOrDefault(r => r.ID == b.NguyenLieuID);
+                                giaVon += (a.SoLuongThucTe - b.SoLuongThucTe) * z.GiaNhap;
+                            }    
                 var n=context.PhieuNhapKho.Where(r=>r.NgayNhap.Day>=1 &&r.NgayNhap.Day<dtpNgay.Value.Day && r.NgayNhap.Month==dtpNgay.Value.Month && r.TrangThai=="Đã duyệt");
                 if(n!=null)
                     foreach (var a in n)
@@ -53,7 +57,7 @@ namespace QuanLyQuanAn.Reports
 
 
                 decimal luong = context.BangCong
-                   .Where(b => b.Ngay.Month == DateTime.Now.Month && b.Ngay.Year == DateTime.Now.Year)
+                   .Where(b => b.Ngay.Month == dtpNgay.Value.Month && b.Ngay.Year ==dtpNgay.Value.Year)
                    .Sum(b => (decimal?)b.SoGioLam * b.NhanVien.ChucVu.LuongTheoGio) ?? 0;
                 // 2. Tạo danh sách dữ liệu khớp với cấu trúc DataTable trong Dataset
                 var data = new List<object>

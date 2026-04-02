@@ -125,14 +125,18 @@ namespace QuanLyQuanAn.Forms
 
                 if (xuLyThem)
                 {
-                    if (daTonTai != null)
+                    if (daTonTai != null && daTonTai.TrangThai==0)
                     {
-                        daTonTai.TrangThai = 0;
+                        daTonTai.TrangThai = 1;
                         context.NguyenLieu.Update(daTonTai);
                         context.SaveChanges();
                         frmNguyenLieu_Load(sender, e);
                         return;
                     }
+                    else if(daTonTai!= null && daTonTai.TrangThai==1)
+                    {
+                        MessageBox.Show("Nguyên liệu đã tồn tại!","Thông báo",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }    
                     NguyenLieu t = new NguyenLieu();
                     t.TenNguyenLieu = txtTenNguyenLieu.Text;
                     t.GiaNhap = numGiaNhap.Value;
@@ -231,16 +235,21 @@ namespace QuanLyQuanAn.Forms
                                         var nl = context.NguyenLieu.FirstOrDefault(x => x.TenNguyenLieu == ten
                                           && x.QuyCach == quycach
                                           && x.GiaNhap == g);
-                                        context.NguyenLieu.Remove(nl);
+                                        nl.SoLuongTon = s;
+                                        context.NguyenLieu.Update(nl);
                                     }
-                                    NguyenLieu t = new NguyenLieu();
-                                    t.TenNguyenLieu = ten;
-                                    t.QuyCach = quycach;
-                                    t.GiaNhap = g;
-                                    t.SoLuongTon = s;
-                                    context.NguyenLieu.Add(t);
-                                    context.SaveChanges();
-                                    thanhcong++;
+                                    else
+                                    {
+                                        NguyenLieu t = new NguyenLieu();
+                                        t.TenNguyenLieu = ten;
+                                        t.QuyCach = quycach;
+                                        t.GiaNhap = g;
+                                        t.SoLuongTon = s;
+                                        t.TrangThai = 1;
+                                        context.NguyenLieu.Add(t);
+                                        context.SaveChanges();
+                                        thanhcong++;
+                                    }
                                 }
                                 catch
                                 {

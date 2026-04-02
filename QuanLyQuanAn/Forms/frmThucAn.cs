@@ -210,7 +210,7 @@ namespace QuanLyQuanAn.Forms
 
                 if (xuLyThem)
                 {
-                    if (check!=null)
+                    if (check!=null && check.TrangThai!="Đang hoạt động")
                     {
                         check.TrangThai = "Đang hoạt động";
                         context.ThucAn.Update(check);
@@ -218,7 +218,12 @@ namespace QuanLyQuanAn.Forms
                         frmThucAn_Load(sender, e);
                         return;
                     }
-                    ThucAn t = new ThucAn();
+                    else if(check.TrangThai=="Đang hoạt động")
+                    {
+                        MessageBox.Show("Món ăn đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }    
+                        ThucAn t = new ThucAn();
                     t.TenThucAn = txtTenMonAn.Text;
                     t.Gia = numDonGia.Value;
                     t.TrangThai = cboTrangThai.Text;
@@ -538,6 +543,7 @@ namespace QuanLyQuanAn.Forms
                                     t.TrangThai = r["TrangThai"].ToString() ;
                                     t.MoTa = r["MoTa"].ToString();
                                     t.HinhAnh = r["HinhAnh"].ToString();
+                                    t.TrangThai = "Đang hoạt động";
                                     context.ThucAn.Add(t);
                                     context.SaveChanges();
                                     thanhcong++;

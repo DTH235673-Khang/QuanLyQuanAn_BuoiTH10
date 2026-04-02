@@ -285,6 +285,7 @@ namespace QuanLyQuanAn.Forms
                                     nv.QuyenHan = (qh == "true") ? true : false;
                                     var chucvu = context.ChucVu.FirstOrDefault(r => r.TenChucVu == cv);
                                     nv.ChucVuID = chucvu.ID;
+                                    nv.TrangThai = 1;
                                     context.NhanVien.Add(nv);
                                     context.SaveChanges(); // Lưu ngay từng dòng để bắt lỗi chính xác dòng đó
                                     thanhCong++;

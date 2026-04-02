@@ -212,7 +212,7 @@ namespace QuanLyQuanAn.Forms
                                     kh.HoVaTen = ten;
                                     kh.DienThoai = dienthoai;
                                     kh.DiaChi = diachi;
-
+                                    kh.TrangThai = 1;
                                     context.KhachHang.Add(kh);
                                     context.SaveChanges(); // Lưu ngay từng dòng để bắt lỗi chính xác dòng đó
                                     thanhCong++;

@@ -212,7 +212,7 @@ namespace QuanLyQuanAn.Forms
                                     ncc.TenNhaCungCap = ten;
                                     ncc.SoDienThoai = dienthoai;
                                     ncc.DiaChi = diachi;
-
+                                    ncc.TrangThai = 1;
                                     context.NhaCungCap.Add(ncc);
                                     context.SaveChanges(); // Lưu ngay từng dòng để bắt lỗi chính xác dòng đó
                                     thanhCong++;
