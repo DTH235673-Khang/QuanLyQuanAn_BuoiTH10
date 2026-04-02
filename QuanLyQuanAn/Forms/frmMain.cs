@@ -351,6 +351,7 @@ namespace QuanLyQuanAn.Forms
 
             mnuBaoCaoTonKho.Enabled = false;
             mnuBaoCaoDoanhThu.Enabled = false;
+            mnuBaoCaoLoiNhuan.Enabled = false;
 
             lblTrangThai.Text = "Chưa đăng nhập";
         }
@@ -377,6 +378,7 @@ namespace QuanLyQuanAn.Forms
 
             mnuBaoCaoTonKho.Enabled = true;
             mnuBaoCaoDoanhThu.Enabled = true;
+            mnuBaoCaoLoiNhuan.Enabled = true;
 
             lblTrangThai.Text = "Quản lý: " + hoVaTenNhanVien;
 
@@ -405,6 +407,7 @@ namespace QuanLyQuanAn.Forms
 
             mnuBaoCaoTonKho.Enabled = false;
             mnuBaoCaoDoanhThu.Enabled = true;
+            mnuBaoCaoLoiNhuan.Enabled = false;
 
             lblTrangThai.Text = "Thu ngân: " + hoVaTenNhanVien;
         }
@@ -431,6 +434,7 @@ namespace QuanLyQuanAn.Forms
 
             mnuBaoCaoTonKho.Enabled = true;
             mnuBaoCaoDoanhThu.Enabled = false;
+            mnuBaoCaoLoiNhuan.Enabled = false;
 
             lblTrangThai.Text = "Bếp trưởng: " + hoVaTenNhanVien;
 

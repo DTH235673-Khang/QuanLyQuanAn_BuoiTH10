@@ -75,6 +75,12 @@ namespace QuanLyQuanAn.Forms
             if (MessageBox.Show("Xác nhận xóa ca làm?", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                var l = context.LichLam.FirstOrDefault(r => r.CaLamID == id);
+                if (l != null)
+                {
+                    MessageBox.Show("Ca làm đang được sử dụng bởi 1 vài lịch làm, không thể xóa!","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    return;
+                }
                 CaLam ca = context.CaLam.Find(id);
                 if (ca != null)
                 {
