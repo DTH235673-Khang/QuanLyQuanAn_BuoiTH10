@@ -24,9 +24,26 @@ namespace QuanLyQuanAn.Forms
             InitializeComponent();
 
         }
-
+        public void LayNhanVienVaoComboBox()
+        {
+            cboNhanVien.DataSource = context.NhanVien.Where(r => r.TrangThai == 1).ToList();
+            cboNhanVien.ValueMember = "ID";
+            cboNhanVien.DisplayMember = "HoVaTen";
+            cboNhanVien.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboNhanVien.AutoCompleteSource = AutoCompleteSource.ListItems;
+        }
+        public void LayKhachHangVaoComboBox()
+        {
+            cboKhachHang.DataSource = context.KhachHang.Where(r => r.TrangThai == 1).ToList();
+            cboKhachHang.ValueMember = "ID";
+            cboKhachHang.DisplayMember = "HoVaTen";
+            cboKhachHang.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboKhachHang.AutoCompleteSource = AutoCompleteSource.ListItems;
+        }
         private void frmHoaDon_Load(object sender, EventArgs e)
         {
+            LayNhanVienVaoComboBox();
+            LayKhachHangVaoComboBox();
             helpProvider.HelpNamespace = "Help/hoadon.html";
             helpProvider.SetShowHelp(this, true);
             dataGridView.AutoGenerateColumns = false;
@@ -334,6 +351,45 @@ namespace QuanLyQuanAn.Forms
         private void btnLoad_Click(object sender, EventArgs e)
         {
             frmHoaDon_Load(sender, e);
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            dataGridView.AutoGenerateColumns = false;
+            List<DanhSachHoaDon> hd = new List<DanhSachHoaDon>();
+            if(cboNhanVien.SelectedIndex>=0)
+                hd = context.HoaDon
+                    .Where(r=>r.NhanVienID == (int)cboNhanVien.SelectedValue && r.NgayLap.Date==dtpNgay.Value.Date)
+                    .Select(r => new DanhSachHoaDon
+                {
+                    ID = r.ID,
+                    NhanVienID = r.NhanVienID,
+                    HoVaTenNhanVien = r.NhanVien.HoVaTen,
+                    KhachHangID = r.KhachHangID,
+                    HoVaTenKhachHang = r.KhachHang.HoVaTen,
+                    BanID = r.BanID,
+                    NgayLap = r.NgayLap,
+                    GhiChuHoaDon = r.GhiChuHoaDon,
+                    TongTienHoaDon = r.TongTien,
+                    XemChiTiet = "Xem chi tiết"
+                }).ToList();
+            if(cboKhachHang.SelectedIndex >=0)
+                hd = context.HoaDon
+                    .Where(r => r.KhachHangID == (int)cboKhachHang.SelectedValue && r.NgayLap.Date == dtpNgay.Value.Date)
+                    .Select(r => new DanhSachHoaDon
+                    {
+                        ID = r.ID,
+                        NhanVienID = r.NhanVienID,
+                        HoVaTenNhanVien = r.NhanVien.HoVaTen,
+                        KhachHangID = r.KhachHangID,
+                        HoVaTenKhachHang = r.KhachHang.HoVaTen,
+                        BanID = r.BanID,
+                        NgayLap = r.NgayLap,
+                        GhiChuHoaDon = r.GhiChuHoaDon,
+                        TongTienHoaDon = r.TongTien,
+                        XemChiTiet = "Xem chi tiết"
+                    }).ToList();
+            dataGridView.DataSource = hd;
         }
     }
 }

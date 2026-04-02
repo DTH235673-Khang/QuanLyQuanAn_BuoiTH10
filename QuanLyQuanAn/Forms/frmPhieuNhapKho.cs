@@ -23,9 +23,27 @@ namespace QuanLyQuanAn.Forms
         {
             InitializeComponent();
         }
+        public void LayNhanVienVaoComboBox()
+        {
+            cboNhanVien.DataSource = context.NhanVien.Where(r => r.TrangThai == 1).ToList();
+            cboNhanVien.ValueMember = "ID";
+            cboNhanVien.DisplayMember = "HoVaTen";
+            cboNhanVien.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboNhanVien.AutoCompleteSource = AutoCompleteSource.ListItems;
+        }
+        public void LayNhaCungCapVaoComboBox()
+        {
+            cboNhaCungCap.DataSource = context.NhaCungCap.Where(r => r.TrangThai == 1).ToList();
+            cboNhaCungCap.ValueMember = "ID";
+            cboNhaCungCap.DisplayMember = "TenNhaCungCap";
+            cboNhaCungCap.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboNhaCungCap.AutoCompleteSource = AutoCompleteSource.ListItems;
 
+        }
         private void frmPhieuNhapKho_Load(object sender, EventArgs e)
         {
+            LayNhanVienVaoComboBox();
+            LayNhaCungCapVaoComboBox();
             helpProvider.HelpNamespace = "Help/phieunhapkho.html";
             helpProvider.SetShowHelp(this, true);
             dataGridView.AutoGenerateColumns = false;
@@ -373,6 +391,45 @@ namespace QuanLyQuanAn.Forms
                     inPhieuNhapKho.ShowDialog();
                 }
             }
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            dataGridView.AutoGenerateColumns = false;
+            List<DanhSachPhieuNhapKho> p = new List<DanhSachPhieuNhapKho>();
+            if(cboNhanVien.SelectedIndex>=0)
+                p = context.PhieuNhapKho
+                    .Where(r=>r.NhanVienID==(int)cboNhanVien.SelectedValue && r.NgayNhap.Date==dtpNgay.Value.Date)
+                    .Select(r => new DanhSachPhieuNhapKho
+                {
+                    ID = r.ID,
+                    NhanVienID = r.NhanVienID,
+                    HoVaTenNhanVien = r.NhanVien.HoVaTen,
+                    NhaCungCapID = r.NhaCungCapID,
+                    TenNhaCungCap = r.NhaCungCap.TenNhaCungCap,
+                    NgayNhap = r.NgayNhap,
+                    TongTien = r.TongTien,
+                    TrangThai = r.TrangThai,
+                    GhiChu = r.GhiChu,
+                    XemChiTiet = "Xem chi tiết"
+                }).ToList();
+            if (cboNhaCungCap.SelectedIndex >= 0)
+                p = context.PhieuNhapKho
+                    .Where(r => r.NhaCungCapID == (int)cboNhaCungCap.SelectedValue && r.NgayNhap.Date == dtpNgay.Value.Date)
+                    .Select(r => new DanhSachPhieuNhapKho
+                    {
+                        ID = r.ID,
+                        NhanVienID = r.NhanVienID,
+                        HoVaTenNhanVien = r.NhanVien.HoVaTen,
+                        NhaCungCapID = r.NhaCungCapID,
+                        TenNhaCungCap = r.NhaCungCap.TenNhaCungCap,
+                        NgayNhap = r.NgayNhap,
+                        TongTien = r.TongTien,
+                        TrangThai = r.TrangThai,
+                        GhiChu = r.GhiChu,
+                        XemChiTiet = "Xem chi tiết"
+                    }).ToList();
+            dataGridView.DataSource = p;
         }
     }
 }

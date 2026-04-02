@@ -46,15 +46,15 @@ namespace QuanLyQuanAn.Forms
             dataGridView.AutoGenerateColumns = false;
             List<DanhSachNguyenLieu> sp = new List<DanhSachNguyenLieu>();
             sp = context.NguyenLieu
-                .Where(l => l.TrangThai==1)
+                .Where(l => l.TrangThai == 1)
                 .Select(r => new DanhSachNguyenLieu
-            {
-                ID = r.ID,
-                TenNguyenLieu = r.TenNguyenLieu,
-                QuyCach = r.QuyCach,
-                GiaNhap = r.GiaNhap,
-                SoLuongTon = r.SoLuongTon
-            }).ToList();
+                {
+                    ID = r.ID,
+                    TenNguyenLieu = r.TenNguyenLieu,
+                    QuyCach = r.QuyCach,
+                    GiaNhap = r.GiaNhap,
+                    SoLuongTon = r.SoLuongTon
+                }).ToList();
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = sp;
             txtTenNguyenLieu.DataBindings.Clear();
@@ -122,7 +122,7 @@ namespace QuanLyQuanAn.Forms
                 var daTonTai = context.NguyenLieu.FirstOrDefault(x => x.TenNguyenLieu == txtTenNguyenLieu.Text
                     && x.QuyCach == cboQuyCach.Text
                     && x.GiaNhap == numGiaNhap.Value);
-                
+
                 if (xuLyThem)
                 {
                     if (daTonTai != null)
@@ -228,7 +228,7 @@ namespace QuanLyQuanAn.Forms
                                           && x.GiaNhap == g);
                                     if (daTonTai)
                                     {
-                                        var nl= context.NguyenLieu.FirstOrDefault(x => x.TenNguyenLieu == ten
+                                        var nl = context.NguyenLieu.FirstOrDefault(x => x.TenNguyenLieu == ten
                                           && x.QuyCach == quycach
                                           && x.GiaNhap == g);
                                         context.NguyenLieu.Remove(nl);
@@ -309,8 +309,56 @@ namespace QuanLyQuanAn.Forms
 
         private void btnKiemKe_Click(object sender, EventArgs e)
         {
-            frmKiemKe f=new frmKiemKe();
+            frmKiemKe f = new frmKiemKe();
             f.ShowDialog();
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string keyword = txtTenNguyenLieu.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                MessageBox.Show("Vui lòng nhập tên món ăn cần tìm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                frmNguyenLieu_Load(sender, e);
+                return;
+            }
+
+            // 1. Lấy danh sách kết quả từ Database kèm theo các bảng liên quan (DanhMuc, DonViTinh)
+          
+            var ketQua = context.NguyenLieu
+                .Where(l => l.TrangThai == 1 && l.TenNguyenLieu==keyword)
+                .Select(r => new DanhSachNguyenLieu
+                {
+                    ID = r.ID,
+                    TenNguyenLieu = r.TenNguyenLieu,
+                    QuyCach = r.QuyCach,
+                    GiaNhap = r.GiaNhap,
+                    SoLuongTon = r.SoLuongTon
+                }).ToList();
+
+            if (ketQua.Count > 0)
+            {
+                // 2. Tạo BindingSource mới để đồng bộ hóa việc chọn dòng trên Grid với các ô nhập liệu
+                BindingSource bindingSource = new BindingSource();
+                bindingSource.DataSource = ketQua;
+                txtTenNguyenLieu.DataBindings.Clear();
+                txtTenNguyenLieu.DataBindings.Add("Text", bindingSource, "TenNguyenLieu", false, DataSourceUpdateMode.Never);
+                numSoLuongTon.DataBindings.Clear();
+                numSoLuongTon.DataBindings.Add("Value", bindingSource, "SoLuongTon", false, DataSourceUpdateMode.Never);
+
+                numGiaNhap.DataBindings.Clear();
+                numGiaNhap.DataBindings.Add("Value", bindingSource, "GiaNhap", false, DataSourceUpdateMode.Never);
+                cboQuyCach.DataBindings.Clear();
+                cboQuyCach.DataBindings.Add("Text", bindingSource, "QuyCach", false, DataSourceUpdateMode.Never);
+                dataGridView.DataSource = bindingSource;
+                MessageBox.Show($"Tìm thấy {ketQua.Count} món ăn phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy món ăn nào với tên trên!", "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dataGridView.DataSource = null;
+            }
         }
     }
 }

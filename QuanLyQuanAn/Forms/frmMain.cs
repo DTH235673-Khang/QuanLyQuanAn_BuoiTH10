@@ -494,9 +494,10 @@ namespace QuanLyQuanAn.Forms
 
         private void mnuThoat_Click(object sender, EventArgs e)
         {
-            DialogResult r = MessageBox.Show("Bạn có thật sự muốn thoát?", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-            if (r == DialogResult.OK)
-                this.Close();
+            DialogResult r = MessageBox.Show("Bạn có thật sự muốn thoát?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (r == DialogResult.No)
+                return;
+            this.Close();
         }
 
         private void mnuBaoCaoLoiNhuan_Click(object sender, EventArgs e)
@@ -573,6 +574,14 @@ namespace QuanLyQuanAn.Forms
             f.Dock = DockStyle.Fill;
             f.FormBorderStyle = FormBorderStyle.None;
             f.Show();
+        }
+
+       
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult r = MessageBox.Show("Bạn có thật sự muốn thoát?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (r == DialogResult.No)
+                e.Cancel = true;
         }
     }
 }
