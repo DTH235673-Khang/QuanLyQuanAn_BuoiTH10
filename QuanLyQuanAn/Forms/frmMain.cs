@@ -288,17 +288,24 @@ namespace QuanLyQuanAn.Forms
                         if (BC.Verify(matKhau, nhanVien.MatKhau))
                         {
                             pictureBox1.SendToBack();
-                            Ban();
                             hoVaTenNhanVien = nhanVien.HoVaTen;
                             Session.UserId = nhanVien.ID.ToString();
                             Session.UserName = nhanVien.HoVaTen;
                             if (nhanVien.QuyenHan == true)
+                            {
                                 QuyenQuanLy();
+                                Ban();
+                            }    
+                               
                             else if (nhanVien.QuyenHan == false)
                             {
                                 var cv = context.ChucVu.FirstOrDefault(r => r.ID == nhanVien.ChucVuID);
                                 if (cv != null && cv.TenChucVu == "Thu ngân")
+                                {
+                                    Ban();
                                     QuyenThuNgan();
+                                }    
+                                    
                                 else if (cv.TenChucVu == "Bếp trưởng")
                                     QuyenBepTruong();
                                 else

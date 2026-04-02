@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -40,7 +41,28 @@ namespace QuanLyQuanAn.Forms
         }
         public void LayKhachHangVaoComboBox()
         {
-            cboKhachHang.DataSource = context.KhachHang.Where(r => r.TrangThai == 1).ToList();
+            var kh = context.KhachHang.Where(r => r.TrangThai == 1).ToList();
+            var hd = context.HoaDon.Where(r => r.NgayLap.Date == DateTime.Now.Date).ToList();
+
+            // Tìm bàn hiện tại TRƯỚC khi vào vòng lặp
+            var b = context.Ban.FirstOrDefault(r => r.TenBan == tablename);
+
+            // Chỉ thực hiện lọc nếu tìm thấy bàn (b != null)
+            if (b != null)
+            {
+                foreach (var d in hd)
+                {
+                    // Sử dụng ToList() để tránh lỗi "Collection was modified" đã gặp trước đó
+                    foreach (var c in kh.ToList())
+                    {
+                        if (d.KhachHangID == c.ID && d.trangthai == 0 && d.BanID != b.ID)
+                        {
+                            kh.Remove(c);
+                        }
+                    }
+                }
+            }
+            cboKhachHang.DataSource = kh;
             cboKhachHang.ValueMember = "ID";
             cboKhachHang.DisplayMember = "HoVaTen";
             cboKhachHang.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
