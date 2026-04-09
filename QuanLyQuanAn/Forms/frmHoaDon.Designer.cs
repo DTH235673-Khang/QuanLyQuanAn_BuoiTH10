@@ -46,7 +46,7 @@
             btnTimKiem = new Button();
             btnXuat = new Button();
             btnNhap = new Button();
-            panel1 = new Panel();
+            panel = new Panel();
             dtpNgay = new DateTimePicker();
             label3 = new Label();
             cboKhachHang = new ComboBox();
@@ -57,7 +57,7 @@
             helpProvider = new HelpProvider();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
-            panel1.SuspendLayout();
+            panel.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -225,28 +225,28 @@
             btnNhap.UseVisualStyleBackColor = true;
             btnNhap.Click += btnNhap_Click;
             // 
-            // panel1
+            // panel
             // 
-            panel1.Controls.Add(dtpNgay);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(cboKhachHang);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(cboNhanVien);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(btnLoad);
-            panel1.Controls.Add(btnInHoaDon);
-            panel1.Controls.Add(btnNhap);
-            panel1.Controls.Add(btnSua);
-            panel1.Controls.Add(btnXuat);
-            panel1.Controls.Add(btnXoa);
-            panel1.Controls.Add(btnTimKiem);
-            panel1.Controls.Add(btnThoat);
-            panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 320);
-            panel1.Margin = new Padding(3, 2, 3, 2);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(841, 65);
-            panel1.TabIndex = 9;
+            panel.Controls.Add(dtpNgay);
+            panel.Controls.Add(label3);
+            panel.Controls.Add(cboKhachHang);
+            panel.Controls.Add(label2);
+            panel.Controls.Add(cboNhanVien);
+            panel.Controls.Add(label1);
+            panel.Controls.Add(btnLoad);
+            panel.Controls.Add(btnInHoaDon);
+            panel.Controls.Add(btnNhap);
+            panel.Controls.Add(btnSua);
+            panel.Controls.Add(btnXuat);
+            panel.Controls.Add(btnXoa);
+            panel.Controls.Add(btnTimKiem);
+            panel.Controls.Add(btnThoat);
+            panel.Dock = DockStyle.Bottom;
+            panel.Location = new Point(0, 320);
+            panel.Margin = new Padding(3, 2, 3, 2);
+            panel.Name = "panel";
+            panel.Size = new Size(841, 65);
+            panel.TabIndex = 9;
             // 
             // dtpNgay
             // 
@@ -317,7 +317,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(841, 385);
-            Controls.Add(panel1);
+            Controls.Add(panel);
             Controls.Add(groupBox1);
             Margin = new Padding(3, 2, 3, 2);
             Name = "frmHoaDon";
@@ -326,8 +326,8 @@
             Load += frmHoaDon_Load;
             groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            panel.ResumeLayout(false);
+            panel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -348,7 +348,7 @@
         private Button btnTimKiem;
         private Button btnXuat;
         private Button btnNhap;
-        private Panel panel1;
+        private Panel panel;
         private HelpProvider helpProvider;
         private Button btnLoad;
         private ComboBox comboBox2;

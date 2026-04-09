@@ -391,7 +391,7 @@ namespace QuanLyQuanAn.Forms
             mnuDangXuat.Enabled = true;
             mnuDoiMatKhau.Enabled = true;
             mnuBan.Enabled = true;
-            mnuBangCong.Enabled = false;
+            mnuBangCong.Enabled = true;
             mnuCaLam.Enabled = false;
             mnuChucVu.Enabled = false;
             mnuDanhMuc.Enabled = false;
@@ -418,7 +418,7 @@ namespace QuanLyQuanAn.Forms
             mnuDangXuat.Enabled = true;
             mnuDoiMatKhau.Enabled = true;
             mnuBan.Enabled = false;
-            mnuBangCong.Enabled = false;
+            mnuBangCong.Enabled = true;
             mnuCaLam.Enabled = false;
             mnuChucVu.Enabled = false;
             mnuDanhMuc.Enabled = false;

@@ -24,6 +24,14 @@ namespace QuanLyQuanAn.Forms
         public frmBangCong()
         {
             InitializeComponent();
+            var nv=context.NhanVien.FirstOrDefault(r=>r.ID==Convert.ToInt32(Session.UserId));
+            var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
+            if(cv!=null && cv.TenChucVu!="Quản lý")
+            {
+                panel.Enabled=false;
+                btnXuat.Enabled=false;
+                btnXuatBangLuong.Enabled=false;
+            }    
         }
         private void BatTatChucNang(bool giaTri)
         {

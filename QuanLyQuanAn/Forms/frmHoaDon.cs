@@ -22,6 +22,14 @@ namespace QuanLyQuanAn.Forms
         public frmHoaDon()
         {
             InitializeComponent();
+            var nv = context.NhanVien.FirstOrDefault(r => r.ID == Convert.ToInt32(Session.UserId));
+            var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
+            if (cv != null && cv.TenChucVu != "Quản lý")
+            {
+                btnXuat.Enabled = false;
+                btnSua.Enabled = false;
+                btnNhap.Enabled = false;
+            }
 
         }
         public void LayNhanVienVaoComboBox()

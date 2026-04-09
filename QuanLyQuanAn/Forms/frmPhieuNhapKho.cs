@@ -22,6 +22,15 @@ namespace QuanLyQuanAn.Forms
         public frmPhieuNhapKho()
         {
             InitializeComponent();
+            var nv = context.NhanVien.FirstOrDefault(r => r.ID == Convert.ToInt32(Session.UserId));
+            var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
+            if (cv != null && cv.TenChucVu != "Quản lý")
+            {
+               btnSua.Enabled = false;
+               btnXoa.Enabled = false;
+               btnNhap.Enabled = false;
+               btnDuyetPhieu.Enabled = false;
+            }
         }
         public void LayNhanVienVaoComboBox()
         {
