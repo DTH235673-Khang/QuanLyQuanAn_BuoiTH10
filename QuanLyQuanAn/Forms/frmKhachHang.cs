@@ -90,6 +90,18 @@ namespace QuanLyQuanAn.Forms
         {
             if (string.IsNullOrWhiteSpace(txtHoVaTen.Text))
                 MessageBox.Show("Vui lòng nhập họ và tên khách hàng?", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else if (txtDienThoai.Text.Length != 10 || txtDienThoai.Text[0] != '0')
+            {
+                for (int i = 0; i < txtDienThoai.Text.Length; i++)
+                {
+                    if (!char.IsDigit(txtDienThoai.Text[i]))
+                    {
+                        MessageBox.Show("Số điện thoại phải là số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                MessageBox.Show("Sai định dạng số điện thoại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             else
             {
                 bool daTonTai = context.KhachHang.Any(x => x.HoVaTen == txtHoVaTen.Text

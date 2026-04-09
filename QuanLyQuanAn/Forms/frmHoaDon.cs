@@ -91,7 +91,7 @@ namespace QuanLyQuanAn.Forms
             id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
             if (id.ToString().IsNullOrEmpty())
             {
-                MessageBox.Show("Vui lòng chọn hóa đơn càn xóa!", "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Vui lòng chọn hóa đơn cần xóa!", "Thông báo", MessageBoxButtons.OK);
             }
             else
             {
@@ -105,9 +105,16 @@ namespace QuanLyQuanAn.Forms
                 {
                     id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
                     HoaDon t = context.HoaDon.Find(id);
+                    var ban = context.Ban.FirstOrDefault(r => r.ID == t.Ban.ID);
                     if (t != null)
                     {
                         context.HoaDon.Remove(t);
+                        if (t.trangthai == 0)
+                        {
+                            ban.TrangThai = "0";
+                            context.Ban.Update(ban);
+                        }
+
                     }
                     context.SaveChanges();
                     frmHoaDon_Load(sender, e);

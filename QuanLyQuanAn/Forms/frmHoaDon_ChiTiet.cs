@@ -70,7 +70,7 @@ namespace QuanLyQuanAn.Forms
         }
         public void LayThucAnVaoComboBox()
         {
-            cboMonAn.DataSource = context.ThucAn.Where(r=>r.TrangThai=="Đang hoạt động").ToList();
+            cboMonAn.DataSource = context.ThucAn.Where(r => r.TrangThai == "Đang hoạt động").ToList();
             cboMonAn.ValueMember = "ID";
             cboMonAn.DisplayMember = "TenThucAn";
             cboMonAn.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -96,6 +96,7 @@ namespace QuanLyQuanAn.Forms
             LayNhanVienVaoComboBox();
             LayKhachHangVaoComboBox();
             LayThucAnVaoComboBox();
+            cboKhachHang.SelectedValue = -1;
             dataGridView.AutoGenerateColumns = false;
 
             if (id != 0) // Đã tồn tại chi tiết
@@ -103,6 +104,10 @@ namespace QuanLyQuanAn.Forms
                 var hoaDon = context.HoaDon.Where(r => r.ID == id).SingleOrDefault();
                 cboNhanVien.SelectedValue = hoaDon.NhanVienID;
                 cboKhachHang.SelectedValue = hoaDon.KhachHangID;
+                var kh =context.KhachHang.Find(hoaDon.KhachHangID);
+                cboKhachHang.SelectedIndex=cboKhachHang.FindStringExact(kh.HoVaTen.ToString());
+                txtDienThoai.Text = kh.DienThoai;
+                txtDiaChi.Text = kh.DiaChi;
                 txtGhiChuHoaDon.Text = hoaDon.GhiChuHoaDon;
                 var ct = context.HoaDon_ChiTiet.Where(r => r.HoaDonID == id).Select(r => new DanhSachHoaDon_ChiTiet
                 {
@@ -122,7 +127,7 @@ namespace QuanLyQuanAn.Forms
             if (index != -1)
             {
                 cboNhanVien.SelectedIndex = index;
-               
+
             }
             cboNhanVien.Enabled = false;
         }
@@ -190,15 +195,39 @@ namespace QuanLyQuanAn.Forms
                     HoaDon hd = context.HoaDon.Find(id);
                     if (hd != null)
                     {
+                        if (cboKhachHang.SelectedItem!=null)
+                            hd.KhachHangID = Convert.ToInt32(cboKhachHang.SelectedValue.ToString());
+                        else
+                        {
+                            if (txtDienThoai.Text.Length != 10 || txtDienThoai.Text[0] != '0')
+                            {
+                                for (int i = 0; i < txtDienThoai.Text.Length; i++)
+                                {
+                                    if (!char.IsDigit(txtDienThoai.Text[i]))
+                                    {
+                                        MessageBox.Show("Số điện thoại phải là số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        return;
+                                    }
+                                }
+                                MessageBox.Show("Sai định dạng số điện thoại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            KhachHang kh = new KhachHang();
+                            kh.HoVaTen = cboKhachHang.Text;
+                            kh.DienThoai = txtDienThoai.Text;
+                            kh.DiaChi = txtDiaChi.Text;
+                            kh.TrangThai = 1;
+                            context.KhachHang.Add(kh);
+                            context.SaveChanges();
+                            hd.KhachHangID = kh.ID;
+                        }
                         hd.NhanVienID = Convert.ToInt32(cboNhanVien.SelectedValue.ToString());
-                        hd.KhachHangID = Convert.ToInt32(cboKhachHang.SelectedValue.ToString());
                         hd.GhiChuHoaDon = txtGhiChuHoaDon.Text;
                         context.HoaDon.Update(hd);
                         // Xóa chi tiết cũ
                         var old = context.HoaDon_ChiTiet.Where(r => r.HoaDonID == id).ToList();
                         context.HoaDon_ChiTiet.RemoveRange(old);
                         // Thêm lại chi tiết mới
-                        decimal tongtien = 0; 
+                        decimal tongtien = 0;
                         foreach (var item in hoaDonChiTiet.ToList())
                         {
                             HoaDon_ChiTiet ct = new HoaDon_ChiTiet();
@@ -219,7 +248,31 @@ namespace QuanLyQuanAn.Forms
                 {
                     HoaDon hd = new HoaDon();
                     hd.NhanVienID = Convert.ToInt32(cboNhanVien.SelectedValue.ToString());
-                    hd.KhachHangID = Convert.ToInt32(cboKhachHang.SelectedValue.ToString());
+                    if (cboKhachHang.SelectedItem!=null)
+                        hd.KhachHangID = Convert.ToInt32(cboKhachHang.SelectedValue.ToString());
+                    else
+                    {
+                        if (txtDienThoai.Text.Length != 10 || txtDienThoai.Text[0] != '0')
+                        {
+                            for (int i = 0; i < txtDienThoai.Text.Length; i++)
+                            {
+                                if (!char.IsDigit(txtDienThoai.Text[i]))
+                                {
+                                    MessageBox.Show("Số điện thoại phải là số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
+                            MessageBox.Show("Sai định dạng số điện thoại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        KhachHang kh = new KhachHang();
+                        kh.HoVaTen = cboKhachHang.Text;
+                        kh.DienThoai = txtDienThoai.Text;
+                        kh.DiaChi = txtDiaChi.Text;
+                        kh.TrangThai = 1;
+                        context.KhachHang.Add(kh);
+                        context.SaveChanges();
+                        hd.KhachHangID = kh.ID;
+                    }
                     hd.NgayLap = DateTime.Now;
                     hd.GhiChuHoaDon = txtGhiChuHoaDon.Text;
                     hd.trangthai = 0;
@@ -239,7 +292,7 @@ namespace QuanLyQuanAn.Forms
                         ct.ThucAnID = item.ThucAnID;
                         ct.SoLuongBan = item.SoLuongBan;
                         ct.DonGiaBan = item.DonGiaBan;
-                        tongtien +=(decimal)( ct.DonGiaBan * ct.SoLuongBan);
+                        tongtien += (decimal)(ct.DonGiaBan * ct.SoLuongBan);
                         context.HoaDon_ChiTiet.Add(ct);
                     }
                     hd.TongTien = tongtien;
@@ -263,6 +316,14 @@ namespace QuanLyQuanAn.Forms
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cboKhachHang_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            int makh = Convert.ToInt32(cboKhachHang.SelectedValue.ToString());
+            var KH=context.KhachHang.Find(makh);
+            txtDiaChi.Text = KH.HoVaTen;
+            txtDienThoai.Text = KH.DienThoai;
         }
     }
 }
