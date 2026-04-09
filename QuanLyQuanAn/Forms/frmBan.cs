@@ -61,7 +61,7 @@ namespace QuanLyQuanAn.Forms
             LoadTrangThaiBan();
         }
 
-        private void LoadTrangThaiBan()
+        public void LoadTrangThaiBan()
         {
             // Lấy toàn bộ danh sách bàn và hóa đơn hiện có để tránh truy vấn quá nhiều lần trong vòng lặp
             var danhSachBan = context.Ban.ToList();
@@ -82,11 +82,20 @@ namespace QuanLyQuanAn.Forms
                         if (ban.TrangThai == "1")
                         {
                             var hoaDon = context.HoaDon.FirstOrDefault(hd => hd.BanID == ban.ID && hd.trangthai == 0);
-
-                            decimal tongTien = hoaDon != null ? (decimal)hoaDon.TongTien : 0;
-
-                            btn.BackColor = Color.Orange;
-                            btn.Text = $"{tenBan}\n{tongTien:#,##0} VNĐ";
+                            if (hoaDon == null)
+                            {
+                                btn.BackColor = Color.Red;
+                                btn.Text = tenBan;
+                                ban.TrangThai = "0";
+                                context.Ban.Update(ban);
+                                context.SaveChanges();
+                            }
+                            else
+                            {
+                                decimal tongTien = hoaDon != null ? (decimal)hoaDon.TongTien : 0;
+                                btn.BackColor = Color.Orange;
+                                btn.Text = $"{tenBan}\n{tongTien:#,##0} VNĐ";
+                            }
                         }
                         else
                         {

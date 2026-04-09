@@ -322,7 +322,7 @@ namespace QuanLyQuanAn.Forms
         {
             int makh = Convert.ToInt32(cboKhachHang.SelectedValue.ToString());
             var KH=context.KhachHang.Find(makh);
-            txtDiaChi.Text = KH.HoVaTen;
+            txtDiaChi.Text = KH.DiaChi;
             txtDienThoai.Text = KH.DienThoai;
         }
     }

@@ -17,8 +17,7 @@ using QuanLyQuanAn.Reports;
 using BC= BCrypt.Net.BCrypt;
 namespace QuanLyQuanAn.Forms
 {
-
-    public partial class frmMain : Form
+    public partial class frmMain : BaseForm
     {
         QLQADbContext context = new QLQADbContext();
         frmBan ban = null;
@@ -54,7 +53,10 @@ namespace QuanLyQuanAn.Forms
                 ban.Show();
             }
             else
+            {
                 ban.Activate();
+                ban.LoadTrangThaiBan();
+            }
         }
         private void mnuBan_Click(object sender, EventArgs e)
         {
@@ -66,7 +68,7 @@ namespace QuanLyQuanAn.Forms
         {
             ChuaDangNhap();
             DangNhap();
-            
+
         }
 
         private void mnuBangCong_Click(object sender, EventArgs e)
@@ -295,8 +297,8 @@ namespace QuanLyQuanAn.Forms
                             {
                                 QuyenQuanLy();
                                 Ban();
-                            }    
-                               
+                            }
+
                             else if (nhanVien.QuyenHan == false)
                             {
                                 var cv = context.ChucVu.FirstOrDefault(r => r.ID == nhanVien.ChucVuID);
@@ -304,13 +306,13 @@ namespace QuanLyQuanAn.Forms
                                 {
                                     Ban();
                                     QuyenThuNgan();
-                                }    
-                                    
+                                }
+
                                 else if (cv.TenChucVu == "Bếp trưởng")
                                     QuyenBepTruong();
                                 else
                                     QuyenNhanVien();
-                                
+
                             }
                             else
                                 ChuaDangNhap();
@@ -593,12 +595,34 @@ namespace QuanLyQuanAn.Forms
             f.Show();
         }
 
-       
+
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult r = MessageBox.Show("Bạn có thật sự muốn thoát?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (r == DialogResult.No)
                 e.Cancel = true;
         }
+
+        private void mnuFont_Click(object sender, EventArgs e)
+        {
+            using (FontDialog fd = new FontDialog())
+            {
+                fd.ShowColor = true; // Cho phép chọn màu
+                fd.Font = SystemSettings.CurrentFont;
+                fd.Color = SystemSettings.CurrentColor;
+
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    // Cập nhật cài đặt hệ thống
+                    SystemSettings.UpdateSettings(fd.Font, fd.Color);
+
+                    // Lưu vào Properties.Settings nếu muốn lần sau mở app vẫn giữ Font này
+                    // Properties.Settings.Default.UserFont = fd.Font;
+                    // Properties.Settings.Default.Save();
+                }
+            }
+
+        }
     }
 }
+    

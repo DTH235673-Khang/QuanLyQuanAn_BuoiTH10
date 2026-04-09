@@ -26,9 +26,9 @@ namespace QuanLyQuanAn.Forms
             var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
             if (cv != null && cv.TenChucVu != "Quản lý")
             {
-                btnXuat.Enabled = false;
-                btnSua.Enabled = false;
-                btnNhap.Enabled = false;
+                btnXuat.Visible= false;
+                btnSua.Visible = false;
+                btnNhap.Visible = false;
             }
 
         }
@@ -113,7 +113,7 @@ namespace QuanLyQuanAn.Forms
                 {
                     id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
                     HoaDon t = context.HoaDon.Find(id);
-                    var ban = context.Ban.FirstOrDefault(r => r.ID == t.Ban.ID);
+                    var ban = context.Ban.FirstOrDefault(r => r.ID == t.BanID);
                     if (t != null)
                     {
                         context.HoaDon.Remove(t);

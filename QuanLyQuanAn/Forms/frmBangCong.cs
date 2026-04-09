@@ -28,9 +28,9 @@ namespace QuanLyQuanAn.Forms
             var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
             if(cv!=null && cv.TenChucVu!="Quản lý")
             {
-                panel.Enabled=false;
-                btnXuat.Enabled=false;
-                btnXuatBangLuong.Enabled=false;
+                panel.Visible=false;
+                btnXuat.Visible=false;
+                btnXuatBangLuong.Visible =false;
             }    
         }
         private void BatTatChucNang(bool giaTri)
