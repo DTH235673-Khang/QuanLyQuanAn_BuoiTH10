@@ -40,6 +40,13 @@ namespace QuanLyQuanAn.Forms
             helpProvider.HelpNamespace = "Help/khachhang.html";
             helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
+            var nv = context.NhanVien.FirstOrDefault(r => r.ID == Convert.ToInt32(Session.UserId));
+            var cv = context.ChucVu.FirstOrDefault(r=>r.ID==nv.ChucVuID);
+            if (nv != null && cv.TenChucVu != "Quản lý")
+            {
+                btnSua.Enabled = false;
+                btnXoa.Enabled = false;
+            } 
             dataGridView.AutoGenerateColumns = false;
             List<KhachHang> kh = new List<KhachHang>();
             kh = context.KhachHang.Where(r=>r.TrangThai==1).ToList();

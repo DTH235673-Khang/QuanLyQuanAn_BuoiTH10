@@ -58,6 +58,13 @@ namespace QuanLyQuanAn.Forms
             LayNhanVienVaoComboBox();
             LayCaLamVaoComboBox();
             BatTatChucNang(false);
+            var nv = context.NhanVien.FirstOrDefault(r => r.ID == Convert.ToInt32(Session.UserId));
+            var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
+            if (nv != null && cv.TenChucVu != "Quản lý")
+            {
+                btnSua.Enabled = false;
+                btnXoa.Enabled = false;
+            }
             dataGridView.AutoGenerateColumns = false;
             var listLichLam = context.LichLam.Select(ll => new
             {

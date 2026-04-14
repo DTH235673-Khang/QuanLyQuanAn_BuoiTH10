@@ -43,6 +43,14 @@ namespace QuanLyQuanAn.Forms
             helpProvider.HelpNamespace = "Help/nguyenlieu.html";
             helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
+            var nv = context.NhanVien.FirstOrDefault(r => r.ID == Convert.ToInt32(Session.UserId));
+            var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
+            if (nv != null && cv.TenChucVu != "Quản lý")
+            {
+                btnSua.Enabled = false;
+                btnXoa.Enabled = false;
+            }
+
             dataGridView.AutoGenerateColumns = false;
             List<DanhSachNguyenLieu> sp = new List<DanhSachNguyenLieu>();
             sp = context.NguyenLieu
@@ -142,6 +150,7 @@ namespace QuanLyQuanAn.Forms
                     t.GiaNhap = numGiaNhap.Value;
                     t.SoLuongTon = Convert.ToInt32(numSoLuongTon.Value);
                     t.QuyCach = cboQuyCach.Text;
+                    t.TrangThai = 1;
                     context.NguyenLieu.Add(t);
                     context.SaveChanges();
 
@@ -155,7 +164,6 @@ namespace QuanLyQuanAn.Forms
                         t.GiaNhap = numGiaNhap.Value;
                         t.SoLuongTon = Convert.ToInt32(numSoLuongTon.Value);
                         t.QuyCach = cboQuyCach.Text;
-
                         context.NguyenLieu.Update(t);
                         context.SaveChanges();
                     }
@@ -223,7 +231,7 @@ namespace QuanLyQuanAn.Forms
                                     string quycach = r["Quycach"].ToString();
                                     int g = Convert.ToInt32(r["GiaNhap"]);
                                     int s = Convert.ToInt32(r["SoLuongTon"]);
-                                    if (ten.IsNullOrEmpty() || g <= 0 || s <= 0)
+                                    if (ten.IsNullOrEmpty() || g <= 0 || s < 0)
                                     {
                                         throw new Exception("Không lấy được dữ liệu");
                                     }

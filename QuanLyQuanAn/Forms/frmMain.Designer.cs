@@ -35,6 +35,9 @@
             mnuDoiMatKhau = new ToolStripMenuItem();
             mnuThoat = new ToolStripMenuItem();
             mnuNhatKyHeThong = new ToolStripMenuItem();
+            mnuFont = new ToolStripMenuItem();
+            mnuBackUp = new ToolStripMenuItem();
+            mnuRestore = new ToolStripMenuItem();
             mnuQuanLy = new ToolStripMenuItem();
             mnuBan = new ToolStripMenuItem();
             mnuBangCong = new ToolStripMenuItem();
@@ -62,7 +65,6 @@
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             lblKLienKet = new ToolStripStatusLabel();
             pictureBox1 = new PictureBox();
-            mnuFont = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -81,7 +83,7 @@
             // 
             // mnuHeThong
             // 
-            mnuHeThong.DropDownItems.AddRange(new ToolStripItem[] { mnuDangNhap, mnuDangXuat, mnuDoiMatKhau, mnuThoat, mnuNhatKyHeThong, mnuFont });
+            mnuHeThong.DropDownItems.AddRange(new ToolStripItem[] { mnuDangNhap, mnuDangXuat, mnuDoiMatKhau, mnuThoat, mnuNhatKyHeThong, mnuFont, mnuBackUp, mnuRestore });
             mnuHeThong.Name = "mnuHeThong";
             mnuHeThong.Size = new Size(85, 24);
             mnuHeThong.Text = "Hệ thống";
@@ -121,6 +123,27 @@
             mnuNhatKyHeThong.Size = new Size(224, 26);
             mnuNhatKyHeThong.Text = "Nhật ký hệ thống";
             mnuNhatKyHeThong.Click += mnuNhatKyHeThong_Click;
+            // 
+            // mnuFont
+            // 
+            mnuFont.Name = "mnuFont";
+            mnuFont.Size = new Size(224, 26);
+            mnuFont.Text = "Đổi font";
+            mnuFont.Click += mnuFont_Click;
+            // 
+            // mnuBackUp
+            // 
+            mnuBackUp.Name = "mnuBackUp";
+            mnuBackUp.Size = new Size(224, 26);
+            mnuBackUp.Text = "Back Up";
+            mnuBackUp.Click += mnuBackUp_Click;
+            // 
+            // mnuRestore
+            // 
+            mnuRestore.Name = "mnuRestore";
+            mnuRestore.Size = new Size(224, 26);
+            mnuRestore.Text = "Restore";
+            mnuRestore.Click += mnuRestore_Click;
             // 
             // mnuQuanLy
             // 
@@ -317,13 +340,6 @@
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
             // 
-            // mnuFont
-            // 
-            mnuFont.Name = "mnuFont";
-            mnuFont.Size = new Size(224, 26);
-            mnuFont.Text = "Đổi font";
-            mnuFont.Click += mnuFont_Click;
-            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -388,5 +404,7 @@
         private PictureBox pictureBox1;
         private ToolStripMenuItem mnuNhatKyHeThong;
         private ToolStripMenuItem mnuFont;
+        private ToolStripMenuItem mnuBackUp;
+        private ToolStripMenuItem mnuRestore;
     }
 }

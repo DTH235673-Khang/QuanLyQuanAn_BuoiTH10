@@ -21,6 +21,7 @@ namespace QuanLyQuanAn.Forms
         public frmNhaCungCap()
         {
             InitializeComponent();
+            
         }
         private void BatTatChucNang(bool giaTri)
         {
@@ -40,6 +41,13 @@ namespace QuanLyQuanAn.Forms
             helpProvider.HelpNamespace = "Help/nhacungcap.html";
             helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
+            var nv = context.NhanVien.FirstOrDefault(r => r.ID == Convert.ToInt32(Session.UserId));
+            var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
+            if (cv != null && cv.TenChucVu != "Quản lý")
+            {
+                btnSua.Enabled = false;
+                btnXoa.Enabled = false;
+            }
             dataGridView.AutoGenerateColumns = false;
             List<NhaCungCap> ncc = new List<NhaCungCap>();
             ncc = context.NhaCungCap.Where(r=>r.TrangThai==1).ToList();

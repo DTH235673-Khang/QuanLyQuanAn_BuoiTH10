@@ -53,7 +53,7 @@ namespace QuanLyQuanAn.Forms
         private void btnChinhSua_Click(object sender, EventArgs e)
         {
             var re = context.Ban.FirstOrDefault(r => r.TenBan == tablename);
-            var hd = context.HoaDon.FirstOrDefault(r => r.BanID == re.ID);
+            var hd = context.HoaDon.FirstOrDefault(r => r.BanID == re.ID && r.trangthai==0);
             using (frmHoaDon_ChiTiet chiTiet = new frmHoaDon_ChiTiet(hd.ID))
             {
                 chiTiet.ShowDialog();

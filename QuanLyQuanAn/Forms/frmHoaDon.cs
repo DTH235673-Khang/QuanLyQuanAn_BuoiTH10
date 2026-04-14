@@ -26,9 +26,10 @@ namespace QuanLyQuanAn.Forms
             var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
             if (cv != null && cv.TenChucVu != "Quản lý")
             {
-                btnXuat.Visible= false;
-                btnSua.Visible = false;
-                btnNhap.Visible = false;
+                btnXuat.Enabled= false;
+                btnSua.Enabled = false;
+                btnNhap.Enabled = false;
+                btnXoa.Enabled = false;
             }
 
         }

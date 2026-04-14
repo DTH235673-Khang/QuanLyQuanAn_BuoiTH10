@@ -63,6 +63,16 @@ namespace QuanLyQuanAn.Forms
             helpProvider.HelpNamespace = "Help/thucan.html";
             helpProvider.SetShowHelp(this, true);
             BatTatChucNang(false);
+            var nv = context.NhanVien.FirstOrDefault(r => r.ID == Convert.ToInt32(Session.UserId));
+            var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
+            if (nv != null && cv.TenChucVu != "Quản lý")
+            {
+                btnSua.Enabled = false;
+                btnXoa.Enabled = false;
+                btnDoiAnh.Enabled = false;
+                btnXoaAnh.Enabled = false;
+            }
+
             LayDanhMucVaoComboBox();
             LayDonViTinhVaoComboBox();
             dataGridView.AutoGenerateColumns = false;
@@ -218,7 +228,7 @@ namespace QuanLyQuanAn.Forms
                         frmThucAn_Load(sender, e);
                         return;
                     }
-                    else if(check.TrangThai=="Đang hoạt động")
+                    else if( check!=null && check.TrangThai=="Đang hoạt động")
                     {
                         MessageBox.Show("Món ăn đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;

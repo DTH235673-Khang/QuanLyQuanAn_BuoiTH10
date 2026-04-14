@@ -26,10 +26,10 @@ namespace QuanLyQuanAn.Forms
             var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
             if (cv != null && cv.TenChucVu != "Quản lý")
             {
-               btnSua.Visible = false;
-               btnXoa.Visible = false;
-               btnNhap.Visible = false;
-               btnDuyetPhieu.Visible = false;
+               btnSua.Enabled = false;
+               btnXoa.Enabled = false;
+               btnNhap.Enabled = false;
+               btnDuyetPhieu.Enabled = false;
             }
         }
         public void LayNhanVienVaoComboBox()

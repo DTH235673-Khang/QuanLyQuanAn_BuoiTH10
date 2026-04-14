@@ -307,11 +307,9 @@ namespace QuanLyQuanAn.Forms
                                     Ban();
                                     QuyenThuNgan();
                                 }
-
-                                else if (cv.TenChucVu == "Bếp trưởng")
+                                else if (cv.TenChucVu == "Bếp")
                                     QuyenBepTruong();
-                                else
-                                    QuyenNhanVien();
+
 
                             }
                             else
@@ -438,7 +436,7 @@ namespace QuanLyQuanAn.Forms
             mnuBaoCaoDoanhThu.Enabled = false;
             mnuBaoCaoLoiNhuan.Enabled = false;
 
-            lblTrangThai.Text = "Bếp trưởng: " + hoVaTenNhanVien;
+            lblTrangThai.Text = "Bếp: " + hoVaTenNhanVien;
 
         }
         private void QuyenNhanVien()
@@ -622,6 +620,45 @@ namespace QuanLyQuanAn.Forms
                 }
             }
 
+        }
+
+        private void mnuBackUp_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Backup Files (*.bak)|*.bak";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                // 1. Bạn cần một thực thể của Context (hoặc dùng context có sẵn của Form nếu có)
+                var context = new QLQADbContext();
+
+                // 2. Khởi tạo Service và truyền context vào
+                DatabaseService dbService = new DatabaseService(context);
+
+                // 3. Bây giờ bạn đã có thể gọi hàm
+                dbService.BackupDatabase(sfd.FileName);
+            }
+        }
+
+        private void mnuRestore_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Backup Files (*.bak)|*.bak";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                if (MessageBox.Show("Cảnh báo: Phục hồi sẽ ghi đè toàn bộ dữ liệu hiện tại. Bạn chắc chắn chứ?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    // 1. Bạn cần một thực thể của Context (hoặc dùng context có sẵn của Form nếu có)
+                    var context = new QLQADbContext();
+
+                    // 2. Khởi tạo Service và truyền context vào
+                    DatabaseService dbService = new DatabaseService(context);
+
+                    // 3. Bây giờ bạn đã có thể gọi hàm
+                    dbService.RestoreDatabase(ofd.FileName);
+                }
+            }
         }
     }
 }
