@@ -151,26 +151,32 @@ namespace QuanLyQuanAn.Forms
 
                                     bool daTonTai = context.KiemKe.Any(x => x.NguyenLieuID == nl.ID
                                                     && x.NgayKiemKe.Date == DateTime.Now.Date
-                                                    && x.SoLuongThucTe==s);
+                                               );
 
                                     if (daTonTai)
                                     {
-                                        thatbai++;
-                                        throw new Exception();
+                                        var kk= context.KiemKe.FirstOrDefault(x => x.NguyenLieuID == nl.ID
+                                                    && x.NgayKiemKe.Date == DateTime.Now.Date);
+                                        kk.SoLuongThucTe = s;
+                                        context.KiemKe.Update(kk);
+                                        context.SaveChanges();
                                     }
-                                    KiemKe t = new KiemKe();
-                                    t.NguyenLieuID = nl.ID;
-                                    t.SoLuongThucTe = s;
-                                    t.NgayKiemKe = DateTime.Now;
-                                    t.GhiChu = "Nhập từ Excel";
-                                    var kk = context.KiemKe.ToList();                                  
-                                    foreach (var x in kk) 
-                                        if (x.NguyenLieuID == nl.ID && x.NgayKiemKe.Date == DateTime.Now.Date)
-                                            context.KiemKe.Remove(x);
+                                    else
+                                    {
+                                        KiemKe t = new KiemKe();
+                                        t.NguyenLieuID = nl.ID;
+                                        t.SoLuongThucTe = s;
+                                        t.NgayKiemKe = DateTime.Now;
+                                        t.GhiChu = "Nhập từ Excel";
+                                        var kk = context.KiemKe.ToList();
+                                        foreach (var x in kk)
+                                            if (x.NguyenLieuID == nl.ID && x.NgayKiemKe.Date == DateTime.Now.Date)
+                                                context.KiemKe.Remove(x);
 
-                                    context.KiemKe.Add(t);
-                                    context.SaveChanges(); 
-                                    thanhcong++;
+                                        context.KiemKe.Add(t);
+                                        context.SaveChanges();
+                                        thanhcong++;
+                                    }
                                 }
                                 catch (Exception ex)
                                 {
