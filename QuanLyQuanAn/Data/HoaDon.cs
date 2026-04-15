@@ -16,6 +16,7 @@ namespace QuanLyQuanAn.Data
         public int BanID { get; set; }
         public DateTime NgayLap { get; set; }
         public string? GhiChuHoaDon { get; set; }
+        public int? GiamGia {  get; set; }
         public decimal TongTien { get; set; }
         public int trangthai { get; set; }
         public virtual ObservableCollectionListSource<HoaDon_ChiTiet> HoaDon_ChiTiet { get; } = new();
@@ -38,6 +39,7 @@ namespace QuanLyQuanAn.Data
         public string TenBan {  get; set; }
         public DateTime NgayLap { get; set; }
         public string? GhiChuHoaDon { get; set; }
+        public int? GiamGia { get; set; }
         public string? XemChiTiet { get; set; }
         public decimal? TongTienHoaDon { get; set; }
         public int trangthai { get; set; }

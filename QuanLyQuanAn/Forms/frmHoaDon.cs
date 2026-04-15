@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using QuanLyQuanAn.Data;
 using static QuanLyQuanAn.Data.HoaDon;
@@ -26,7 +27,7 @@ namespace QuanLyQuanAn.Forms
             var cv = context.ChucVu.FirstOrDefault(r => r.ID == nv.ChucVuID);
             if (cv != null && cv.TenChucVu != "Quản lý")
             {
-                btnXuat.Enabled= false;
+                btnXuat.Enabled = false;
                 btnSua.Enabled = false;
                 btnNhap.Enabled = false;
                 btnXoa.Enabled = false;
@@ -67,6 +68,7 @@ namespace QuanLyQuanAn.Forms
                 BanID = r.BanID,
                 NgayLap = r.NgayLap,
                 GhiChuHoaDon = r.GhiChuHoaDon,
+                GiamGia = r.GiamGia,
                 TongTienHoaDon = r.TongTien,
                 XemChiTiet = "Xem chi tiết"
             }).ToList();
@@ -373,23 +375,23 @@ namespace QuanLyQuanAn.Forms
         {
             dataGridView.AutoGenerateColumns = false;
             List<DanhSachHoaDon> hd = new List<DanhSachHoaDon>();
-            if(cboNhanVien.SelectedIndex>=0)
+            if (cboNhanVien.SelectedIndex >= 0)
                 hd = context.HoaDon
-                    .Where(r=>r.NhanVienID == (int)cboNhanVien.SelectedValue && r.NgayLap.Date==dtpNgay.Value.Date)
+                    .Where(r => r.NhanVienID == (int)cboNhanVien.SelectedValue && r.NgayLap.Date == dtpNgay.Value.Date)
                     .Select(r => new DanhSachHoaDon
-                {
-                    ID = r.ID,
-                    NhanVienID = r.NhanVienID,
-                    HoVaTenNhanVien = r.NhanVien.HoVaTen,
-                    KhachHangID = r.KhachHangID,
-                    HoVaTenKhachHang = r.KhachHang.HoVaTen,
-                    BanID = r.BanID,
-                    NgayLap = r.NgayLap,
-                    GhiChuHoaDon = r.GhiChuHoaDon,
-                    TongTienHoaDon = r.TongTien,
-                    XemChiTiet = "Xem chi tiết"
-                }).ToList();
-            if(cboKhachHang.SelectedIndex >=0)
+                    {
+                        ID = r.ID,
+                        NhanVienID = r.NhanVienID,
+                        HoVaTenNhanVien = r.NhanVien.HoVaTen,
+                        KhachHangID = r.KhachHangID,
+                        HoVaTenKhachHang = r.KhachHang.HoVaTen,
+                        BanID = r.BanID,
+                        NgayLap = r.NgayLap,
+                        GhiChuHoaDon = r.GhiChuHoaDon,
+                        TongTienHoaDon = r.TongTien,
+                        XemChiTiet = "Xem chi tiết"
+                    }).ToList();
+            if (cboKhachHang.SelectedIndex >= 0)
                 hd = context.HoaDon
                     .Where(r => r.KhachHangID == (int)cboKhachHang.SelectedValue && r.NgayLap.Date == dtpNgay.Value.Date)
                     .Select(r => new DanhSachHoaDon
@@ -406,6 +408,32 @@ namespace QuanLyQuanAn.Forms
                         XemChiTiet = "Xem chi tiết"
                     }).ToList();
             dataGridView.DataSource = hd;
+        }
+
+        private void btnGiamGia_Click(object sender, EventArgs e)
+        {
+            id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+            if (id.ToString().IsNullOrEmpty())
+            {
+                MessageBox.Show("Vui lòng chọn hóa đơn càn sửa!", "Thông báo", MessageBoxButtons.OK);
+            }
+            else if (numGiamGia.Value > 50 || numGiamGia.Value < 0)
+                MessageBox.Show("Chỉ có thể giảm tối đa 50%", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+            {
+                var hd = context.HoaDon.FirstOrDefault(r => r.ID == id);
+                if (hd != null && hd.NgayLap.Date==DateTime.Now.Date && hd.trangthai==0)
+                {
+                    hd.GiamGia = (int)numGiamGia.Value;
+                    hd.TongTien = (100 - hd.GiamGia ?? 0) * hd.TongTien / 100;
+                    context.HoaDon.Update(hd);
+                    context.SaveChanges();
+                }
+                else if (hd != null && (hd.NgayLap.Date != DateTime.Now.Date || hd.trangthai==0))
+                    MessageBox.Show("Chỉ có thể giảm giá cho hóa đơn trong ngày và chưa thanh toán", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+            frmHoaDon_Load(sender, e);
         }
     }
 }

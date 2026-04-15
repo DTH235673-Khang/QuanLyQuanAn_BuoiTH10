@@ -203,6 +203,9 @@ namespace QuanLyQuanAn.Migrations
                     b.Property<string>("GhiChuHoaDon")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("GiamGia")
+                        .HasColumnType("int");
+
                     b.Property<int>("KhachHangID")
                         .HasColumnType("int");
 
