@@ -140,8 +140,7 @@ namespace QuanLyQuanAn.Forms
                     MessageBox.Show($"Check-in thành công cho nhân viên: {cboNhanVien.Text}\nGiờ vào: {bayGio.ToString("HH:mm:ss")}",
                             "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                btnXem_Click(sender, e);
+                frmBangCong_Load(sender, e);
             }
             catch (Exception ex)
             {
@@ -156,7 +155,7 @@ namespace QuanLyQuanAn.Forms
             LayNhanVienVaoComboBox();
             BatTatChucNang(true);
             var bangcong = context.BangCong
-              .Where(r => r.Ngay.Month == DateTime.Now.Month && r.Ngay.Year == DateTime.Now.Year)
+              .Where(r => r.Ngay==DateOnly.FromDateTime(DateTime.Now.Date))
               .Select(bc => new
               {
                   bc.ID,
@@ -305,6 +304,13 @@ namespace QuanLyQuanAn.Forms
                         MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong tháng hiện tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
+                    if (bc.Ngay >= DateOnly.FromDateTime(DateTime.Now.Date))
+                    {
+                        MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong thời gian đã qua.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+
+
                     context.BangCong.Remove(bc);
                 }
                 context.SaveChanges();
@@ -320,6 +326,14 @@ namespace QuanLyQuanAn.Forms
             btnLuu.Enabled = true;
             xulythem = false;
             btnThem.Enabled = false;
+            id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+            var r = context.BangCong.FirstOrDefault(r => r.ID == id);
+            if (r != null && r.Ngay >= DateOnly.FromDateTime(DateTime.Now.Date))
+            {
+                MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong thời gian đã qua.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
@@ -344,14 +358,8 @@ namespace QuanLyQuanAn.Forms
             {
 
                 id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
-                var r = context.BangCong.FirstOrDefault(r => r.ID == id);
-                if (r != null && r.Ngay>=DateOnly.FromDateTime(DateTime.Now.Date))
-                {
-                    MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong thời gian đã qua.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
-
-                var kq = context.BangCong.Where(r => r.NhanVienID == (int)cboNhanVien.SelectedValue && r.Ngay == DateOnly.FromDateTime(dtpNgay.Value.Date));
+                var bc=context.BangCong.FirstOrDefault(r=>r.ID==id);
+                var kq = context.BangCong.Where(r => r.NhanVienID == (int)cboNhanVien.SelectedValue && r.Ngay == bc.Ngay);
                     if (kq.Any())
                     {
                         foreach (var k in kq)
@@ -379,11 +387,6 @@ namespace QuanLyQuanAn.Forms
                     };
                     context.BangCong.Add(chamCongMoi);
                     context.SaveChanges();
-
-                
-
-
-
             }
             else
             {
@@ -401,10 +404,23 @@ namespace QuanLyQuanAn.Forms
                         var kq = context.BangCong.Find(id);
                         if (kq != null)
                         {
-                            if (kq.Ngay.Month != DateTime.Now.Month)
+                            var bc = context.BangCong.FirstOrDefault(r => r.ID == id);
+                            var k1 = context.BangCong.Where(r => r.NhanVienID == (int)cboNhanVien.SelectedValue && r.Ngay == bc.Ngay);
+                            if (k1.Any())
                             {
-                                MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong tháng hiện tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                return;
+                                foreach (var k in k1)
+                                {
+                                    if ((TimeOnly.FromDateTime(k.GioVaoThucTe) < it && TimeOnly.FromDateTime(k.GioRaThucTe) > it) || (TimeOnly.FromDateTime(k.GioVaoThucTe) < ot && TimeOnly.FromDateTime(k.GioRaThucTe) > ot))
+                                    {
+                                        MessageBox.Show("Khung thời gian in-out cần chấm công đã đan xen với 1 khung khác trong cùng ngày " + dtpNgay.Value.Date.Day + ".", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                        return;
+                                    }
+                                    if (TimeOnly.FromDateTime(k.GioVaoThucTe) == it && TimeOnly.FromDateTime(k.GioRaThucTe) == ot)
+                                    {
+                                        MessageBox.Show("Chấm công đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                        return;
+                                    }
+                                }
                             }
                             if (!txtIn.Text.IsNullOrEmpty())
                             {
@@ -455,6 +471,14 @@ namespace QuanLyQuanAn.Forms
             dtpNgay.Enabled = true;
             xulythem = true;
             btnSua.Enabled = false;
+            id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+            var r = context.BangCong.FirstOrDefault(r => r.ID == id);
+            if (r != null && r.Ngay >= DateOnly.FromDateTime(DateTime.Now.Date))
+            {
+                MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong thời gian đã qua.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
         }
 
         private void btnXuatBangLuong_Click(object sender, EventArgs e)

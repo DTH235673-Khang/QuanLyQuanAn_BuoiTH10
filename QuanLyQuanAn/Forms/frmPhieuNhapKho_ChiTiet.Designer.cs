@@ -305,6 +305,7 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "frmPhieuNhapKho_ChiTiet";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Phiếu nhập kho chi tiết";
             Load += frmPhieuNhapKho_ChiTiet_Load;
             ((System.ComponentModel.ISupportInitialize)numSoLuongNhap).EndInit();

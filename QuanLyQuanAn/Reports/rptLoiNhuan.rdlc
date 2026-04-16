@@ -350,7 +350,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!DoanhThu.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -371,6 +373,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -383,7 +386,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!COL.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -416,7 +421,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!COS.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -518,6 +525,7 @@
                   <TextRun>
                     <Value>=Fields!DoanhThu.Value-Fields!COL.Value-Fields!COS.Value</Value>
                     <Style>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <Color>Blue</Color>
                     </Style>
                   </TextRun>

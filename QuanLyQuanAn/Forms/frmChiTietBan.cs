@@ -11,7 +11,7 @@ using QuanLyQuanAn.Data;
 
 namespace QuanLyQuanAn.Forms
 {
-    public partial class frmChiTietBan : Form
+    public partial class frmChiTietBan : BaseForm
     {
        QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
         string tablename; // Lấy mã hóa đơn (dùng cho Sửa và Xóa)

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             dataGridView = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
@@ -46,9 +46,10 @@
             btnSua = new Button();
             btnInPhieu = new Button();
             btnTaoPhieu = new Button();
-            btnNhap = new Button();
+            btnLoad = new Button();
             btnDuyetPhieu = new Button();
             panel = new Panel();
+            btnXemTheoNgay = new Button();
             dtpNgay = new DateTimePicker();
             label3 = new Label();
             cboNhaCungCap = new ComboBox();
@@ -97,8 +98,8 @@
             // NgayNhap
             // 
             NgayNhap.DataPropertyName = "NgayNhap";
-            dataGridViewCellStyle1.Format = "dd/MM/yyyy";
-            NgayNhap.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Format = "dd/MM/yyyy";
+            NgayNhap.DefaultCellStyle = dataGridViewCellStyle3;
             NgayNhap.FillWeight = 85.47237F;
             NgayNhap.HeaderText = "Ngày nhập";
             NgayNhap.MinimumWidth = 6;
@@ -123,10 +124,10 @@
             // TongTien
             // 
             TongTien.DataPropertyName = "TongTien";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.ForeColor = Color.Blue;
-            dataGridViewCellStyle2.Format = "N2";
-            TongTien.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.ForeColor = Color.Blue;
+            dataGridViewCellStyle4.Format = "N2";
+            TongTien.DefaultCellStyle = dataGridViewCellStyle4;
             TongTien.FillWeight = 85.47237F;
             TongTien.HeaderText = "Tổng tiền";
             TongTien.MinimumWidth = 6;
@@ -225,16 +226,16 @@
             btnTaoPhieu.UseVisualStyleBackColor = true;
             btnTaoPhieu.Click += btnTaoPhieu_Click;
             // 
-            // btnNhap
+            // btnLoad
             // 
-            btnNhap.ForeColor = Color.Black;
-            btnNhap.Location = new Point(736, 0);
-            btnNhap.Name = "btnNhap";
-            btnNhap.Size = new Size(105, 29);
-            btnNhap.TabIndex = 16;
-            btnNhap.Text = "Nhập";
-            btnNhap.UseVisualStyleBackColor = true;
-            btnNhap.Click += btnNhap_Click;
+            btnLoad.ForeColor = Color.Black;
+            btnLoad.Location = new Point(736, 0);
+            btnLoad.Name = "btnLoad";
+            btnLoad.Size = new Size(105, 29);
+            btnLoad.TabIndex = 16;
+            btnLoad.Text = "Load";
+            btnLoad.UseVisualStyleBackColor = true;
+            btnLoad.Click += btnLoad_Click;
             // 
             // btnDuyetPhieu
             // 
@@ -242,7 +243,7 @@
             btnDuyetPhieu.ForeColor = Color.FromArgb(0, 0, 192);
             btnDuyetPhieu.Location = new Point(847, 0);
             btnDuyetPhieu.Name = "btnDuyetPhieu";
-            btnDuyetPhieu.Size = new Size(105, 29);
+            btnDuyetPhieu.Size = new Size(124, 29);
             btnDuyetPhieu.TabIndex = 17;
             btnDuyetPhieu.Text = "Duyệt phiếu";
             btnDuyetPhieu.UseVisualStyleBackColor = false;
@@ -250,6 +251,7 @@
             // 
             // panel
             // 
+            panel.Controls.Add(btnXemTheoNgay);
             panel.Controls.Add(dtpNgay);
             panel.Controls.Add(label3);
             panel.Controls.Add(cboNhaCungCap);
@@ -259,7 +261,7 @@
             panel.Controls.Add(btnTaoPhieu);
             panel.Controls.Add(btnDuyetPhieu);
             panel.Controls.Add(btnInPhieu);
-            panel.Controls.Add(btnNhap);
+            panel.Controls.Add(btnLoad);
             panel.Controls.Add(btnSua);
             panel.Controls.Add(btnXoa);
             panel.Controls.Add(btnThoat);
@@ -271,6 +273,17 @@
             panel.Size = new Size(987, 93);
             panel.TabIndex = 18;
             // 
+            // btnXemTheoNgay
+            // 
+            btnXemTheoNgay.ForeColor = Color.Black;
+            btnXemTheoNgay.Location = new Point(847, 37);
+            btnXemTheoNgay.Name = "btnXemTheoNgay";
+            btnXemTheoNgay.Size = new Size(124, 29);
+            btnXemTheoNgay.TabIndex = 24;
+            btnXemTheoNgay.Text = "Xem theo ngày";
+            btnXemTheoNgay.UseVisualStyleBackColor = true;
+            btnXemTheoNgay.Click += btnXemTheoNgay_Click;
+            // 
             // dtpNgay
             // 
             dtpNgay.CustomFormat = "dd/MM/yyyy";
@@ -278,7 +291,7 @@
             dtpNgay.Location = new Point(637, 39);
             dtpNgay.Margin = new Padding(3, 4, 3, 4);
             dtpNgay.Name = "dtpNgay";
-            dtpNgay.Size = new Size(215, 27);
+            dtpNgay.Size = new Size(204, 27);
             dtpNgay.TabIndex = 23;
             // 
             // label3
@@ -361,7 +374,7 @@
         private DataGridViewTextBoxColumn TrangThai;
         private DataGridViewLinkColumn XemChiTiet;
         private Button btnTaoPhieu;
-        private Button btnNhap;
+        private Button btnLoad;
         private Button btnDuyetPhieu;
         private Panel panel;
         private HelpProvider helpProvider;
@@ -371,5 +384,6 @@
         private Label label2;
         private ComboBox cboNhanVien;
         private Label label1;
+        private Button btnXemTheoNgay;
     }
 }

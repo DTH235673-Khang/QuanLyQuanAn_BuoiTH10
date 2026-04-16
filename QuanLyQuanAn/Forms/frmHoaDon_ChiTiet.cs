@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using QuanLyQuanAn.Data;
 namespace QuanLyQuanAn.Forms
 {
-    public partial class frmHoaDon_ChiTiet : Form
+    public partial class frmHoaDon_ChiTiet : BaseForm
     {
         QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
         int id; // Lấy mã hóa đơn (dùng cho Sửa và Xóa)
@@ -120,6 +120,14 @@ namespace QuanLyQuanAn.Forms
                     ThanhTien = Convert.ToInt32(r.SoLuongBan * r.DonGiaBan)
                 }).ToList();
                 hoaDonChiTiet = new BindingList<DanhSachHoaDon_ChiTiet>(ct);
+                BindingSource bindingSource = new BindingSource();
+                bindingSource.DataSource = ct;
+                cboMonAn.DataBindings.Clear();
+                cboMonAn.DataBindings.Add("Text", bindingSource, "TenThucAn", false, DataSourceUpdateMode.Never);
+                numDonGiaBan.DataBindings.Clear();
+                numDonGiaBan.DataBindings.Add("Value", bindingSource, "DonGiaBan", false, DataSourceUpdateMode.Never);
+                numSoLuongBan.DataBindings.Clear();
+                numSoLuongBan.DataBindings.Add("Value", bindingSource, "SoLuongBan", false, DataSourceUpdateMode.Never);
             }
             dataGridView.DataSource = hoaDonChiTiet;
             BatTatChucNang();

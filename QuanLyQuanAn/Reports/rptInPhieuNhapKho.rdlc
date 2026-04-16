@@ -913,7 +913,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!GiaNhap.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -946,7 +948,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ThanhTien.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1145,6 +1149,7 @@
                     <Value>=Parameters!TongTien.Value</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>

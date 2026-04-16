@@ -58,6 +58,7 @@
             label1 = new Label();
             btnLoad = new Button();
             helpProvider = new HelpProvider();
+            btnXemTheoNgay = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             panel.SuspendLayout();
@@ -70,7 +71,7 @@
             groupBox1.Controls.Add(dataGridView);
             groupBox1.Location = new Point(13, 11);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(936, 411);
+            groupBox1.Size = new Size(1079, 406);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Danh sách hóa đơn";
@@ -87,7 +88,7 @@
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(930, 385);
+            dataGridView.Size = new Size(1073, 380);
             dataGridView.TabIndex = 0;
             dataGridView.CellContentClick += dataGridView_CellContentClick;
             // 
@@ -228,6 +229,7 @@
             // 
             // panel
             // 
+            panel.Controls.Add(btnXemTheoNgay);
             panel.Controls.Add(btnGiamGia);
             panel.Controls.Add(numGiamGia);
             panel.Controls.Add(dtpNgay);
@@ -245,9 +247,9 @@
             panel.Controls.Add(btnTimKiem);
             panel.Controls.Add(btnThoat);
             panel.Dock = DockStyle.Bottom;
-            panel.Location = new Point(0, 426);
+            panel.Location = new Point(0, 421);
             panel.Name = "panel";
-            panel.Size = new Size(961, 87);
+            panel.Size = new Size(1104, 87);
             panel.TabIndex = 9;
             // 
             // btnGiamGia
@@ -333,11 +335,21 @@
             btnLoad.UseVisualStyleBackColor = true;
             btnLoad.Click += btnLoad_Click;
             // 
+            // btnXemTheoNgay
+            // 
+            btnXemTheoNgay.Location = new Point(955, 14);
+            btnXemTheoNgay.Name = "btnXemTheoNgay";
+            btnXemTheoNgay.Size = new Size(146, 29);
+            btnXemTheoNgay.TabIndex = 18;
+            btnXemTheoNgay.Text = "Xem theo ngày";
+            btnXemTheoNgay.UseVisualStyleBackColor = true;
+            btnXemTheoNgay.Click += btnXemTheoNgay_Click;
+            // 
             // frmHoaDon
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(961, 513);
+            ClientSize = new Size(1104, 508);
             Controls.Add(panel);
             Controls.Add(groupBox1);
             Name = "frmHoaDon";
@@ -382,5 +394,6 @@
         private DateTimePicker dtpNgay;
         private Button btnGiamGia;
         private NumericUpDown numGiamGia;
+        private Button btnXemTheoNgay;
     }
 }

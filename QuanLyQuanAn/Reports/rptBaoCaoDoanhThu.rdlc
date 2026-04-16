@@ -629,6 +629,7 @@
                                 <TextRun>
                                   <Value>=Fields!TongTien.Value</Value>
                                   <Style>
+                                    <Format>#,0.00;(#,0.00)</Format>
                                     <Color>Blue</Color>
                                   </Style>
                                 </TextRun>
@@ -730,6 +731,7 @@
                     <Value>=sum(Fields!TongTien.Value)</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <Color>Blue</Color>
                     </Style>
                   </TextRun>

@@ -12,7 +12,7 @@ using BC = BCrypt.Net.BCrypt;
 
 namespace QuanLyQuanAn.Forms
 {
-    public partial class frmDoiMatKhau : Form
+    public partial class frmDoiMatKhau : BaseForm
     {
         QLQADbContext context = new QLQADbContext();
 

@@ -73,12 +73,17 @@ namespace QuanLyQuanAn.Forms
             if (MessageBox.Show("Xác nhận xóa chức vụ?", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
-                ChucVu cv = context.ChucVu.Find(id);
-                if (cv != null)
+                var cv = context.ChucVu.FirstOrDefault(r => r.ID == id);
+                var nv=context.NhanVien.FirstOrDefault(r=>r.ChucVuID==id);
+                if (nv== null)
                 {
                     context.ChucVu.Remove(cv);
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
+                else
+                {
+                    MessageBox.Show("Chức vụ đang được sử dụng bới nhiều nhân viên, không thể xóa!", "Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                }    
                 frmChucVu_Load(sender, e);
             }
 

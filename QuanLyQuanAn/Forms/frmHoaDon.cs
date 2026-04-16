@@ -31,6 +31,7 @@ namespace QuanLyQuanAn.Forms
                 btnSua.Enabled = false;
                 btnNhap.Enabled = false;
                 btnXoa.Enabled = false;
+                btnGiamGia.Enabled = false;
             }
 
         }
@@ -412,30 +413,68 @@ namespace QuanLyQuanAn.Forms
 
         private void btnGiamGia_Click(object sender, EventArgs e)
         {
-            id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
-            if (id.ToString().IsNullOrEmpty())
+            if (dataGridView.CurrentRow == null || dataGridView.CurrentRow.Cells["ID"].Value == null)
             {
-                MessageBox.Show("Vui lòng chọn hóa đơn càn sửa!", "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Vui lòng chọn hóa đơn cần giảm giá!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else if (numGiamGia.Value > 50 || numGiamGia.Value < 0)
-                MessageBox.Show("Chỉ có thể giảm tối đa 50%", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            else
+
+            int id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value);
+            int phanTramGiam = (int)numGiamGia.Value;
+
+            if (phanTramGiam > 50)
             {
-                var hd = context.HoaDon.FirstOrDefault(r => r.ID == id);
-                if (hd != null && hd.NgayLap.Date==DateTime.Now.Date && hd.trangthai==0)
+                MessageBox.Show("Chỉ có thể giảm từ 0% đến tối đa 50%", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var hd = context.HoaDon.FirstOrDefault(r => r.ID == id);
+
+            if (hd != null)
+            {
+                if (hd.NgayLap.Date == DateTime.Now.Date && hd.trangthai == 0)
                 {
-                    hd.GiamGia = (int)numGiamGia.Value;
-                    hd.TongTien = (100 - hd.GiamGia ?? 0) * hd.TongTien / 100;
+
+                    hd.GiamGia = phanTramGiam;
+                    hd.TongTien = (decimal)(hd.TongTien * (100 - phanTramGiam) / 100);
+
                     context.HoaDon.Update(hd);
                     context.SaveChanges();
                 }
-                else if (hd != null && (hd.NgayLap.Date != DateTime.Now.Date || hd.trangthai==0))
-                    MessageBox.Show("Chỉ có thể giảm giá cho hóa đơn trong ngày và chưa thanh toán", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                else
+                {
+                    MessageBox.Show("Chỉ có thể giảm giá cho hóa đơn trong ngày và chưa thanh toán!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            frmHoaDon_Load(sender, e);
+
+            frmHoaDon_Load(sender, e); 
         }
+        private void btnXemTheoNgay_Click(object sender, EventArgs e)
+        {
+            dataGridView.AutoGenerateColumns = false;
+            List<DanhSachHoaDon> hd = new List<DanhSachHoaDon>();
+            hd = context.HoaDon
+                .Where(r => r.NgayLap.Date==dtpNgay.Value.Date)
+                .Select(r => new DanhSachHoaDon
+            {
+                ID = r.ID,
+                NhanVienID = r.NhanVienID,
+                HoVaTenNhanVien = r.NhanVien.HoVaTen,
+                KhachHangID = r.KhachHangID,
+                HoVaTenKhachHang = r.KhachHang.HoVaTen,
+                BanID = r.BanID,
+                NgayLap = r.NgayLap,
+                GhiChuHoaDon = r.GhiChuHoaDon,
+                GiamGia = r.GiamGia,
+                TongTienHoaDon = r.TongTien,
+                XemChiTiet = "Xem chi tiết"
+            }).ToList();
+            dataGridView.DataSource = hd;
+        }
+
+
     }
+
 }
     
 

@@ -70,8 +70,7 @@ namespace QuanLyQuanAn.Forms
                     new ReportParameter("NhaCungCap_Ten", phieuNhapKho.NhaCungCap.TenNhaCungCap),
                     new ReportParameter("NhaCungCap_DiaChi", phieuNhapKho.NhaCungCap.DiaChi),
                     new ReportParameter("NhaCungCap_MaSoThue", ""),
-                    new ReportParameter("TongTien", phieuNhapKho.PhieuNhapKho_ChiTiet.Sum(r => r.SoLuongNhap * r.GiaNhap).ToString())
-                };
+                    new ReportParameter("TongTien", phieuNhapKho.TongTien.ToString("#,##0"))                };
                 reportViewer.LocalReport.SetParameters(param);
                 reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
                 reportViewer.ZoomMode = ZoomMode.Percent;

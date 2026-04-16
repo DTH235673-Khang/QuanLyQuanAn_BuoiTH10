@@ -11,7 +11,7 @@ using QuanLyQuanAn.Data;
 
 namespace QuanLyQuanAn.Forms
 {
-    public partial class frmPhieuNhapKho_ChiTiet : Form
+    public partial class frmPhieuNhapKho_ChiTiet : BaseForm
     {
         QLQADbContext context = new QLQADbContext(); // Khởi tạo biến ngữ cảnh CSDL
         int id; // Lấy mã hóa đơn (dùng cho Sửa và Xóa)

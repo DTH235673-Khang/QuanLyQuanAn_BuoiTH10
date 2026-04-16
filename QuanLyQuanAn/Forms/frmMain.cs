@@ -614,9 +614,6 @@ namespace QuanLyQuanAn.Forms
                     // Cập nhật cài đặt hệ thống
                     SystemSettings.UpdateSettings(fd.Font, fd.Color);
 
-                    // Lưu vào Properties.Settings nếu muốn lần sau mở app vẫn giữ Font này
-                    // Properties.Settings.Default.UserFont = fd.Font;
-                    // Properties.Settings.Default.Save();
                 }
             }
 
