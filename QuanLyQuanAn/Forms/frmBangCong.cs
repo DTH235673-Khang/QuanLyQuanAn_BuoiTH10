@@ -405,7 +405,7 @@ namespace QuanLyQuanAn.Forms
                         if (kq != null)
                         {
                             var bc = context.BangCong.FirstOrDefault(r => r.ID == id);
-                            var k1 = context.BangCong.Where(r => r.NhanVienID == (int)cboNhanVien.SelectedValue && r.Ngay == bc.Ngay);
+                            var k1 = context.BangCong.Where(r => r.NhanVienID == (int)cboNhanVien.SelectedValue && r.Ngay == bc.Ngay && r.ID!=id);
                             if (k1.Any())
                             {
                                 foreach (var k in k1)
