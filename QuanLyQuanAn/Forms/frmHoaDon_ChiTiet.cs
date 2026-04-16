@@ -276,6 +276,7 @@ namespace QuanLyQuanAn.Forms
                     hd.NgayLap = DateTime.Now;
                     hd.GhiChuHoaDon = txtGhiChuHoaDon.Text;
                     hd.trangthai = 0;
+                    hd.GiamGia = 0;
                     var result = context.Ban.FirstOrDefault(r => r.TenBan.Contains(tablename));
                     if (result != null)
                     {

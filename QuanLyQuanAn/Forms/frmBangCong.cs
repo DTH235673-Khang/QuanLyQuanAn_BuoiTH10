@@ -118,9 +118,9 @@ namespace QuanLyQuanAn.Forms
                 int nhanVienId = (int)cboNhanVien.SelectedValue;
                 DateTime bayGio = DateTime.Now;
 
-                DateTime gioRaMacDinh = bayGio.Date.AddDays(1);
+                DateTime gioRaMacDinh = bayGio;
 
-                double soGioLam = (gioRaMacDinh - bayGio).TotalHours;
+                double soGioLam = 0;
 
                 var checkInMoi = new BangCong
                 {
@@ -128,7 +128,7 @@ namespace QuanLyQuanAn.Forms
                     Ngay = DateOnly.FromDateTime(bayGio.Date),
                     GioVaoThucTe = bayGio,
                     GioRaThucTe = gioRaMacDinh,
-                    SoGioLam = (float)soGioLam
+                    SoGioLam = 0
                 };
                 var check = context.BangCong.FirstOrDefault(b => b.Ngay == checkInMoi.Ngay && b.NhanVienID == checkInMoi.NhanVienID && b.GioRaThucTe == gioRaMacDinh);
                 if (check != null)
@@ -183,7 +183,7 @@ namespace QuanLyQuanAn.Forms
                 }
                 dataGridView.AutoGenerateColumns = false;
                 int nhanVienId = (int)cboNhanVien.SelectedValue;
-                var check = context.BangCong.FirstOrDefault(b => b.Ngay == DateOnly.FromDateTime(DateTime.Now) && b.NhanVienID == nhanVienId);
+                var check = context.BangCong.FirstOrDefault(b => b.Ngay == DateOnly.FromDateTime(DateTime.Now) && b.NhanVienID == nhanVienId && b.SoGioLam==0);
                 if (check != null)
                 {
                     check.GioRaThucTe = DateTime.Now;
@@ -338,16 +338,20 @@ namespace QuanLyQuanAn.Forms
                 MessageBox.Show("Out time sai định dạng(Định dạng đúng: 08:00).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else if (dtpNgay.Value.Month != DateTime.Now.Month)
                 MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong tháng hiện tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else if (dtpNgay.Value.Date >= DateTime.Now.Date)
-                MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong thời gian đã qua.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else if (ot <= it)
                 MessageBox.Show("Out time phải lớn hơn In time.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else if (xulythem == true)
             {
-                
-               
-                   
-                    var kq = context.BangCong.Where(r => r.NhanVienID == (int)cboNhanVien.SelectedValue && r.Ngay == DateOnly.FromDateTime(dtpNgay.Value.Date));
+
+                id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                var r = context.BangCong.FirstOrDefault(r => r.ID == id);
+                if (r != null && r.Ngay>=DateOnly.FromDateTime(DateTime.Now.Date))
+                {
+                    MessageBox.Show("Chỉ có thể hiệu chỉnh/thêm/xóa/sửa chấm công trong thời gian đã qua.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+
+                var kq = context.BangCong.Where(r => r.NhanVienID == (int)cboNhanVien.SelectedValue && r.Ngay == DateOnly.FromDateTime(dtpNgay.Value.Date));
                     if (kq.Any())
                     {
                         foreach (var k in kq)
