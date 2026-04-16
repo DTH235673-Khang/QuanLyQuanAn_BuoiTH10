@@ -352,6 +352,10 @@ namespace QuanLyQuanAn.Forms
             mnuBaoCaoTonKho.Enabled = false;
             mnuBaoCaoDoanhThu.Enabled = false;
             mnuBaoCaoLoiNhuan.Enabled = false;
+            mnuBackUp.Enabled = false;
+            mnuRestore.Enabled = false;
+            mnuNhatKyHeThong.Enabled = false;
+            mnuFont.Enabled = false;    
 
             lblTrangThai.Text = "Chưa đăng nhập";
         }
@@ -379,6 +383,11 @@ namespace QuanLyQuanAn.Forms
             mnuBaoCaoTonKho.Enabled = true;
             mnuBaoCaoDoanhThu.Enabled = true;
             mnuBaoCaoLoiNhuan.Enabled = true;
+            mnuBackUp.Enabled = true;
+            mnuRestore.Enabled = true;
+            mnuNhatKyHeThong.Enabled = true;
+            mnuFont.Enabled = true;
+
 
             lblTrangThai.Text = "Quản lý: " + hoVaTenNhanVien;
 
@@ -408,6 +417,11 @@ namespace QuanLyQuanAn.Forms
             mnuBaoCaoTonKho.Enabled = false;
             mnuBaoCaoDoanhThu.Enabled = true;
             mnuBaoCaoLoiNhuan.Enabled = false;
+            mnuBackUp.Enabled = true;
+            mnuRestore.Enabled = true;
+            mnuNhatKyHeThong.Enabled = true;
+            mnuFont.Enabled = true;
+
 
             lblTrangThai.Text = "Thu ngân: " + hoVaTenNhanVien;
         }
@@ -435,6 +449,11 @@ namespace QuanLyQuanAn.Forms
             mnuBaoCaoTonKho.Enabled = true;
             mnuBaoCaoDoanhThu.Enabled = false;
             mnuBaoCaoLoiNhuan.Enabled = false;
+            mnuBackUp.Enabled = true;
+            mnuRestore.Enabled = true;
+            mnuNhatKyHeThong.Enabled = true;
+            mnuFont.Enabled = true;
+
 
             lblTrangThai.Text = "Bếp: " + hoVaTenNhanVien;
 
@@ -613,10 +632,6 @@ namespace QuanLyQuanAn.Forms
                 {
                     // Cập nhật cài đặt hệ thống
                     SystemSettings.UpdateSettings(fd.Font, fd.Color);
-                    Properties.Settings.Default.SelectedFont = fd.Font;
-                    Properties.Settings.Default.SelectedColor = fd.Color;
-                    Properties.Settings.Default.IsFontSet = true; // Đánh dấu đã lưu
-                    Properties.Settings.Default.Save();
 
                 }
             }

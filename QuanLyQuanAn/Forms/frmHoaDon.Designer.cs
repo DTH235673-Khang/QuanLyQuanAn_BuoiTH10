@@ -133,8 +133,7 @@
             // TongTienHoaDon
             // 
             TongTienHoaDon.DataPropertyName = "TongTienHoaDon";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.ForeColor = Color.Blue;
             dataGridViewCellStyle2.Format = "N2";
             TongTienHoaDon.DefaultCellStyle = dataGridViewCellStyle2;

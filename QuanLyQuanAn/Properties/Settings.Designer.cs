@@ -22,39 +22,5 @@ namespace QuanLyQuanAn.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Drawing.Font SelectedFont {
-            get {
-                return ((global::System.Drawing.Font)(this["SelectedFont"]));
-            }
-            set {
-                this["SelectedFont"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Drawing.Color SelectedColor {
-            get {
-                return ((global::System.Drawing.Color)(this["SelectedColor"]));
-            }
-            set {
-                this["SelectedColor"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsFontSet {
-            get {
-                return ((bool)(this["IsFontSet"]));
-            }
-            set {
-                this["IsFontSet"] = value;
-            }
-        }
     }
 }

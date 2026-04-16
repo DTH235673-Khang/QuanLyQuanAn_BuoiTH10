@@ -71,7 +71,6 @@ namespace QuanLyQuanAn.Forms
                 XemChiTiet = "Xem chi tiết"
             }).ToList();
             dataGridView.DataSource = p;
-
         }
 
         private void btnSua_Click(object sender, EventArgs e)

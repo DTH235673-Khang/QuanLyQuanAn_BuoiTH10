@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyQuanAn.Forms
 {
-   
+
     public static class SystemSettings
     {
         public static System.Drawing.Font CurrentFont = new System.Drawing.Font("Segoe UI", 9); // Font mặc định
