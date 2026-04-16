@@ -613,6 +613,10 @@ namespace QuanLyQuanAn.Forms
                 {
                     // Cập nhật cài đặt hệ thống
                     SystemSettings.UpdateSettings(fd.Font, fd.Color);
+                    Properties.Settings.Default.SelectedFont = fd.Font;
+                    Properties.Settings.Default.SelectedColor = fd.Color;
+                    Properties.Settings.Default.IsFontSet = true; // Đánh dấu đã lưu
+                    Properties.Settings.Default.Save();
 
                 }
             }
